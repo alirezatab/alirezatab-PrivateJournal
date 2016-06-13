@@ -8,8 +8,10 @@
 
 #import "HomeVC.h"
 
-@interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@property UISearchController *searchController;
 @end
 
 @implementation HomeVC
@@ -17,8 +19,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self configureSearchController];
 }
 
+
+#pragma mark- CollectionView
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
@@ -36,6 +41,7 @@
     //later NSLog the index path that were selected
 }
 
+#pragma mark- Actions
 - (IBAction)onAddPhotoButtonPressed:(UIBarButtonItem *)sender {
     UIImagePickerController *picker = [[UIImagePickerController alloc]init];
     picker.delegate = self;
@@ -50,13 +56,8 @@
     [self turnCameraOn];
     
 }
-// when cancel button of the camera is selected
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
-    
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
 
+#pragma mark- Camera
 -(void)turnCameraOn {
     UIImagePickerController *picker = [[UIImagePickerController alloc]init];
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -75,14 +76,34 @@
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
+// when cancel button of the camera is selected
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+#pragma mark- search Controller
+- (void)configureSearchController {
+    self.searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
+    
+    //self.searchController.searchResultsUpdater = self;
+   // self.searchController.delegate = self;
+    self.searchController.searchBar.delegate = self;
+    
+    self.searchController.hidesNavigationBarDuringPresentation = false;
+    self.searchController.dimsBackgroundDuringPresentation = true;
+    
+    self.navigationItem.titleView = self.searchController.searchBar;
+    
+    self.searchController.searchBar.placeholder = @"Search Images";
+    //[self.searchController.searchBar sizeToFit];
+    self.definesPresentationContext = true;
 
 }
 
-- (void)configureSearchController {
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
     
 }
 

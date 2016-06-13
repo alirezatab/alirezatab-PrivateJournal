@@ -65,15 +65,13 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="ROi-RS-iRx"/>
-                        <barButtonItem title="Home" id="Jif-To-VWj"/>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" id="eL8-JM-VCq">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="G19-7o-pKX">
+                        <barButtonItem systemItem="add" id="G19-7o-pKX">
                             <connections>
                                 <action selector="onAddPhotoButtonPressed:" destination="BYZ-38-t0r" id="aVv-0r-a39"/>
                             </connections>
                         </barButtonItem>
-                    </navigationItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="eL8-JM-VCq"/>
                     <connections>
                         <outlet property="collectionView" destination="ieN-ai-o8j" id="Thb-An-MIn"/>
                     </connections>
