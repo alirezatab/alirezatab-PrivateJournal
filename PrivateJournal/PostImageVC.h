@@ -10,4 +10,7 @@
 
 @interface PostImageVC : UIViewController
 
+@property UIImage *snappedImage;
+
+
 @end

@@ -6,12 +6,13 @@
 //  Copyright © 2016 AR-T.com, Inc. All rights reserved.
 //
 
-#import "HomeVC.h"
-#import "CustomImageFlowLayout.h"
-#import "ImageCollectionViewCell.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Photos/Photos.h>
 
+#import "HomeVC.h"
+#import "CustomImageFlowLayout.h"
+#import "ImageCollectionViewCell.h"
+#import "PostImageVC.h"
 
 //#import <MobileCoreServices/MobileCoreServices.h>
 //#import <Photos/Photos.h>
@@ -210,6 +211,13 @@
     //[self.searchController.searchBar sizeToFit];
     self.definesPresentationContext = true;
 
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"CameraPictureToPost"]) {
+        PostImageVC *desVC = segue.destinationViewController;
+        desVC.snappedImage = self.snappedCameraImage;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

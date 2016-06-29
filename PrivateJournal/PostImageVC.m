@@ -9,15 +9,22 @@
 #import "PostImageVC.h"
 
 @interface PostImageVC ()
-
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *toBePostedImageView;
 @end
 
 @implementation PostImageVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.backgroundImageView.image = self.snappedImage;
+    self.toBePostedImageView.image = self.snappedImage;
 }
+
+- (IBAction)onPostButtonPressed:(UIBarButtonItem *)sender {
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

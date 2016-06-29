@@ -95,7 +95,7 @@
             </objects>
             <point key="canvasLocation" x="1258" y="387"/>
         </scene>
-        <!--Post ImageVC-->
+        <!--Title-->
         <scene sceneID="FhG-Qi-m1V">
             <objects>
                 <viewController id="CRr-yX-lkj" customClass="PostImageVC" sceneMemberID="viewController">
@@ -107,12 +107,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oYD-4u-pnu">
-                                <rect key="frame" x="20" y="64" width="240" height="240"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZEC-jG-aHg">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oYD-4u-pnu">
+                                <rect key="frame" x="20" y="64" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="PcN-lt-HfV"/>
+                                    <constraint firstAttribute="height" constant="150" id="TO6-9J-Umf"/>
+                                </constraints>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bb8-JI-XlZ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="8Z8-CA-wAa">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bb8-JI-XlZ" firstAttribute="bottom" secondItem="Y6t-8u-cjd" secondAttribute="bottomMargin" id="16P-WJ-b9B"/>
+                            <constraint firstItem="oYD-4u-pnu" firstAttribute="top" secondItem="qVa-OJ-lmm" secondAttribute="bottom" id="FkK-F6-sap"/>
+                            <constraint firstItem="ZEC-jG-aHg" firstAttribute="bottom" secondItem="Y6t-8u-cjd" secondAttribute="bottomMargin" id="OQ1-qd-wuN"/>
+                            <constraint firstItem="oYD-4u-pnu" firstAttribute="leading" secondItem="Y6t-8u-cjd" secondAttribute="leadingMargin" id="PFK-4f-m2Y"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZEC-jG-aHg" secondAttribute="trailing" constant="-20" id="PX8-Pc-aar"/>
+                            <constraint firstItem="bb8-JI-XlZ" firstAttribute="top" secondItem="Y6t-8u-cjd" secondAttribute="topMargin" id="R0E-mU-Upu"/>
+                            <constraint firstItem="ZEC-jG-aHg" firstAttribute="leading" secondItem="Y6t-8u-cjd" secondAttribute="leadingMargin" constant="-20" id="Sy2-bw-fq0"/>
+                            <constraint firstItem="bb8-JI-XlZ" firstAttribute="leading" secondItem="Y6t-8u-cjd" secondAttribute="leadingMargin" constant="-20" id="cSO-cB-7dd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bb8-JI-XlZ" secondAttribute="trailing" constant="-20" id="zOd-PJ-834"/>
+                            <constraint firstItem="ZEC-jG-aHg" firstAttribute="top" secondItem="Y6t-8u-cjd" secondAttribute="topMargin" id="zgn-4q-Dnr"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="fVd-kh-jxY">
+                        <barButtonItem key="rightBarButtonItem" title="POST" style="done" id="kIi-1q-GMj">
+                            <connections>
+                                <action selector="onPostButtonPressed:" destination="CRr-yX-lkj" id="Fjl-aK-EX5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="ZEC-jG-aHg" id="NNc-kV-hDE"/>
+                        <outlet property="toBePostedImageView" destination="oYD-4u-pnu" id="5LG-4W-o1O"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m1D-Am-a7W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
