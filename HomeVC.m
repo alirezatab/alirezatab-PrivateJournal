@@ -7,9 +7,25 @@
 //
 
 #import "HomeVC.h"
+#import "CustomImageFlowLayout.h"
+#import "ImageCollectionViewCell.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <Photos/Photos.h>
+
+
+//#import <MobileCoreServices/MobileCoreServices.h>
+//#import <Photos/Photos.h>
 
 @interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@property(nonatomic, strong) PHFetchResult *assetsFetchResults;
+@property(nonatomic, strong) PHCachingImageManager *imageManager;
+
+@property NSMutableArray *arrayOfImagesInPhotoLibrary;
+@property NSMutableArray *collector;
+@property UIImage *snappedCameraImage;
+@property UIImage *snappedCameraImageFlipped;
 
 @property UISearchController *searchController;
 @end
@@ -20,6 +36,10 @@
     [super viewDidLoad];
     
     [self configureSearchController];
+    
+    self.collectionView.collectionViewLayout = [[CustomImageFlowLayout alloc] init];
+    
+    //self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 
 
@@ -33,7 +53,7 @@
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    UICollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
+    ImageCollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
     return imageCell;
 }
 
@@ -46,6 +66,8 @@
     UIImagePickerController *picker = [[UIImagePickerController alloc]init];
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+
+    
     [self presentViewController:picker animated:YES completion:nil];
 }
 
@@ -76,12 +98,100 @@
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
+#pragma mark - Camera delegates
+// fired when we take picture
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    
+    NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
+    
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    //retrieve the actual UIImage when the picture is captures
+    self.snappedCameraImageFlipped = info[UIImagePickerControllerOriginalImage];
+    //flips the picture to have right oriantation
+    
+    self.snappedCameraImage = [self squareImageWithImage:self.snappedCameraImageFlipped scaledToSize:CGSizeMake(200, 200)];
+    
+    //NSLog(@"Media Type:   \"%@\"", mediaType);
+    //NSLog(@"kUTTypeImage: \"%@\"", (NSString *)kUTTypeImage);
+    //NSLog(@"Media Info %@: ", info);
+    
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+        UIImage *photoTaken = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        //save photo to library if it wasn't already saved... just been taken
+        if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+            UIImageWriteToSavedPhotosAlbum(photoTaken, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        }
+    }
+    [picker dismissViewControllerAnimated:YES completion: NULL];
+}
+
+-(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
+    
+    if (!error) {
+        [self performSegueWithIdentifier:@"CameraPictureToPost" sender:self];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
+                                                                       message:[error localizedDescription]
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"OK"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action){}];
+        
+        [alert addAction:okButton];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
 // when cancel button of the camera is selected
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
     
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
+#pragma mark - fixing orientation of photo and scale
+- (UIImage *)squareImageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    double ratio;
+    double delta;
+    CGPoint offset;
+    
+    //make a new square size, that is the resized imaged width
+    CGSize sz = CGSizeMake(newSize.width, newSize.width);
+    
+    //figure out if the picture is landscape or portrait, then
+    //calculate scale factor and offset
+    if (image.size.width > image.size.height) {
+        ratio = newSize.width / image.size.width;
+        delta = (ratio*image.size.width - ratio*image.size.height);
+        offset = CGPointMake(delta/2, 0);
+    } else {
+        ratio = newSize.width / image.size.height;
+        delta = (ratio*image.size.height - ratio*image.size.width);
+        offset = CGPointMake(0, delta/2);
+    }
+    
+    //make the final clipping rect based on the calculated values
+    CGRect clipRect = CGRectMake(-offset.x, -offset.y,
+                                 (ratio * image.size.width) + delta,
+                                 (ratio * image.size.height) + delta);
+    
+    //start a new context, with scale factor 0.0 so retina displays get
+    //high quality image
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        UIGraphicsBeginImageContextWithOptions(sz, YES, 0.0);
+    } else {
+        UIGraphicsBeginImageContext(sz);
+    }
+    UIRectClip(clipRect);
+    [image drawInRect:clipRect];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 
 #pragma mark- search Controller
 - (void)configureSearchController {

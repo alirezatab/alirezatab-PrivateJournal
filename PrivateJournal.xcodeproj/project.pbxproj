@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C21AFB211D2407D000B243DB /* PostImageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB201D2407D000B243DB /* PostImageVC.m */; };
 		C2503C8D1D0F68BE0039C802 /* Picture+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C2503C861D0F68BE0039C802 /* Picture+CoreDataProperties.m */; };
 		C2503C8E1D0F68BE0039C802 /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = C2503C881D0F68BE0039C802 /* Picture.m */; };
 		C2503C8F1D0F68BE0039C802 /* Hashtag+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C2503C8A1D0F68BE0039C802 /* Hashtag+CoreDataProperties.m */; };
 		C2503C901D0F68BE0039C802 /* Hashtag.m in Sources */ = {isa = PBXBuildFile; fileRef = C2503C8C1D0F68BE0039C802 /* Hashtag.m */; };
+		C2503C931D0F6EFE0039C802 /* CustomImageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C2503C921D0F6EFE0039C802 /* CustomImageFlowLayout.m */; };
+		C2503C961D0F71150039C802 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2503C951D0F71150039C802 /* ImageCollectionViewCell.m */; };
 		C29772C91D0D412A00FE313D /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C29772C81D0D412A00FE313D /* HomeVC.m */; };
 		C2EEC6721D08C4A2006E8058 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EEC6711D08C4A2006E8058 /* main.m */; };
 		C2EEC6751D08C4A2006E8058 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EEC6741D08C4A2006E8058 /* AppDelegate.m */; };
@@ -40,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C21AFB1F1D2407D000B243DB /* PostImageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostImageVC.h; sourceTree = "<group>"; };
+		C21AFB201D2407D000B243DB /* PostImageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostImageVC.m; sourceTree = "<group>"; };
 		C2503C851D0F68BE0039C802 /* Picture+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Picture+CoreDataProperties.h"; path = "../Picture+CoreDataProperties.h"; sourceTree = "<group>"; };
 		C2503C861D0F68BE0039C802 /* Picture+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Picture+CoreDataProperties.m"; path = "../Picture+CoreDataProperties.m"; sourceTree = "<group>"; };
 		C2503C871D0F68BE0039C802 /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Picture.h; path = ../Picture.h; sourceTree = "<group>"; };
@@ -48,6 +53,12 @@
 		C2503C8A1D0F68BE0039C802 /* Hashtag+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Hashtag+CoreDataProperties.m"; path = "../Hashtag+CoreDataProperties.m"; sourceTree = "<group>"; };
 		C2503C8B1D0F68BE0039C802 /* Hashtag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hashtag.h; path = ../Hashtag.h; sourceTree = "<group>"; };
 		C2503C8C1D0F68BE0039C802 /* Hashtag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Hashtag.m; path = ../Hashtag.m; sourceTree = "<group>"; };
+		C2503C911D0F6EFE0039C802 /* CustomImageFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomImageFlowLayout.h; sourceTree = "<group>"; };
+		C2503C921D0F6EFE0039C802 /* CustomImageFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomImageFlowLayout.m; sourceTree = "<group>"; };
+		C2503C941D0F71150039C802 /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
+		C2503C951D0F71150039C802 /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
+		C2503C971D0F73D00039C802 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		C2503C991D0F73D70039C802 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		C29772C71D0D412A00FE313D /* HomeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeVC.h; path = ../HomeVC.h; sourceTree = "<group>"; };
 		C29772C81D0D412A00FE313D /* HomeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeVC.m; path = ../HomeVC.m; sourceTree = "<group>"; };
 		C2EEC66D1D08C4A2006E8058 /* PrivateJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrivateJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +121,10 @@
 		C2503C821D0F549B0039C802 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C2503C911D0F6EFE0039C802 /* CustomImageFlowLayout.h */,
+				C2503C921D0F6EFE0039C802 /* CustomImageFlowLayout.m */,
+				C2503C941D0F71150039C802 /* ImageCollectionViewCell.h */,
+				C2503C951D0F71150039C802 /* ImageCollectionViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -119,6 +134,8 @@
 			children = (
 				C29772C71D0D412A00FE313D /* HomeVC.h */,
 				C29772C81D0D412A00FE313D /* HomeVC.m */,
+				C21AFB1F1D2407D000B243DB /* PostImageVC.h */,
+				C21AFB201D2407D000B243DB /* PostImageVC.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -135,6 +152,8 @@
 		C2EEC6641D08C4A2006E8058 = {
 			isa = PBXGroup;
 			children = (
+				C2503C991D0F73D70039C802 /* MobileCoreServices.framework */,
+				C2503C971D0F73D00039C802 /* Photos.framework */,
 				C2EEC66F1D08C4A2006E8058 /* PrivateJournal */,
 				C2EEC68C1D08C4A2006E8058 /* PrivateJournalTests */,
 				C2EEC6971D08C4A2006E8058 /* PrivateJournalUITests */,
@@ -326,8 +345,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2503C8E1D0F68BE0039C802 /* Picture.m in Sources */,
+				C2503C931D0F6EFE0039C802 /* CustomImageFlowLayout.m in Sources */,
+				C2503C961D0F71150039C802 /* ImageCollectionViewCell.m in Sources */,
 				C2EEC67E1D08C4A2006E8058 /* PrivateJournal.xcdatamodeld in Sources */,
 				C2503C8D1D0F68BE0039C802 /* Picture+CoreDataProperties.m in Sources */,
+				C21AFB211D2407D000B243DB /* PostImageVC.m in Sources */,
 				C2503C8F1D0F68BE0039C802 /* Hashtag+CoreDataProperties.m in Sources */,
 				C2503C901D0F68BE0039C802 /* Hashtag.m in Sources */,
 				C29772C91D0D412A00FE313D /* HomeVC.m in Sources */,

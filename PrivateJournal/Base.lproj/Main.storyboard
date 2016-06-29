@@ -27,15 +27,29 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="8UL-rm-zE4">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="8UL-rm-zE4" customClass="ImageCollectionViewCell">
                                         <rect key="frame" x="0.0" y="64" width="239" height="86"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="239" height="86"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ah8-Yk-Oui">
+                                                    <rect key="frame" x="0.0" y="0.0" width="239" height="86"/>
+                                                </imageView>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="Ah8-Yk-Oui" secondAttribute="bottom" id="7N6-sB-Y2e"/>
+                                            <constraint firstItem="Ah8-Yk-Oui" firstAttribute="top" secondItem="8UL-rm-zE4" secondAttribute="top" id="MZb-Mz-orW"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ah8-Yk-Oui" secondAttribute="trailing" id="mrY-N2-7YU"/>
+                                            <constraint firstItem="Ah8-Yk-Oui" firstAttribute="leading" secondItem="8UL-rm-zE4" secondAttribute="leading" id="qGg-0y-tp9"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="Ah8-Yk-Oui" id="6mF-XP-lVb"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -74,11 +88,35 @@
                     <navigationItem key="navigationItem" id="eL8-JM-VCq"/>
                     <connections>
                         <outlet property="collectionView" destination="ieN-ai-o8j" id="Thb-An-MIn"/>
+                        <segue destination="CRr-yX-lkj" kind="show" identifier="CameraPictureToPost" id="3Nw-Yl-5fK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1258" y="387"/>
+        </scene>
+        <!--Post ImageVC-->
+        <scene sceneID="FhG-Qi-m1V">
+            <objects>
+                <viewController id="CRr-yX-lkj" customClass="PostImageVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qVa-OJ-lmm"/>
+                        <viewControllerLayoutGuide type="bottom" id="qRx-Gl-X7S"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Y6t-8u-cjd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oYD-4u-pnu">
+                                <rect key="frame" x="20" y="64" width="240" height="240"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m1D-Am-a7W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1929" y="387"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WUg-j6-tbd">
