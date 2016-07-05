@@ -11,6 +11,8 @@
 #import "AppDelegate.h"
 #import "Picture.h"
 #import "Hashtag.h"
+#import "Comment.h"
+#import "User.h"
 
 @implementation CoreDataManager
 static NSManagedObjectContext *moc;
@@ -55,22 +57,51 @@ void initMoc(void){
     return fetchedObjects;
 }
 
+#pragma mark - Users
++ (NSArray *)fetchUsers {
+    NSArray *users = [self fetchAllOfType:@"User"];
+    if (users.count == 0) { users = [CoreDataManager dummyData]; }
+    return users;
+}
++ (User *)getUserZero {
+    return [self fetchUsers][0];
+}
++ (NSArray *)dummyData {
+    initMoc();
+    
+    NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
+    
+    // User
+    User *u = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
+    u.username = @"heisenberg0";
+    u.fullname = @"Walter White";
+    
+    [CoreDataManager addPicture:[UIImage imageNamed:@"heisenberg-image1"] withComment:@"laundry day" fromUser:u];
+    [CoreDataManager addPicture:[UIImage imageNamed:@"heisenberg-image2"] withComment:@"kicking it with Jesse" fromUser:u];
+    [CoreDataManager save];
+    
+    NSArray *users = @[u];
+    User *u2 = users[0];
+    NSLog(@"user \"@%@\" has %lu pictures", u2.username, u2.pictures.count);
+    return users;
+}
+
 #pragma mark - Pictures
-+ (Picture *)addPicture:(UIImage *)pictureImage withComment:(NSString *)commentStr {
++ (Picture *)addPicture:(UIImage *)pictureImage withComment:(NSString *)commentStr fromUser:(User *)user {
     NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
     initMoc();
     
-//    Comment *c = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:moc];
-//    c.text = commentStr;
-//    c.time = [NSDate date];
-//    //c.user = user;
+    Comment *c = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:moc];
+    c.text = commentStr;
+    c.time = [NSDate date];
+    c.user = user;
     
     Picture *p = [NSEntityDescription insertNewObjectForEntityForName:@"Picture" inManagedObjectContext:moc];
     p.image = UIImagePNGRepresentation(pictureImage);
     p.location = @"somewhere in the desert, New Mexico"; // TODO
     p.time = [NSDate date];
-//    p.owner = user;
-//    [p addCommentsObject:c];
+    p.owner = user;
+    [p addCommentsObject:c];
     
     for (NSString *tagText in [self findHashtagsIn:commentStr]) {
         // check if hashtag exists
@@ -83,11 +114,12 @@ void initMoc(void){
         } else {
             NSLog(@"old hashtag >%@<", tagText);
         }
-//        [h addCommentsObject:c];
+        [h addCommentsObject:c];
     }
     
     return p;
 }
+
 
 #pragma mark - Hashtags
 + (Hashtag *)fetchHashtag:(NSString *)tag {
@@ -118,6 +150,5 @@ void initMoc(void){
     }
     return [NSArray arrayWithArray:hashtags];
 }
-
 
 @end

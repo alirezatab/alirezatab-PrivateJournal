@@ -2,14 +2,14 @@
 //  Hashtag.h
 //  PrivateJournal
 //
-//  Created by ALIREZA TABRIZI on 6/13/16.
+//  Created by ALIREZA TABRIZI on 7/3/16.
 //  Copyright © 2016 AR-T.com, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Picture;
+@class Comment;
 
 NS_ASSUME_NONNULL_BEGIN
 

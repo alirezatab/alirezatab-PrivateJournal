@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Picture.h"
 
 @interface HomeVC : UIViewController
+@property User *user;
+@property NSArray *arrayOfPosts;
 
+@property Picture *scrollToPost;
 @end

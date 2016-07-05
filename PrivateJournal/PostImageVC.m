@@ -7,10 +7,14 @@
 //
 
 #import "PostImageVC.h"
+#import "CoreDataManager.h"
+#import "Picture.h"
+#import "Hashtag.h"
 
 @interface PostImageVC ()
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *toBePostedImageView;
+@property (weak, nonatomic) IBOutlet UITextField *userCommentTextField;
 @end
 
 @implementation PostImageVC
@@ -22,9 +26,15 @@
 }
 
 - (IBAction)onPostButtonPressed:(UIBarButtonItem *)sender {
-    
+    [CoreDataManager addPicture:self.toBePostedImageView.image withComment:self.userCommentTextField.text fromUser:[self getMyUser]];
+    [CoreDataManager save];
 }
 
+// getMyUser() - returns User object for current user
+// TODO: this should come from parent VC instead (?)
+-(User *)getMyUser {
+    return [CoreDataManager getUserZero];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

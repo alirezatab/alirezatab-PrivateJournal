@@ -14,19 +14,24 @@
 #import "ImageCollectionViewCell.h"
 #import "PostImageVC.h"
 
+#import "Picture.h"
+#import "CoreDataManager.h"
+#import "User.h"
+
 //#import <MobileCoreServices/MobileCoreServices.h>
 //#import <Photos/Photos.h>
 
 @interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate>
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property(weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property(nonatomic, strong) PHFetchResult *assetsFetchResults;
 @property(nonatomic, strong) PHCachingImageManager *imageManager;
 
-@property NSMutableArray *arrayOfImagesInPhotoLibrary;
 @property NSMutableArray *collector;
+
 @property UIImage *snappedCameraImage;
 @property UIImage *snappedCameraImageFlipped;
+@property UIImage *PhotosLibraryImage;
 
 @property UISearchController *searchController;
 @end
@@ -39,10 +44,14 @@
     [self configureSearchController];
     
     self.collectionView.collectionViewLayout = [[CustomImageFlowLayout alloc] init];
-    
-    //self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor blackColor];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    // current feed
+    [self reloadAllData];
+}
 
 #pragma mark- CollectionView
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -50,12 +59,16 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 10;
+    return self.arrayOfPosts.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    ImageCollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
-    return imageCell;
+    ImageCollectionViewCell *imageCollectionCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
+    Picture *pic = self.arrayOfPosts[indexPath.row];
+    imageCollectionCell.imageView.image = [UIImage imageWithData:pic.image];
+    collectionView.backgroundColor = [UIColor blackColor];
+    
+    return imageCollectionCell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -68,7 +81,6 @@
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 
-    
     [self presentViewController:picker animated:YES completion:nil];
 }
 
@@ -77,7 +89,6 @@
 
 - (IBAction)onCameraButtonPressed:(UIBarButtonItem *)sender {
     [self turnCameraOn];
-    
 }
 
 #pragma mark- Camera
@@ -104,23 +115,21 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     
     NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
-    
+
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     //retrieve the actual UIImage when the picture is captures
     self.snappedCameraImageFlipped = info[UIImagePickerControllerOriginalImage];
     //flips the picture to have right oriantation
-    
     self.snappedCameraImage = [self squareImageWithImage:self.snappedCameraImageFlipped scaledToSize:CGSizeMake(200, 200)];
-    
-    //NSLog(@"Media Type:   \"%@\"", mediaType);
-    //NSLog(@"kUTTypeImage: \"%@\"", (NSString *)kUTTypeImage);
-    //NSLog(@"Media Info %@: ", info);
-    
+
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *photoTaken = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
         //save photo to library if it wasn't already saved... just been taken
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
             UIImageWriteToSavedPhotosAlbum(photoTaken, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        } else if ( picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary){
+            self.PhotosLibraryImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+            [self performSegueWithIdentifier:@"LibraryPhoto" sender:self];
         }
     }
     [picker dismissViewControllerAnimated:YES completion: NULL];
@@ -193,13 +202,12 @@
     return newImage;
 }
 
-
 #pragma mark- search Controller
 - (void)configureSearchController {
     self.searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
     
-    //self.searchController.searchResultsUpdater = self;
-   // self.searchController.delegate = self;
+    // self.searchController.searchResultsUpdater = self;
+    // self.searchController.delegate = self;
     self.searchController.searchBar.delegate = self;
     
     self.searchController.hidesNavigationBarDuringPresentation = false;
@@ -210,13 +218,28 @@
     self.searchController.searchBar.placeholder = @"Search Images";
     //[self.searchController.searchBar sizeToFit];
     self.definesPresentationContext = true;
+}
 
+#pragma mark - Data
+-(void)reloadAllData {
+    self.arrayOfPosts = [self sortPicturesByDate:[self.user.pictures allObjects]];
+    [self.collectionView reloadData];
+}
+
+-(NSArray *)sortPicturesByDate:(NSArray *)oldArray {
+    return [oldArray sortedArrayUsingComparator:
+            ^NSComparisonResult(Picture *p1, Picture *p2) {
+                return [p2.time compare:p1.time];
+            }];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"CameraPictureToPost"]) {
         PostImageVC *desVC = segue.destinationViewController;
         desVC.snappedImage = self.snappedCameraImage;
+    } else if ([segue.identifier isEqualToString:@"LibraryPhoto"]){
+        PostImageVC *desVC = segue.destinationViewController;
+        desVC.snappedImage = self.PhotosLibraryImage;
     }
 }
 

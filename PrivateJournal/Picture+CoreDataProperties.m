@@ -2,7 +2,7 @@
 //  Picture+CoreDataProperties.m
 //  PrivateJournal
 //
-//  Created by ALIREZA TABRIZI on 6/13/16.
+//  Created by ALIREZA TABRIZI on 7/3/16.
 //  Copyright © 2016 AR-T.com, Inc. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -13,9 +13,10 @@
 
 @implementation Picture (CoreDataProperties)
 
-@dynamic image;
-@dynamic location;
 @dynamic time;
-@dynamic hashtags;
+@dynamic location;
+@dynamic image;
+@dynamic owner;
+@dynamic comments;
 
 @end

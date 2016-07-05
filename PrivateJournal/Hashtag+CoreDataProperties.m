@@ -2,7 +2,7 @@
 //  Hashtag+CoreDataProperties.m
 //  PrivateJournal
 //
-//  Created by ALIREZA TABRIZI on 6/13/16.
+//  Created by ALIREZA TABRIZI on 7/3/16.
 //  Copyright © 2016 AR-T.com, Inc. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,6 +14,6 @@
 @implementation Hashtag (CoreDataProperties)
 
 @dynamic tagtext;
-@dynamic picture;
+@dynamic comments;
 
 @end

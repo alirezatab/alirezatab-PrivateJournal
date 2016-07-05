@@ -21,21 +21,21 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ieN-ai-o8j">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VLg-ya-gXd">
-                                    <size key="itemSize" width="239" height="86"/>
+                                    <size key="itemSize" width="204" height="86"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="8UL-rm-zE4" customClass="ImageCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="64" width="239" height="86"/>
+                                        <rect key="frame" x="0.0" y="64" width="100" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="239" height="86"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ah8-Yk-Oui">
-                                                    <rect key="frame" x="0.0" y="0.0" width="239" height="86"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -47,6 +47,7 @@
                                             <constraint firstAttribute="trailing" secondItem="Ah8-Yk-Oui" secondAttribute="trailing" id="mrY-N2-7YU"/>
                                             <constraint firstItem="Ah8-Yk-Oui" firstAttribute="leading" secondItem="8UL-rm-zE4" secondAttribute="leading" id="qGg-0y-tp9"/>
                                         </constraints>
+                                        <size key="customSize" width="100" height="100"/>
                                         <connections>
                                             <outlet property="imageView" destination="Ah8-Yk-Oui" id="6mF-XP-lVb"/>
                                         </connections>
@@ -89,6 +90,7 @@
                     <connections>
                         <outlet property="collectionView" destination="ieN-ai-o8j" id="Thb-An-MIn"/>
                         <segue destination="CRr-yX-lkj" kind="show" identifier="CameraPictureToPost" id="3Nw-Yl-5fK"/>
+                        <segue destination="CRr-yX-lkj" kind="show" identifier="LibraryPhoto" id="3Yp-NB-FL3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -110,13 +112,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZEC-jG-aHg">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oYD-4u-pnu">
-                                <rect key="frame" x="20" y="64" width="150" height="150"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="PcN-lt-HfV"/>
-                                    <constraint firstAttribute="height" constant="150" id="TO6-9J-Umf"/>
-                                </constraints>
-                            </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bb8-JI-XlZ">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="8Z8-CA-wAa">
@@ -125,6 +120,18 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oYD-4u-pnu">
+                                <rect key="frame" x="20" y="64" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="PcN-lt-HfV"/>
+                                    <constraint firstAttribute="height" constant="150" id="TO6-9J-Umf"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Hashtags" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dLz-7L-eT2">
+                                <rect key="frame" x="144" y="285" width="367" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -150,11 +157,12 @@
                     <connections>
                         <outlet property="backgroundImageView" destination="ZEC-jG-aHg" id="NNc-kV-hDE"/>
                         <outlet property="toBePostedImageView" destination="oYD-4u-pnu" id="5LG-4W-o1O"/>
+                        <outlet property="userCommentTextField" destination="dLz-7L-eT2" id="zNG-8X-COV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m1D-Am-a7W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1929" y="387"/>
+            <point key="canvasLocation" x="2009" y="387"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WUg-j6-tbd">
@@ -179,4 +187,7 @@
             <point key="canvasLocation" x="446" y="387"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="3Yp-NB-FL3"/>
+    </inferredMetricsTieBreakers>
 </document>

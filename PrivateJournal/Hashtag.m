@@ -2,12 +2,12 @@
 //  Hashtag.m
 //  PrivateJournal
 //
-//  Created by ALIREZA TABRIZI on 6/13/16.
+//  Created by ALIREZA TABRIZI on 7/3/16.
 //  Copyright © 2016 AR-T.com, Inc. All rights reserved.
 //
 
 #import "Hashtag.h"
-#import "Picture.h"
+#import "Comment.h"
 
 @implementation Hashtag
 
