@@ -13,9 +13,10 @@
 #import "CustomImageFlowLayout.h"
 #import "ImageCollectionViewCell.h"
 #import "PostImageVC.h"
-
+#import "AppDelegate.h"
 #import "Picture.h"
 #import "CoreDataManager.h"
+#import "User.h"
 #import "User.h"
 
 //#import <MobileCoreServices/MobileCoreServices.h>
@@ -41,16 +42,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // SQLite
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    NSLog(@"sqlite dir = \n%@", appDelegate.applicationDocumentsDirectory);
+    
     [self configureSearchController];
     
     self.collectionView.collectionViewLayout = [[CustomImageFlowLayout alloc] init];
-    self.collectionView.backgroundColor = [UIColor blackColor];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    // current feed
+    self.user = [CoreDataManager fetchUsers];
+    for (User *u in self.user) {
+        NSLog(@"%@: %lu pics", u.username, u.pictures.count);
+        self.arrayOfPosts = [self sortPicturesByDate:[u.pictures allObjects]];
+    }
     [self reloadAllData];
+    
+    
 }
 
 #pragma mark- CollectionView
@@ -222,7 +234,7 @@
 
 #pragma mark - Data
 -(void)reloadAllData {
-    self.arrayOfPosts = [self sortPicturesByDate:[self.user.pictures allObjects]];
+    //self.arrayOfPosts = [self sortPicturesByDate:[self.user.pictures allObjects]];
     [self.collectionView reloadData];
 }
 

@@ -17,7 +17,7 @@
                fromUser:(User *)user;
 + (void)deleteObject:(NSManagedObject *)x;
 + (void)save;
-//+ (NSArray *)fetchComments;
++ (NSArray *)fetchComments;
 + (NSArray *)fetchUsers;
 + (Hashtag *)fetchHashtag:(NSString *)tag;
 + (User *)getUserZero;

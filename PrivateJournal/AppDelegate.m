@@ -53,6 +53,11 @@
 - (NSURL *)applicationDocumentsDirectory {
     // The directory the application uses to store the Core Data store file. This code uses a directory named "com.AR-T.PrivateJournal" in the application's documents directory.
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    
+//    // url that gets spit out is where your sql core data is located on file-- NOT Phone
+//    NSString *urlString = [NSString stringWithFormat:@"%@", url];
+//    NSLog(@"URL: \n\n%@", urlString);
+//    return url;
 }
 
 - (NSManagedObjectModel *)managedObjectModel {

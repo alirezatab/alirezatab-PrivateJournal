@@ -42,7 +42,6 @@ void initMoc(void){
     [moc deleteObject:x];
 }
 
-//Not Sure what this fetchAllOfTypeDoes
 + (NSArray *)fetchAllOfType:(NSString *)entityType {
     initMoc();
     NSLog(@"[%@ %@] %@", self.class, NSStringFromSelector(_cmd), entityType);
@@ -57,10 +56,17 @@ void initMoc(void){
     return fetchedObjects;
 }
 
+#pragma mark - Comments
++ (NSArray *)fetchComments {
+    return [self fetchAllOfType:@"Comment"];
+}
+
 #pragma mark - Users
 + (NSArray *)fetchUsers {
     NSArray *users = [self fetchAllOfType:@"User"];
-    if (users.count == 0) { users = [CoreDataManager dummyData]; }
+    if (users.count == 0) {
+        users = [CoreDataManager dummyData];
+    }
     return users;
 }
 + (User *)getUserZero {
