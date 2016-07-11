@@ -12,4 +12,5 @@
 @interface HomeVC : UIViewController
 @property User *user;
 @property NSArray *arrayOfPosts;
+@property NSArray *filteredArrayOfPosts;
 @end

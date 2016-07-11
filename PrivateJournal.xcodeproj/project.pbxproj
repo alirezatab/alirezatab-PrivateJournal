@@ -17,6 +17,7 @@
 		C21AFB771D2A253400B243DB /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB6D1D2A253400B243DB /* Picture.m */; };
 		C21AFB781D2A253400B243DB /* User+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB6F1D2A253400B243DB /* User+CoreDataProperties.m */; };
 		C21AFB791D2A253400B243DB /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB711D2A253400B243DB /* User.m */; };
+		C21AFB7C1D2FF83A00B243DB /* PostDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB7B1D2FF83A00B243DB /* PostDetailVC.m */; };
 		C2503C931D0F6EFE0039C802 /* CustomImageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C2503C921D0F6EFE0039C802 /* CustomImageFlowLayout.m */; };
 		C2503C961D0F71150039C802 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2503C951D0F71150039C802 /* ImageCollectionViewCell.m */; };
 		C29772C91D0D412A00FE313D /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C29772C81D0D412A00FE313D /* HomeVC.m */; };
@@ -68,6 +69,8 @@
 		C21AFB6F1D2A253400B243DB /* User+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+CoreDataProperties.m"; sourceTree = "<group>"; };
 		C21AFB701D2A253400B243DB /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		C21AFB711D2A253400B243DB /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		C21AFB7A1D2FF83A00B243DB /* PostDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailVC.h; sourceTree = "<group>"; };
+		C21AFB7B1D2FF83A00B243DB /* PostDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailVC.m; sourceTree = "<group>"; };
 		C2503C911D0F6EFE0039C802 /* CustomImageFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomImageFlowLayout.h; sourceTree = "<group>"; };
 		C2503C921D0F6EFE0039C802 /* CustomImageFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomImageFlowLayout.m; sourceTree = "<group>"; };
 		C2503C941D0F71150039C802 /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 				C29772C81D0D412A00FE313D /* HomeVC.m */,
 				C21AFB1F1D2407D000B243DB /* PostImageVC.h */,
 				C21AFB201D2407D000B243DB /* PostImageVC.m */,
+				C21AFB7A1D2FF83A00B243DB /* PostDetailVC.h */,
+				C21AFB7B1D2FF83A00B243DB /* PostDetailVC.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -387,6 +392,7 @@
 				C21AFB731D2A253400B243DB /* Comment.m in Sources */,
 				C2EEC67E1D08C4A2006E8058 /* PrivateJournal.xcdatamodeld in Sources */,
 				C21AFB211D2407D000B243DB /* PostImageVC.m in Sources */,
+				C21AFB7C1D2FF83A00B243DB /* PostDetailVC.m in Sources */,
 				C21AFB771D2A253400B243DB /* Picture.m in Sources */,
 				C21AFB741D2A253400B243DB /* Hashtag+CoreDataProperties.m in Sources */,
 				C21AFB251D2422FC00B243DB /* CoreDataManager.m in Sources */,

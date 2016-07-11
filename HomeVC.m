@@ -18,6 +18,7 @@
 #import "CoreDataManager.h"
 #import "User.h"
 #import "User.h"
+#import "PostDetailVC.h"
 
 //#import <MobileCoreServices/MobileCoreServices.h>
 //#import <Photos/Photos.h>
@@ -35,6 +36,8 @@
 @property UIImage *PhotosLibraryImage;
 
 @property UISearchController *searchController;
+
+@property BOOL shouldShowSearchResults;
 @end
 
 @implementation HomeVC
@@ -51,18 +54,18 @@
     self.collectionView.collectionViewLayout = [[CustomImageFlowLayout alloc] init];
     self.collectionView.backgroundColor = [UIColor whiteColor];
 
+    //when true, the filteredArrayOfPosts will be used
+    self.shouldShowSearchResults = NO;
+    
+    //search results
+    self.arrayOfPosts = [[NSArray alloc]init];
+    self.filteredArrayOfPosts = [[NSArray alloc]init];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.user = [CoreDataManager fetchUsers];
-    for (User *u in self.user) {
-        NSLog(@"%@: %lu pics", u.username, u.pictures.count);
-        self.arrayOfPosts = [self sortPicturesByDate:[u.pictures allObjects]];
-    }
     [self reloadAllData];
-    
-    
 }
 
 #pragma mark- CollectionView
@@ -71,12 +74,23 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.arrayOfPosts.count;
+    if (self.shouldShowSearchResults) {
+        return self.filteredArrayOfPosts.count;
+    } else {
+        return self.arrayOfPosts.count;
+    }
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ImageCollectionViewCell *imageCollectionCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
-    Picture *pic = self.arrayOfPosts[indexPath.row];
+    
+    Picture *pic;
+    if (self.shouldShowSearchResults) {
+        pic = self.filteredArrayOfPosts[indexPath.row];
+    } else {
+        pic = self.arrayOfPosts[indexPath.row];
+    }
+    
     imageCollectionCell.imageView.image = [UIImage imageWithData:pic.image];
     collectionView.backgroundColor = [UIColor blackColor];
     
@@ -84,7 +98,9 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    //later NSLog the index path that were selected
+    NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
+    NSLog(@"Section: %ld, row:%ld", (long)indexPath.section, (long)indexPath.row);
+    [self performSegueWithIdentifier:@"aPictureSelected" sender:self];
 }
 
 #pragma mark- Actions
@@ -97,6 +113,8 @@
 }
 
 - (IBAction)onShareButtonPressed:(UIBarButtonItem *)sender {
+    /// unlock when app sharing portion is figred out
+    [self displayShareSheet];
 }
 
 - (IBAction)onCameraButtonPressed:(UIBarButtonItem *)sender {
@@ -223,18 +241,50 @@
     self.searchController.searchBar.delegate = self;
     
     self.searchController.hidesNavigationBarDuringPresentation = false;
-    self.searchController.dimsBackgroundDuringPresentation = true;
+    self.searchController.dimsBackgroundDuringPresentation = YES;
     
     self.navigationItem.titleView = self.searchController.searchBar;
     
     self.searchController.searchBar.placeholder = @"Search Images";
     //[self.searchController.searchBar sizeToFit];
-    self.definesPresentationContext = true;
+    self.definesPresentationContext = YES;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    self.shouldShowSearchResults = YES;
+    [self.collectionView reloadData];
+}
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    self.shouldShowSearchResults = NO;
+    //[self.collectionView reloadData];
+    [self reloadAllData];
+}
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    if (!self.shouldShowSearchResults) {
+        self.shouldShowSearchResults = YES;
+        [self.collectionView reloadData];
+    }
+    [self.searchController.searchBar resignFirstResponder];
+}
+
+/// To DO- find the right pictures when text is entered in the search bar
+-(void)updateSearchResultsForSearchController:(UISearchController *)searchController{
+    //NSString *searchString = searchController.searchBar.text;
+    
+    /// Filter the data array and get only those pictures that match the search text
+   // self.filteredArrayOfPosts =
 }
 
 #pragma mark - Data
 -(void)reloadAllData {
     //self.arrayOfPosts = [self sortPicturesByDate:[self.user.pictures allObjects]];
+    self.user = [CoreDataManager fetchUsers];
+    for (User *u in self.user) {
+        NSLog(@"%@: %lu pics", u.username, u.pictures.count);
+        self.arrayOfPosts = [self sortPicturesByDate:[u.pictures allObjects]];
+    }
     [self.collectionView reloadData];
 }
 
@@ -252,12 +302,30 @@
     } else if ([segue.identifier isEqualToString:@"LibraryPhoto"]){
         PostImageVC *desVC = segue.destinationViewController;
         desVC.snappedImage = self.PhotosLibraryImage;
+    } else if ([segue.identifier isEqualToString:@"aPictureSelected"]){
+        NSLog(@"row:%@", self.collectionView.indexPathsForSelectedItems);
+        //self.collectionView.index
+              //(long)sender.section, (long)sender.row);
+        Picture *pic = [self.arrayOfPosts objectAtIndex:0];
+                                         //[self.collectionView indexPathForCell:sender].row];
+        //indexPathForCell:sender].row
+        PostDetailVC *destVC = segue.destinationViewController;
+        destVC.detailPictureObject = pic;
+        destVC.me = self.user;
     }
+}
+
+///TO DO: share app with friends
+-(void)displayShareSheet{
+    NSArray *shareContent = [[NSArray alloc]initWithObjects:@"Download Private Journal and keep track of your shitty life", nil];
+    
+    UIActivityViewController *shareSheet = [[UIActivityViewController alloc]initWithActivityItems:shareContent applicationActivities:nil];
+    
+    [self presentViewController:shareSheet animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 
 @end
