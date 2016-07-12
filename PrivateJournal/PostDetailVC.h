@@ -12,6 +12,9 @@
 ///Decide how to display image to users
 @interface PostDetailVC : UIViewController
 @property NSIndexPath *passedIndexPath;
-@property Picture *detailPictureObject;
+
+@property UIImage *detailPictureObject;
+@property NSString *detailPictureObjectLocation;
+
 @property User *me;
 @end

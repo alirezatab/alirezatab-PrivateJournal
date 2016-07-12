@@ -34,6 +34,8 @@
 @property UIImage *snappedCameraImage;
 @property UIImage *snappedCameraImageFlipped;
 @property UIImage *PhotosLibraryImage;
+@property UIImage *detailPostImage;
+@property NSString *detailPostLocation;
 
 @property UISearchController *searchController;
 
@@ -100,7 +102,14 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
     NSLog(@"Section: %ld, row:%ld", (long)indexPath.section, (long)indexPath.row);
-    [self performSegueWithIdentifier:@"aPictureSelected" sender:self];
+    
+    Picture *pic = [self.arrayOfPosts objectAtIndex: indexPath.row];
+    NSData *imageData = pic.image;
+    
+    self.detailPostImage = [UIImage imageWithData:imageData];
+    self.detailPostLocation = pic.location;
+    
+    [self performSegueWithIdentifier:@"aPictureSelected" sender:nil];
 }
 
 #pragma mark- Actions
@@ -303,15 +312,11 @@
         PostImageVC *desVC = segue.destinationViewController;
         desVC.snappedImage = self.PhotosLibraryImage;
     } else if ([segue.identifier isEqualToString:@"aPictureSelected"]){
-        NSLog(@"row:%@", self.collectionView.indexPathsForSelectedItems);
-        //self.collectionView.index
-              //(long)sender.section, (long)sender.row);
-        Picture *pic = [self.arrayOfPosts objectAtIndex:0];
-                                         //[self.collectionView indexPathForCell:sender].row];
-        //indexPathForCell:sender].row
+        
         PostDetailVC *destVC = segue.destinationViewController;
-        destVC.detailPictureObject = pic;
-        destVC.me = self.user;
+        
+        destVC.detailPictureObject = self.detailPostImage;
+        destVC.detailPictureObjectLocation = self.detailPostLocation;
     }
 }
 

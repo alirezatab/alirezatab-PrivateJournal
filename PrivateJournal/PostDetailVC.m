@@ -10,6 +10,7 @@
 
 @interface PostDetailVC ()
 @property (weak, nonatomic) IBOutlet UIImageView *singleSelectedImageView;
+@property (weak, nonatomic) IBOutlet UILabel *singleSelectedImageLocationLabel;
 
 @end
 
@@ -17,7 +18,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.singleSelectedImageView.image = self.detailPictureObject.image;
+    self.singleSelectedImageView.image = self.detailPictureObject;
+    self.singleSelectedImageLocationLabel.text = self.detailPictureObjectLocation;
 }
 
 - (void)didReceiveMemoryWarning {

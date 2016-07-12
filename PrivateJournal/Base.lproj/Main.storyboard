@@ -118,33 +118,33 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gt9-hn-Lkb">
-                                <rect key="frame" x="20" y="447" width="66" height="21"/>
+                                <rect key="frame" x="20" y="447" width="375" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="66" id="JiL-Br-ecU"/>
+                                    <constraint firstAttribute="width" constant="375" id="JiL-Br-ecU"/>
                                     <constraint firstAttribute="height" constant="21" id="Rx4-fK-Aii"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment/tags:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MST-bo-HQu">
-                                <rect key="frame" x="20" y="476" width="119" height="21"/>
+                                <rect key="frame" x="20" y="476" width="375" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Bic-hJ-WCN"/>
-                                    <constraint firstAttribute="width" constant="119" id="Egz-Qp-z1v"/>
+                                    <constraint firstAttribute="width" constant="375" id="Egz-Qp-z1v"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4t-Ib-Wq9">
-                                <rect key="frame" x="20" y="418" width="43" height="21"/>
+                                <rect key="frame" x="20" y="418" width="375" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="43" id="0Pt-KJ-Wvt"/>
+                                    <constraint firstAttribute="width" constant="375" id="0Pt-KJ-Wvt"/>
                                     <constraint firstAttribute="height" constant="21" id="L6q-zv-izt"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -161,6 +161,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="singleSelectedImageLocationLabel" destination="gt9-hn-Lkb" id="Q5A-bk-1R7"/>
                         <outlet property="singleSelectedImageView" destination="yrS-Uw-JfV" id="Nzv-Dn-dEy"/>
                     </connections>
                 </viewController>
