@@ -110,7 +110,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yrS-Uw-JfV">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yrS-Uw-JfV">
                                 <rect key="frame" x="20" y="80" width="560" height="321"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="560" id="Jpc-6d-QpG"/>
@@ -161,6 +161,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="signleSelectedImagePostedAgo" destination="u4t-Ib-Wq9" id="dM0-ee-aeI"/>
+                        <outlet property="singleSelectedCommentLabel" destination="MST-bo-HQu" id="NG3-zu-0Zd"/>
                         <outlet property="singleSelectedImageLocationLabel" destination="gt9-hn-Lkb" id="Q5A-bk-1R7"/>
                         <outlet property="singleSelectedImageView" destination="yrS-Uw-JfV" id="Nzv-Dn-dEy"/>
                     </connections>

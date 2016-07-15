@@ -15,6 +15,8 @@
 
 @property UIImage *detailPictureObject;
 @property NSString *detailPictureObjectLocation;
+@property NSString *detailPictureObjectComment;
+@property NSString *detailPictureObjectPostedAgo;
 
 @property User *me;
 @end

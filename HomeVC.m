@@ -19,6 +19,7 @@
 #import "User.h"
 #import "User.h"
 #import "PostDetailVC.h"
+#import "Comment.h"
 
 //#import <MobileCoreServices/MobileCoreServices.h>
 //#import <Photos/Photos.h>
@@ -36,6 +37,8 @@
 @property UIImage *PhotosLibraryImage;
 @property UIImage *detailPostImage;
 @property NSString *detailPostLocation;
+@property NSString *detailPostComment;
+@property NSString *detailPostAgo;
 
 @property UISearchController *searchController;
 
@@ -108,6 +111,10 @@
     
     self.detailPostImage = [UIImage imageWithData:imageData];
     self.detailPostLocation = pic.location;
+    NSArray *comments = [pic.comments allObjects];
+    Comment *comment = comments[0];
+    self.detailPostComment = comment.text;
+    self.detailPostAgo = comment.agoString;
     
     [self performSegueWithIdentifier:@"aPictureSelected" sender:nil];
 }
@@ -317,6 +324,8 @@
         
         destVC.detailPictureObject = self.detailPostImage;
         destVC.detailPictureObjectLocation = self.detailPostLocation;
+        destVC.detailPictureObjectComment = self.detailPostComment;
+        destVC.detailPictureObjectPostedAgo = self.detailPostAgo;
     }
 }
 

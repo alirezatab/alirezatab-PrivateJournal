@@ -11,6 +11,8 @@
 @interface PostDetailVC ()
 @property (weak, nonatomic) IBOutlet UIImageView *singleSelectedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *singleSelectedImageLocationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *singleSelectedCommentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *signleSelectedImagePostedAgo;
 
 @end
 
@@ -20,6 +22,8 @@
     [super viewDidLoad];
     self.singleSelectedImageView.image = self.detailPictureObject;
     self.singleSelectedImageLocationLabel.text = self.detailPictureObjectLocation;
+    self.singleSelectedCommentLabel.text = self.detailPictureObjectComment;
+    self.signleSelectedImagePostedAgo.text = self.detailPictureObjectPostedAgo;
 }
 
 - (void)didReceiveMemoryWarning {
