@@ -10,28 +10,38 @@
 #import "CoreDataManager.h"
 #import "Picture.h"
 #import "Hashtag.h"
+//#import "PIcAndCommentTableViewCell.h"
 
-@interface PostImageVC ()
+
+@interface PostImageVC () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *toBePostedImageView;
-@property (weak, nonatomic) IBOutlet UITextField *userCommentTextField;
+@property (weak, nonatomic) IBOutlet UITextView *userCommentTextView;
+
 @end
 
 @implementation PostImageVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.backgroundImageView.image = self.snappedImage;
     self.toBePostedImageView.image = self.snappedImage;
+    
 }
 
 - (IBAction)onPostButtonPressed:(UIBarButtonItem *)sender {
-    [CoreDataManager addPicture:self.toBePostedImageView.image withComment:self.userCommentTextField.text fromUser:[self getMyUser]];
+
+    [CoreDataManager addPicture:self.toBePostedImageView.image withComment:self.userCommentTextView.text fromUser:[self getMyUser]];
     [CoreDataManager save];
     
     UINavigationController *navController = self.navigationController;
     //Pop this controller and replace with another
     [navController popViewControllerAnimated:NO];
+    
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 // getMyUser() - returns User object for current user

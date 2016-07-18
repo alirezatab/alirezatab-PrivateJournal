@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PostImageVC : UIViewController
-
+@interface PostImageVC : UITableViewController
 @property UIImage *snappedImage;
-
 
 @end

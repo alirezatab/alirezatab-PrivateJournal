@@ -113,6 +113,7 @@
     self.detailPostLocation = pic.location;
     NSArray *comments = [pic.comments allObjects];
     Comment *comment = comments[0];
+    NSLog(@"the commetn is: %@", comment.text);
     self.detailPostComment = comment.text;
     self.detailPostAgo = comment.agoString;
     
