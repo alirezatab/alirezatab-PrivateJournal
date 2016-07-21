@@ -275,7 +275,8 @@
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     self.shouldShowSearchResults = NO;
     //[self.collectionView reloadData];
-    [self reloadAllData];
+    ///maybe reload data is not needed here
+    [self.collectionView reloadData];
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
