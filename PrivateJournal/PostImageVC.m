@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *toBePostedImageView;
 @property (weak, nonatomic) IBOutlet UITextView *userCommentTextView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *postBarButtonItem;
+@property (weak, nonatomic) IBOutlet UITableViewCell *addLocationCell;
 @end
 
 
@@ -31,6 +32,16 @@
     self.userCommentTextView.delegate = self;
     
     self.postBarButtonItem.enabled = NO;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    NSLog(@"??? %@", self.PassedSelectedLocation.mapItem.name);
+    if ([self.addLocationCell.textLabel.text isEqualToString:@""]) {
+        self.addLocationCell.textLabel.text = @"Add Location";
+    } else {
+        self.addLocationCell.textLabel.text = self.PassedSelectedLocation.mapItem.name;
+    }
 }
 
 //-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -75,6 +86,11 @@
 // TODO: this should come from parent VC instead (?)
 -(User *)getMyUser {
     return [CoreDataManager getUserZero];
+}
+
+//NTRMainViewConroller.m
+- (IBAction)unwindFromModalAddLocationViewController:(UIStoryboardSegue *)segue{
+    
 }
 
 - (void)didReceiveMemoryWarning {
