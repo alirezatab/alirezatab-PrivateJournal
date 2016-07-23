@@ -156,7 +156,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         PostImageVC *desVC = segue.destinationViewController;
 
-        desVC.PassedSelectedLocation = [self.arrayOfNearbyLocations objectAtIndex:indexPath.row];
+        desVC.passedSelectedLocation = [self.arrayOfNearbyLocations objectAtIndex:indexPath.row];
     }
 }
 

@@ -83,7 +83,7 @@
 		C24781281D41024A0045A79F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C247812E1D4107F40045A79F /* NearbyLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyLocation.h; sourceTree = "<group>"; };
 		C247812F1D4107F40045A79F /* NearbyLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyLocation.m; sourceTree = "<group>"; };
-		C24781311D43AA2D0045A79F /* PostImageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PostImageVC.h; path = ../../../../.Trash/PostImageVC.h; sourceTree = "<group>"; };
+		C24781321D4432A90045A79F /* PostImageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostImageVC.h; sourceTree = "<group>"; };
 		C2503C911D0F6EFE0039C802 /* CustomImageFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomImageFlowLayout.h; sourceTree = "<group>"; };
 		C2503C921D0F6EFE0039C802 /* CustomImageFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomImageFlowLayout.m; sourceTree = "<group>"; };
 		C2503C941D0F71150039C802 /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
@@ -189,7 +189,7 @@
 			children = (
 				C29772C71D0D412A00FE313D /* HomeVC.h */,
 				C29772C81D0D412A00FE313D /* HomeVC.m */,
-				C24781311D43AA2D0045A79F /* PostImageVC.h */,
+				C24781321D4432A90045A79F /* PostImageVC.h */,
 				C21AFB201D2407D000B243DB /* PostImageVC.m */,
 				C21AFB7A1D2FF83A00B243DB /* PostDetailVC.h */,
 				C21AFB7B1D2FF83A00B243DB /* PostDetailVC.m */,

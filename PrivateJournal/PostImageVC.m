@@ -36,11 +36,11 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    NSLog(@"??? %@", self.PassedSelectedLocation.mapItem.name);
+    NSLog(@"??? %@", self.passedSelectedLocation.mapItem.name);
     if ([self.addLocationCell.textLabel.text isEqualToString:@""]) {
         self.addLocationCell.textLabel.text = @"Add Location";
     } else {
-        self.addLocationCell.textLabel.text = self.PassedSelectedLocation.mapItem.name;
+        self.addLocationCell.textLabel.text = self.passedSelectedLocation.mapItem.name;
     }
 }
 
