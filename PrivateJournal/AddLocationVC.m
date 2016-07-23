@@ -8,6 +8,7 @@
 
 #import "AddLocationVC.h"
 #import "NearbyLocation.h"
+#import "PostImageVC.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
@@ -44,13 +45,22 @@
     [self.locationManager startUpdatingLocation];
 }
 
+#pragma mark- Location
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    self.currentLocation = locations.firstObject;
+    NSLog(@"%@", self.currentLocation);
+    [self.locationManager stopUpdatingLocation];
+    [self findNearbyLocations:self.currentLocation];
+}
+
+#pragma mark- TableView
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (!self.shouldShowSearchResults) {
         return self.arrayOfNearbyLocations.count;
     } else {
         return self.arrayOfSearchedLocations.count;
     }
-    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -61,16 +71,6 @@
     
     return locationsCell;
 }
-
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    self.currentLocation = locations.firstObject;
-    NSLog(@"%@", self.currentLocation);
-    [self.locationManager stopUpdatingLocation];
-    [self findNearbyLocations:self.currentLocation];
-}
-
-//-(void)
 
 #pragma mark- search Controller
 - (void)configureSearchController {
@@ -113,7 +113,7 @@
 -(void)findNearbyLocations:(CLLocation *)location {
     MKLocalSearchRequest *request = [MKLocalSearchRequest new];
     if (!self.shouldShowSearchResults) {
-        request.naturalLanguageQuery = @"pizza";
+        request.naturalLanguageQuery = @"Resturant";
     } else {
         request.naturalLanguageQuery = self.searchTerm;
     }
@@ -137,9 +137,27 @@
         }
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"milesDifference" ascending:true];
         NSArray *sortedArray = [temporaryArray sortedArrayUsingDescriptors:@[sortDescriptor]];
+        //self.arrayOfSearchedLocations = [NSMutableArray arrayWithArray:sortedArray];
         self.arrayOfNearbyLocations = [NSMutableArray arrayWithArray:sortedArray];
+
         [self.tableView reloadData];
     }];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+//    NSLog(@"items in array = %@", );
+//    
+//    NSLog(@"INDEXPATH: %ld", (long)indexPath.row);
+//    self.selectedLocation = [self.arrayOfNearbyLocations objectAtIndex:indexPath.row];
+//    NSLog(@"didSelect selectedLocation = %@", self.selectedLocation.mapItem.name);
+    
+    if ([segue.identifier isEqualToString:@"LocationCellSelected"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        PostImageVC *desVC = segue.destinationViewController;
+
+        desVC.PassedSelectedLocation = [self.arrayOfNearbyLocations objectAtIndex:indexPath.row];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
