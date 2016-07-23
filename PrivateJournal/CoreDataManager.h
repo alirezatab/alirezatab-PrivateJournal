@@ -13,8 +13,7 @@
 
 @interface CoreDataManager : NSObject
 + (Picture *)addPicture:(UIImage *)pictureImage
-            withComment:(NSString *)commentStr
-               fromUser:(User *)user;
+            withComment:(NSString *)commentStr withLocation:(NSString *)locationStr fromUser:(User *)user;
 + (void)deleteObject:(NSManagedObject *)x;
 + (void)save;
 + (NSArray *)fetchComments;

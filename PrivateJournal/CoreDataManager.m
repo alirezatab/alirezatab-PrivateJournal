@@ -82,8 +82,8 @@ void initMoc(void){
     u.username = @"heisenberg0";
     u.fullname = @"Walter White";
     
-    [CoreDataManager addPicture:[UIImage imageNamed:@"heisenberg-image1"] withComment:@"laundry day" fromUser:u];
-    [CoreDataManager addPicture:[UIImage imageNamed:@"heisenberg-image2"] withComment:@"kicking it with Jesse" fromUser:u];
+//    [CoreDataManager addPicture:[UIImage imageNamed:@"heisenberg-image1"] withComment:@"laundry day" fromUser:u];
+//    [CoreDataManager addPicture:[UIImage imageNamed:@"heisenberg-image2"] withComment:@"kicking it with Jesse" fromUser:u];
     [CoreDataManager save];
     
     NSArray *users = @[u];
@@ -93,7 +93,7 @@ void initMoc(void){
 }
 
 #pragma mark - Pictures
-+ (Picture *)addPicture:(UIImage *)pictureImage withComment:(NSString *)commentStr fromUser:(User *)user {
++ (Picture *)addPicture:(UIImage *)pictureImage withComment:(NSString *)commentStr withLocation:(NSString *)locationStr fromUser:(User *)user {
     NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
     initMoc();
     
@@ -104,7 +104,7 @@ void initMoc(void){
     
     Picture *p = [NSEntityDescription insertNewObjectForEntityForName:@"Picture" inManagedObjectContext:moc];
     p.image = UIImagePNGRepresentation(pictureImage);
-    p.location = @"somewhere in the desert, New Mexico"; // TODO
+    p.location = locationStr;
     p.time = [NSDate date];
     p.owner = user;
     [p addCommentsObject:c];

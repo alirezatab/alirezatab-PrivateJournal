@@ -256,27 +256,22 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Post Picture" id="qCC-tl-fNc">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="Axa-r2-4MU">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hIu-XY-BZQ">
-                                <rect key="frame" x="530" y="7" width="50" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="POST"/>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="POST" id="hXs-uh-WJx">
                             <connections>
-                                <action selector="onPostButtonPressed:" destination="Kmc-NU-cuf" id="sYc-af-FFL"/>
+                                <action selector="onPostButtonPressed:" destination="Kmc-NU-cuf" id="snm-ox-2cz"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addLocationCell" destination="9by-cm-rKm" id="eBs-sZ-R5k"/>
-                        <outlet property="postBarButtonItem" destination="Axa-r2-4MU" id="lIl-Ie-6xt"/>
+                        <outlet property="postBarButtonItem" destination="hXs-uh-WJx" id="Zo3-S0-nK4"/>
                         <outlet property="toBePostedImageView" destination="QId-bU-BHC" id="oQr-hs-JRq"/>
                         <outlet property="userCommentTextView" destination="8jd-QV-m7G" id="aFb-5q-qWM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hch-EI-Jsa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1878" y="707"/>
+            <point key="canvasLocation" x="1882" y="707"/>
         </scene>
         <!--Add LocationVC-->
         <scene sceneID="H3T-kC-5mh">

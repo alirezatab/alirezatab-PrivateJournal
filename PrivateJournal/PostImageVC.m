@@ -73,8 +73,7 @@
 }
 
 - (IBAction)onPostButtonPressed:(UIBarButtonItem *)sender {
-
-    [CoreDataManager addPicture:self.toBePostedImageView.image withComment:self.userCommentTextView.text fromUser:[self getMyUser]];
+    [CoreDataManager addPicture:self.toBePostedImageView.image withComment:self.userCommentTextView.text withLocation:self.passedSelectedLocation.mapItem.name fromUser:[self getMyUser]];
     [CoreDataManager save];
     
     UINavigationController *navController = self.navigationController;
