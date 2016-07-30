@@ -89,14 +89,26 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ImageCollectionViewCell *imageCollectionCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
     
-    Picture *pic;
+    id picOrComment;
     if (self.shouldShowSearchResults) {
-        pic = self.filteredArrayOfPosts[indexPath.row];
+        if ([self.filteredArrayOfPosts[indexPath.row] isKindOfClass:[Picture class]]) {
+            picOrComment = self.filteredArrayOfPosts[indexPath.row];
+        } else {
+            picOrComment = self.filteredArrayOfPosts[indexPath.row];
+        }
     } else {
-        pic = self.arrayOfPosts[indexPath.row];
+        picOrComment = self.arrayOfPosts[indexPath.row];
     }
     
-    imageCollectionCell.imageView.image = [UIImage imageWithData:pic.image];
+    if ([picOrComment isKindOfClass:[Picture class]]) {
+        Picture *pic = picOrComment;
+        imageCollectionCell.imageView.image = [UIImage imageWithData:pic.image];
+    } else {
+        Comment *pictureFromComment = picOrComment;
+        Picture *pic = pictureFromComment.picture;
+        imageCollectionCell.imageView.image = [UIImage imageWithData:pic.image];
+    }
+
     collectionView.backgroundColor = [UIColor blackColor];
     
     return imageCollectionCell;
@@ -267,11 +279,6 @@
     self.definesPresentationContext = YES;
 }
 
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-    self.shouldShowSearchResults = YES;
-    [self.collectionView reloadData];
-}
-
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     self.shouldShowSearchResults = NO;
     //[self.collectionView reloadData];
@@ -287,13 +294,40 @@
     [self.searchController.searchBar resignFirstResponder];
 }
 
-/// To DO- find the right pictures when text is entered in the search bar
--(void)updateSearchResultsForSearchController:(UISearchController *)searchController{
-    //NSString *searchString = searchController.searchBar.text;
-    
-    /// Filter the data array and get only those pictures that match the search text
-   // self.filteredArrayOfPosts =
+///new
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    NSLog(@"texts entered are %@", searchText);
+    self.filteredArrayOfPosts = [self filterArray:self.arrayOfPosts with:searchText];
+    self.filteredArrayOfPosts = [self.filteredArrayOfPosts sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Comment *comment1 = obj1;
+        Comment *comment2 = obj2;
+        return [comment1.text.lowercaseString compare:comment2.text.lowercaseString];
+    }];
+    [self.collectionView reloadData];
+
 }
+
+-(NSArray *)filterArray:(NSArray *)oldArray with:(NSString *)filterString{
+    if ([filterString isEqualToString:@""]) {
+        return oldArray;
+    }
+    NSMutableArray *newArray = [[NSMutableArray alloc]init];
+    
+    NSString *filterStringLower = [filterString lowercaseString];
+    for (Picture *picture in oldArray) {
+        for (Comment *comment in picture.comments) {
+            NSString *elemText = comment.text;
+            NSLog(@"%@", elemText);
+            NSString *elemTextLower = [elemText lowercaseString];
+            if ([elemTextLower containsString:filterStringLower]) {
+                [newArray addObject:comment];
+            }
+        }
+    }
+    return [NSArray arrayWithArray:newArray];
+}
+///upto here
+
 
 #pragma mark - Data
 -(void)reloadAllData {
