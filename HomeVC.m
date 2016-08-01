@@ -297,6 +297,9 @@
 ///new
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     NSLog(@"texts entered are %@", searchText);
+    
+//    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"comments contains[c] %@", searchText];
+//    self.filteredArrayOfPosts = [self.arrayOfPosts filteredArrayUsingPredicate:resultPredicate];
     self.filteredArrayOfPosts = [self filterArray:self.arrayOfPosts with:searchText];
     self.filteredArrayOfPosts = [self.filteredArrayOfPosts sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Comment *comment1 = obj1;
@@ -304,7 +307,6 @@
         return [comment1.text.lowercaseString compare:comment2.text.lowercaseString];
     }];
     [self.collectionView reloadData];
-
 }
 
 -(NSArray *)filterArray:(NSArray *)oldArray with:(NSString *)filterString{
@@ -324,6 +326,7 @@
             }
         }
     }
+    self.shouldShowSearchResults = YES;
     return [NSArray arrayWithArray:newArray];
 }
 ///upto here
