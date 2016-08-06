@@ -79,26 +79,18 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if (self.shouldShowSearchResults) {
         return self.filteredArrayOfPosts.count;
-    } else {
-        return self.arrayOfPosts.count;
-    }
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ImageCollectionViewCell *imageCollectionCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
     
     id picOrComment;
-    if (self.shouldShowSearchResults) {
         if ([self.filteredArrayOfPosts[indexPath.row] isKindOfClass:[Picture class]]) {
             picOrComment = self.filteredArrayOfPosts[indexPath.row];
         } else {
             picOrComment = self.filteredArrayOfPosts[indexPath.row];
         }
-    } else {
-        picOrComment = self.arrayOfPosts[indexPath.row];
-    }
     
     if ([picOrComment isKindOfClass:[Picture class]]) {
         Picture *pic = picOrComment;
@@ -118,7 +110,7 @@
     NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
     NSLog(@"Section: %ld, row:%ld", (long)indexPath.section, (long)indexPath.row);
     
-    Picture *pic = [self.arrayOfPosts objectAtIndex: indexPath.row];
+    Picture *pic = [self.filteredArrayOfPosts objectAtIndex: indexPath.row];
     NSData *imageData = pic.image;
     
     self.detailPostImage = [UIImage imageWithData:imageData];
@@ -298,14 +290,14 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     NSLog(@"texts entered are %@", searchText);
     
-//    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"comments contains[c] %@", searchText];
-//    self.filteredArrayOfPosts = [self.arrayOfPosts filteredArrayUsingPredicate:resultPredicate];
     self.filteredArrayOfPosts = [self filterArray:self.arrayOfPosts with:searchText];
-    self.filteredArrayOfPosts = [self.filteredArrayOfPosts sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Comment *comment1 = obj1;
-        Comment *comment2 = obj2;
-        return [comment1.text.lowercaseString compare:comment2.text.lowercaseString];
-    }];
+    if ([searchText length] > 0) {
+        self.filteredArrayOfPosts = [self.filteredArrayOfPosts sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Comment *comment1 = obj1;
+            Comment *comment2 = obj2;
+            return [comment1.text.lowercaseString compare:comment2.text.lowercaseString];
+        }];
+    }
     [self.collectionView reloadData];
 }
 
@@ -340,6 +332,7 @@
         NSLog(@"%@: %lu pics", u.username, u.pictures.count);
         self.arrayOfPosts = [self sortPicturesByDate:[u.pictures allObjects]];
     }
+    self.filteredArrayOfPosts = [NSArray arrayWithArray:self.arrayOfPosts];
     [self.collectionView reloadData];
 }
 
