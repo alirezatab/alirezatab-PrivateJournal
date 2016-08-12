@@ -32,9 +32,10 @@
 
 @property NSMutableArray *collector;
 
-@property UIImage *snappedCameraImage;
-@property UIImage *snappedCameraImageFlipped;
-@property UIImage *PhotosLibraryImage;
+@property UIImage *originalCameraImage;
+@property UIImage *CameraImageCorrectedOriantation;
+@property UIImage *originalLibraryImage;
+@property UIImage *libraryImageCorrectedOrientation;
 @property UIImage *detailPostImage;
 @property NSString *detailPostLocation;
 @property NSString *detailPostComment;
@@ -113,6 +114,9 @@
     Picture *pic = [self.filteredArrayOfPosts objectAtIndex: indexPath.row];
     NSData *imageData = pic.image;
     
+    NSUInteger imageSize = imageData.length;
+    NSLog(@"size of image in KB: %f", imageSize/1024.0);
+    
     self.detailPostImage = [UIImage imageWithData:imageData];
     self.detailPostLocation = pic.location;
     NSArray *comments = [pic.comments allObjects];
@@ -169,9 +173,11 @@
 
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     //retrieve the actual UIImage when the picture is captures
-    self.snappedCameraImageFlipped = info[UIImagePickerControllerOriginalImage];
+    self.originalCameraImage = info[UIImagePickerControllerOriginalImage];
     //flips the picture to have right oriantation
-    self.snappedCameraImage = [self squareImageWithImage:self.snappedCameraImageFlipped scaledToSize:CGSizeMake(200, 200)];
+    self.CameraImageCorrectedOriantation = [self squareImageWithImage:self.originalCameraImage scaledToSize:CGSizeMake(300, 1)];
+    //save the tempImage as Jpeg
+    self.CameraImageCorrectedOriantation = [UIImage imageWithData:UIImageJPEGRepresentation(self.CameraImageCorrectedOriantation, 1.0)];
 
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *photoTaken = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
@@ -179,11 +185,15 @@
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
             UIImageWriteToSavedPhotosAlbum(photoTaken, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
         } else if ( picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary){
-            self.PhotosLibraryImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+            self.originalLibraryImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+            // if from library, store it as jpeg
+            self.originalLibraryImage = [UIImage imageWithData:UIImageJPEGRepresentation(self.originalLibraryImage, 1.0)];
+            self.libraryImageCorrectedOrientation = [self squareImageWithImage:self.originalCameraImage scaledToSize:CGSizeMake(300, 1)];
+
             [self performSegueWithIdentifier:@"LibraryPhoto" sender:self];
         }
     }
-    [picker dismissViewControllerAnimated:YES completion: NULL];
+    [picker dismissViewControllerAnimated:NO completion: NULL];
 }
 
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
@@ -346,10 +356,10 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"CameraPictureToPost"]) {
         PostImageVC *desVC = segue.destinationViewController;
-        desVC.snappedImage = self.snappedCameraImage;
+        desVC.snappedImage = self.CameraImageCorrectedOriantation;
     } else if ([segue.identifier isEqualToString:@"LibraryPhoto"]){
         PostImageVC *desVC = segue.destinationViewController;
-        desVC.snappedImage = self.PhotosLibraryImage;
+        desVC.snappedImage = self.libraryImageCorrectedOrientation;
     } else if ([segue.identifier isEqualToString:@"aPictureSelected"]){
         
         PostDetailVC *destVC = segue.destinationViewController;

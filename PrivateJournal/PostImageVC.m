@@ -27,6 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.toBePostedImageView.image = self.snappedImage;
+    // 300,1 temp picture or library phot become a jpeg
+//    self.toBePostedImageView = [UIImage imageWithData:UIImageJPEGRepresentation(self.snappedImage, 1.0)];
+
     self.userCommentTextView.text = @"Write a caption...";
     self.userCommentTextView.textColor = [UIColor lightGrayColor];
     self.userCommentTextView.delegate = self;
@@ -74,8 +77,8 @@
 
 - (IBAction)onPostButtonPressed:(UIBarButtonItem *)sender {
     [CoreDataManager addPicture:self.toBePostedImageView.image withComment:self.userCommentTextView.text withLocation:self.passedSelectedLocation.mapItem.name fromUser:[self getMyUser]];
-    [CoreDataManager save];
     
+    [CoreDataManager save];
     UINavigationController *navController = self.navigationController;
     //Pop this controller and replace with another
     [navController popViewControllerAnimated:NO];
