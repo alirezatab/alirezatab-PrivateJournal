@@ -45,13 +45,6 @@
     }
 }
 
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    UITableViewCell *clickedCell = [self.tableView cellForRowAtIndexPath:indexPath];
-//    if (clickedCell == self.addLocationStaticCell) {
-//        NSLog(@"Add location cell was clicked");
-//    }
-//}
-
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     if ([self.userCommentTextView.text containsString:@"Write a caption..."]) {
         self.userCommentTextView.text = @"";

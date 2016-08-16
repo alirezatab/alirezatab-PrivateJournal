@@ -29,7 +29,7 @@
     self.singleSelectedCommentLabel.text = self.detailPictureObjectComment;
     self.signleSelectedImagePostedAgo.text = self.detailPictureObjectPostedAgo;
     
-    self.tabBarController.tabBar.hidden = true;
+    //self.tabBarController.tabBar.hidden = true;
     self.isTapped = YES;
     
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleSingleTap:)];

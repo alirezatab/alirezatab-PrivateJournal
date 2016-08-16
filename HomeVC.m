@@ -193,6 +193,7 @@
             [self performSegueWithIdentifier:@"LibraryPhoto" sender:self];
         }
     }
+    [self performSegueWithIdentifier:@"CameraPictureToPost" sender:self];
     [picker dismissViewControllerAnimated:NO completion: NULL];
 }
 
@@ -200,7 +201,7 @@
     NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
     
     if (!error) {
-        [self performSegueWithIdentifier:@"CameraPictureToPost" sender:self];
+        //[self performSegueWithIdentifier:@"CameraPictureToPost" sender:self];
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
                                                                        message:[error localizedDescription]

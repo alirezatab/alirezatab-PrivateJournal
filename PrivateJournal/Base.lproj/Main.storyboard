@@ -110,29 +110,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gt9-hn-Lkb">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gt9-hn-Lkb">
                                 <rect key="frame" x="301" y="460" width="299" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="299" id="7dC-mn-D2G"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Comment/tags:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MST-bo-HQu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Comment/tags:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MST-bo-HQu">
                                 <rect key="frame" x="20" y="417" width="560" height="75"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="uFZ-oL-N0k"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4t-Ib-Wq9">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4t-Ib-Wq9">
                                 <rect key="frame" x="20" y="460" width="375" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="0wg-ZQ-IdC"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -160,16 +151,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="MST-bo-HQu" firstAttribute="leading" secondItem="JbX-J8-VYk" secondAttribute="leadingMargin" id="0pc-LU-Cxk"/>
-                            <constraint firstItem="u4t-Ib-Wq9" firstAttribute="baseline" secondItem="gt9-hn-Lkb" secondAttribute="baseline" id="Hn0-MO-4lR"/>
-                            <constraint firstItem="Zaf-qS-hGg" firstAttribute="trailing" secondItem="gt9-hn-Lkb" secondAttribute="trailing" id="KYv-Nv-Mwd"/>
-                            <constraint firstItem="WFm-rf-0dY" firstAttribute="top" secondItem="u4t-Ib-Wq9" secondAttribute="bottom" constant="75" id="Qza-rB-ZAC"/>
-                            <constraint firstItem="WFm-rf-0dY" firstAttribute="top" secondItem="MST-bo-HQu" secondAttribute="bottom" id="T5E-r9-qV0"/>
-                            <constraint firstItem="MST-bo-HQu" firstAttribute="leading" secondItem="u4t-Ib-Wq9" secondAttribute="leading" id="XEL-Mn-8kl"/>
                             <constraint firstItem="Zaf-qS-hGg" firstAttribute="top" secondItem="JbX-J8-VYk" secondAttribute="topMargin" id="Ynb-MH-yPq"/>
                             <constraint firstItem="Zaf-qS-hGg" firstAttribute="leading" secondItem="JbX-J8-VYk" secondAttribute="leadingMargin" constant="-20" id="nQo-fI-cCO"/>
                             <constraint firstItem="Zaf-qS-hGg" firstAttribute="bottom" secondItem="JbX-J8-VYk" secondAttribute="bottomMargin" id="rRc-OV-97b"/>
-                            <constraint firstItem="Zaf-qS-hGg" firstAttribute="centerX" secondItem="MST-bo-HQu" secondAttribute="centerX" id="s9r-DA-Y0a"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Zaf-qS-hGg" secondAttribute="trailing" constant="-20" id="y1b-PO-8mi"/>
                         </constraints>
                     </view>
