@@ -8,11 +8,12 @@
 
 #import "PostDetailVC.h"
 
-@interface PostDetailVC () <UINavigationControllerDelegate>
+@interface PostDetailVC () <UINavigationControllerDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *singleSelectedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *singleSelectedImageLocationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *singleSelectedCommentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *signleSelectedImagePostedAgo;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property BOOL isTapped;
 
@@ -22,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.singleSelectedImageView.image = self.detailPictureObject;
     self.singleSelectedImageLocationLabel.text = self.detailPictureObjectLocation;
     self.singleSelectedCommentLabel.text = self.detailPictureObjectComment;
@@ -29,28 +31,38 @@
     
     self.tabBarController.tabBar.hidden = true;
     self.isTapped = YES;
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleSingleTap:)];
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleDoubleTap:)];
+    
+    singleTap.numberOfTapsRequired = 1;
+    doubleTap.numberOfTapsRequired = 2;
+    
+    // stops tapOnce from overriding tapTwice
+    [singleTap requireGestureRecognizerToFail:doubleTap];
+    
+    [self.view addGestureRecognizer:singleTap];
+    [self.view addGestureRecognizer:doubleTap];
+    
+    self.scrollView.minimumZoomScale = 1.0;
+    self.scrollView.maximumZoomScale = 6.0;
 }
 
-//-(IBAction)handlePan:(UIPanGestureRecognizer *) recognizer {
-//    CGPoint translation = [recognizer translationInView:self.view];
-//    recognizer.view.center = CGPointMake(recognizer.view.center.x +translation.x, recognizer.view.center.y + translation.y);
-//    
-//    [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
-//}
-//
-//-(IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer {
-//    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
-//    if (recognizer.state == UIGestureRecognizerStateBegan ||
-//        recognizer.state == UIGestureRecognizerStateChanged) {
-//        CGFloat scale = recognizer.scale;
-//        
-//        [recognizer.view setTransform:CGAffineTransformScale(recognizer.view.transform, scale, scale)];
-//        
-//        [recognizer setScale:1.0];
-//    }
-//}
+-(CGRect) zoomRectForScale:(float)scale withCenter:(CGPoint)center{
+    CGRect zoomRect;
 
--(IBAction)handleSingleTap:(UITapGestureRecognizer *)recognizer{
+    zoomRect.size.height = [self.singleSelectedImageView frame].size.height / scale;
+    zoomRect.size.width = [self.singleSelectedImageView frame].size.width / scale;
+    
+    center = [self.singleSelectedImageView convertPoint:center fromView:self];
+    
+    zoomRect.origin.x = center.x - ((zoomRect.size.width)/2.0);
+    zoomRect.origin.y = center.y - ((zoomRect.size.height)/2.0);
+    
+    return zoomRect;
+}
+
+-(void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
     if (self.isTapped) {
         self.navigationController.navigationBar.hidden = YES;
         self.navigationController.toolbarHidden = YES;
@@ -62,7 +74,21 @@
     }
 }
 
+-(void)handleDoubleTap:(UITapGestureRecognizer *)recognizer{
+    
+    float newScale = [self.scrollView zoomScale] * 4.0;
+    if (self.scrollView.zoomScale > self.scrollView.minimumZoomScale) {
+        [self.scrollView setZoomScale:self.scrollView.minimumZoomScale animated:YES];
+    } else{
+        CGRect zoomRect = [self zoomRectForScale:newScale withCenter:[recognizer locationInView:recognizer.view]];
+        
+        [self.scrollView zoomToRect:zoomRect animated:YES];
+    }
+}
 
+-(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
+    return self.singleSelectedImageView;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -20,8 +20,7 @@
 
 @property User *me;
 
-//- (IBAction)handlePan:(UIPanGestureRecognizer *)recognizer;
-//- (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer;
 -(IBAction)handleSingleTap:(UITapGestureRecognizer *)recognizer;
+//-(IBAction)handleDoubleTap:(UITapGestureRecognizer *)recognizer;
 
 @end
