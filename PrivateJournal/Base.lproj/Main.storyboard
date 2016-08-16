@@ -113,37 +113,41 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gt9-hn-Lkb">
                                 <rect key="frame" x="301" y="460" width="299" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment/tags:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MST-bo-HQu">
-                                <rect key="frame" x="20" y="481" width="560" height="75"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Comment/tags:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MST-bo-HQu">
+                                <rect key="frame" x="20" y="417" width="560" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="uFZ-oL-N0k"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4t-Ib-Wq9">
                                 <rect key="frame" x="20" y="460" width="375" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yrS-Uw-JfV">
-                                <rect key="frame" x="20" y="64" width="560" height="417"/>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yrS-Uw-JfV">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="fDf-i6-lk9" appends="YES" id="Xr2-UK-3uG"/>
+                                    <outletCollection property="gestureRecognizers" destination="Oa0-Yf-uL2" appends="YES" id="yRk-QK-7K7"/>
+                                    <outletCollection property="gestureRecognizers" destination="Ia3-je-QuB" appends="YES" id="3Iv-y5-nbS"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="MST-bo-HQu" firstAttribute="leading" secondItem="JbX-J8-VYk" secondAttribute="leadingMargin" id="0sh-GN-kcC"/>
-                            <constraint firstItem="MST-bo-HQu" firstAttribute="top" secondItem="yrS-Uw-JfV" secondAttribute="bottom" id="2s7-c5-hGF"/>
-                            <constraint firstItem="yrS-Uw-JfV" firstAttribute="top" secondItem="Xyy-AB-Yug" secondAttribute="bottom" id="6k4-4G-CiI"/>
-                            <constraint firstItem="yrS-Uw-JfV" firstAttribute="trailing" secondItem="JbX-J8-VYk" secondAttribute="trailingMargin" id="O48-ia-WFM"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="yrS-Uw-JfV" secondAttribute="bottom" id="A7R-pD-KIj"/>
+                            <constraint firstItem="yrS-Uw-JfV" firstAttribute="top" secondItem="JbX-J8-VYk" secondAttribute="topMargin" id="EQk-7t-hdx"/>
                             <constraint firstItem="WFm-rf-0dY" firstAttribute="top" secondItem="MST-bo-HQu" secondAttribute="bottom" id="T5E-r9-qV0"/>
-                            <constraint firstItem="yrS-Uw-JfV" firstAttribute="leading" secondItem="JbX-J8-VYk" secondAttribute="leadingMargin" id="WXY-K2-fV8"/>
-                            <constraint firstItem="MST-bo-HQu" firstAttribute="trailing" secondItem="JbX-J8-VYk" secondAttribute="trailingMargin" id="k0h-Tf-KnI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yrS-Uw-JfV" secondAttribute="trailing" constant="-20" id="aWs-L9-Pl3"/>
+                            <constraint firstItem="yrS-Uw-JfV" firstAttribute="leading" secondItem="JbX-J8-VYk" secondAttribute="leadingMargin" constant="-20" id="nxe-wz-eHf"/>
                         </constraints>
                     </view>
                     <connections>
@@ -163,6 +167,21 @@
                         <outlet property="searchResultsDelegate" destination="dlw-u6-Y9Z" id="inu-NO-0VZ"/>
                     </connections>
                 </searchDisplayController>
+                <pinchGestureRecognizer id="fDf-i6-lk9">
+                    <connections>
+                        <action selector="handlePinch:" destination="dlw-u6-Y9Z" id="HcF-3P-IpN"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Oa0-Yf-uL2">
+                    <connections>
+                        <action selector="handlePan:" destination="dlw-u6-Y9Z" id="Rjj-m3-alw"/>
+                    </connections>
+                </panGestureRecognizer>
+                <tapGestureRecognizer id="Ia3-je-QuB">
+                    <connections>
+                        <action selector="handleSingleTap:" destination="dlw-u6-Y9Z" id="6gc-i6-tmR"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2049" y="8"/>
         </scene>

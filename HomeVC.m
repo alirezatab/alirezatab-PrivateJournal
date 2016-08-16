@@ -188,7 +188,7 @@
             self.originalLibraryImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
             // if from library, store it as jpeg
             self.originalLibraryImage = [UIImage imageWithData:UIImageJPEGRepresentation(self.originalLibraryImage, 1.0)];
-            self.libraryImageCorrectedOrientation = [self squareImageWithImage:self.originalCameraImage scaledToSize:CGSizeMake(300, 1)];
+            self.libraryImageCorrectedOrientation = [self squareImageWithImage:self.originalCameraImage scaledToSize:CGSizeMake(600, 600)];
 
             [self performSegueWithIdentifier:@"LibraryPhoto" sender:self];
         }
