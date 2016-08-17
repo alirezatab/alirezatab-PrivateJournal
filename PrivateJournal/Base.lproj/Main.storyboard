@@ -101,7 +101,7 @@
         <!--Post DetailVC-->
         <scene sceneID="vgd-cf-wG5">
             <objects>
-                <viewController id="dlw-u6-Y9Z" customClass="PostDetailVC" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="dlw-u6-Y9Z" customClass="PostDetailVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xyy-AB-Yug"/>
                         <viewControllerLayoutGuide type="bottom" id="WFm-rf-0dY"/>
@@ -111,10 +111,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zaf-qS-hGg">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yrS-Uw-JfV">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
@@ -130,9 +130,19 @@
                                     <outlet property="delegate" destination="dlw-u6-Y9Z" id="bye-6I-wuf"/>
                                 </connections>
                             </scrollView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16F-j4-l4I">
+                                <rect key="frame" x="0.0" y="456" width="600" height="100"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="nB4-Bz-OBL">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="9sU-XS-M9T"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4t-Ib-Wq9">
                                 <rect key="frame" x="20" y="456" width="150" height="25"/>
-                                <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="0.75" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="j6Y-HD-oaQ"/>
                                     <constraint firstAttribute="width" constant="150" id="owg-lq-W3L"/>
@@ -143,7 +153,6 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="location:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gt9-hn-Lkb">
                                 <rect key="frame" x="170" y="456" width="410" height="25"/>
-                                <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="0.75" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="ITX-g3-gDk"/>
                                 </constraints>
@@ -151,15 +160,21 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TSp-d5-zii">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSp-d5-zii">
                                 <rect key="frame" x="20" y="481" width="560" height="75"/>
-                                <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="0.75" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="Sku-4e-spl"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="18" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -167,10 +182,12 @@
                         <constraints>
                             <constraint firstItem="TSp-d5-zii" firstAttribute="top" secondItem="gt9-hn-Lkb" secondAttribute="bottom" id="8v8-2H-lxu"/>
                             <constraint firstItem="TSp-d5-zii" firstAttribute="leading" secondItem="JbX-J8-VYk" secondAttribute="leadingMargin" id="Ck6-EE-wuh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="16F-j4-l4I" secondAttribute="trailing" constant="-20" id="Jgd-QF-LYM"/>
+                            <constraint firstItem="16F-j4-l4I" firstAttribute="leading" secondItem="JbX-J8-VYk" secondAttribute="leadingMargin" constant="-20" id="LcV-FY-BW5"/>
                             <constraint firstItem="TSp-d5-zii" firstAttribute="trailing" secondItem="JbX-J8-VYk" secondAttribute="trailingMargin" id="Pec-AN-92c"/>
                             <constraint firstItem="gt9-hn-Lkb" firstAttribute="trailing" secondItem="JbX-J8-VYk" secondAttribute="trailingMargin" id="ROJ-8V-k4s"/>
                             <constraint firstItem="gt9-hn-Lkb" firstAttribute="leading" secondItem="JbX-J8-VYk" secondAttribute="leadingMargin" constant="281" id="Xjw-cM-KrN"/>
-                            <constraint firstItem="Zaf-qS-hGg" firstAttribute="top" secondItem="JbX-J8-VYk" secondAttribute="topMargin" id="Ynb-MH-yPq"/>
+                            <constraint firstItem="Zaf-qS-hGg" firstAttribute="top" secondItem="JbX-J8-VYk" secondAttribute="topMargin" constant="20" id="Ynb-MH-yPq"/>
                             <constraint firstItem="TSp-d5-zii" firstAttribute="top" secondItem="u4t-Ib-Wq9" secondAttribute="bottom" id="ZGm-o7-dlG"/>
                             <constraint firstItem="gt9-hn-Lkb" firstAttribute="leading" secondItem="u4t-Ib-Wq9" secondAttribute="trailing" id="d2z-zR-l8E"/>
                             <constraint firstItem="u4t-Ib-Wq9" firstAttribute="leading" secondItem="JbX-J8-VYk" secondAttribute="leadingMargin" id="e3u-Lm-tRh"/>
@@ -178,6 +195,7 @@
                             <constraint firstItem="Zaf-qS-hGg" firstAttribute="leading" secondItem="JbX-J8-VYk" secondAttribute="leadingMargin" constant="-20" id="nQo-fI-cCO"/>
                             <constraint firstItem="Zaf-qS-hGg" firstAttribute="bottom" secondItem="JbX-J8-VYk" secondAttribute="bottomMargin" id="rRc-OV-97b"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Zaf-qS-hGg" secondAttribute="trailing" constant="-20" id="y1b-PO-8mi"/>
+                            <constraint firstItem="WFm-rf-0dY" firstAttribute="top" secondItem="16F-j4-l4I" secondAttribute="bottom" id="yfV-QR-Qth"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
