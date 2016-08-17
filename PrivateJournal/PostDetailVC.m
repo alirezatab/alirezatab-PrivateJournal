@@ -11,7 +11,7 @@
 @interface PostDetailVC () <UINavigationControllerDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *singleSelectedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *singleSelectedImageLocationLabel;
-@property (weak, nonatomic) IBOutlet UILabel *singleSelectedCommentLabel;
+@property (weak, nonatomic) IBOutlet UITextView *singleSelectedCommentTextView;
 @property (weak, nonatomic) IBOutlet UILabel *signleSelectedImagePostedAgo;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -26,7 +26,7 @@
     
     self.singleSelectedImageView.image = self.detailPictureObject;
     self.singleSelectedImageLocationLabel.text = self.detailPictureObjectLocation;
-    self.singleSelectedCommentLabel.text = self.detailPictureObjectComment;
+    self.singleSelectedCommentTextView.text = self.detailPictureObjectComment;
     self.signleSelectedImagePostedAgo.text = self.detailPictureObjectPostedAgo;
     
     //self.tabBarController.tabBar.hidden = true;
