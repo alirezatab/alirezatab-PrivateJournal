@@ -24,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.toolbarHidden = YES;
+    
     self.singleSelectedImageView.image = self.detailPictureObject;
     self.singleSelectedImageLocationLabel.text = self.detailPictureObjectLocation;
     self.singleSelectedCommentTextView.text = self.detailPictureObjectComment;
@@ -48,6 +50,11 @@
     self.scrollView.maximumZoomScale = 6.0;
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+    self.navigationController.toolbarHidden = NO;
+}
+
 -(CGRect) zoomRectForScale:(float)scale withCenter:(CGPoint)center{
     CGRect zoomRect;
 
@@ -65,11 +72,11 @@
 -(void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
     if (self.isTapped) {
         self.navigationController.navigationBar.hidden = YES;
-        self.navigationController.toolbarHidden = YES;
+//        self.navigationController.toolbarHidden = YES;
         self.isTapped = NO;
     } else{
         self.navigationController.navigationBar.hidden = NO;
-        self.navigationController.toolbarHidden = NO;
+//        self.navigationController.toolbarHidden = NO;
         self.isTapped = YES;
     }
 }

@@ -60,12 +60,16 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ieN-ai-o8j" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="An8-Dw-2Ml"/>
                             <constraint firstItem="ieN-ai-o8j" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="BSN-RT-VXc"/>
                             <constraint firstItem="ieN-ai-o8j" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottomMargin" id="E4e-LB-WVc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ieN-ai-o8j" secondAttribute="trailing" constant="-20" id="YWN-YM-MQl"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ITc-ns-Q2g" appends="YES" id="Sgk-Om-nLp"/>
+                        </connections>
                     </view>
                     <toolbarItems>
                         <barButtonItem title="Share" id="Qn6-n0-DkX">
@@ -95,6 +99,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ITc-ns-Q2g">
+                    <connections>
+                        <action selector="handleLongPressToDelete:" destination="BYZ-38-t0r" id="zrE-e6-fdw"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1125" y="387"/>
         </scene>

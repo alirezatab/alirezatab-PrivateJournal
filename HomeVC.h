@@ -13,4 +13,7 @@
 @property User *user;
 @property NSArray *arrayOfPosts;
 @property NSArray *filteredArrayOfPosts;
+
+-(IBAction)handleLongPressToDelete:(UILongPressGestureRecognizer *)recognizer;
+
 @end

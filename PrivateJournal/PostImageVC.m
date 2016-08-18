@@ -26,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.toBePostedImageView.image = self.snappedImage;
 
     self.userCommentTextView.text = @"Write a caption...";
