@@ -363,13 +363,10 @@
         PostImageVC *desVC = segue.destinationViewController;
         desVC.snappedImage = self.libraryImageCorrectedOrientation;
     } else if ([segue.identifier isEqualToString:@"aPictureSelected"]){
-        
+        Picture *picture = self.arrayOfPosts[[self.collectionView indexPathForCell:sender].row];
         PostDetailVC *destVC = segue.destinationViewController;
-        
-        destVC.detailPictureObject = self.detailPostImage;
-        destVC.detailPictureObjectLocation = self.detailPostLocation;
-        destVC.detailPictureObjectComment = self.detailPostComment;
-        destVC.detailPictureObjectPostedAgo = self.detailPostAgo;
+        destVC.detailPictureObject = picture;
+        destVC.me = self.user;
     }
 }
 
@@ -379,7 +376,7 @@
     NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:tapLocation];
     if (indexPath && recognizer.state == UIGestureRecognizerStateBegan) {
         NSLog(@"image with index %ld to be deleted", (long)indexPath.item);
-        self.itemToBeDeleted = indexPath.item;
+        //self.itemToBeDeleted = indexPath.item;
         
         UIAlertView *deleteAlert = [[UIAlertView alloc]initWithTitle:@"Delete??" message:@"Are you sure you want to delete this image permanantly?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         [deleteAlert show];

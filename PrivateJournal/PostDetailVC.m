@@ -7,6 +7,8 @@
 //
 
 #import "PostDetailVC.h"
+#import "Picture.h"
+#import "Comment.h"
 
 @interface PostDetailVC () <UINavigationControllerDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *singleSelectedImageView;
@@ -24,12 +26,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.toolbarHidden = YES;
-    
-    self.singleSelectedImageView.image = self.detailPictureObject;
-    self.singleSelectedImageLocationLabel.text = self.detailPictureObjectLocation;
-    self.singleSelectedCommentTextView.text = self.detailPictureObjectComment;
-    self.signleSelectedImagePostedAgo.text = self.detailPictureObjectPostedAgo;
+    Picture *detailPicture = self.detailPictureObject;
+    self.singleSelectedImageView.image = [UIImage imageWithData:detailPicture.image];
+    self.singleSelectedImageLocationLabel.text = self.detailPictureObject.location;
+    // comments
+    NSArray *comments = [detailPicture.comments allObjects];
+    Comment *comment = comments[0];
+    self.singleSelectedCommentTextView.text = comment.text;
+    self.signleSelectedImagePostedAgo.text = comment.agoString;
     
     //self.tabBarController.tabBar.hidden = true;
     self.isTapped = YES;
@@ -72,11 +76,11 @@
 -(void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
     if (self.isTapped) {
         self.navigationController.navigationBar.hidden = YES;
-//        self.navigationController.toolbarHidden = YES;
+        self.navigationController.toolbarHidden = YES;
         self.isTapped = NO;
     } else{
         self.navigationController.navigationBar.hidden = NO;
-//        self.navigationController.toolbarHidden = NO;
+        self.navigationController.toolbarHidden = NO;
         self.isTapped = YES;
     }
 }
@@ -96,6 +100,14 @@
 -(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
     return self.singleSelectedImageView;
 }
+
+
+
+- (IBAction)onEditButtonPressed:(UIBarButtonItem *)sender {
+    self.singleSelectedCommentTextView.editable = YES;
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

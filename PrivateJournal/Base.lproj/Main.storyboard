@@ -212,6 +212,16 @@
                             </mask>
                         </variation>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="DELETE" id="m7N-DW-rGx"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="cfe-Vq-px8">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="5wv-Va-OTW">
+                            <connections>
+                                <action selector="onEditButtonPressed:" destination="dlw-u6-Y9Z" id="xh0-bt-MyG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="scrollView" destination="Zaf-qS-hGg" id="Fxl-e1-ura"/>
                         <outlet property="searchDisplayController" destination="mSC-5H-k6W" id="aeh-LN-ezf"/>

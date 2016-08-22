@@ -12,14 +12,8 @@
 ///Decide how to display image to users
 @interface PostDetailVC : UIViewController
 @property NSIndexPath *passedIndexPath;
-
-@property UIImage *detailPictureObject;
-@property NSString *detailPictureObjectLocation;
-@property NSString *detailPictureObjectComment;
-@property NSString *detailPictureObjectPostedAgo;
-
+@property Picture *detailPictureObject;
 @property User *me;
-
 -(IBAction)handleSingleTap:(UITapGestureRecognizer *)recognizer;
 //-(IBAction)handleDoubleTap:(UITapGestureRecognizer *)recognizer;
 

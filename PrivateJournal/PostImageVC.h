@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NearbyLocation.h"
+#import "Picture.h"
 
 @interface PostImageVC : UITableViewController
 @property UIImage *snappedImage;
