@@ -213,7 +213,11 @@
                         </variation>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="DELETE" id="m7N-DW-rGx"/>
+                        <barButtonItem title="DELETE" id="m7N-DW-rGx">
+                            <connections>
+                                <action selector="onDeleteButtonPressed:" destination="dlw-u6-Y9Z" id="dyN-RO-n50"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="cfe-Vq-px8">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="5wv-Va-OTW">

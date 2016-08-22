@@ -9,6 +9,7 @@
 #import "PostDetailVC.h"
 #import "Picture.h"
 #import "Comment.h"
+#import "CoreDataManager.h"
 
 @interface PostDetailVC () <UINavigationControllerDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *singleSelectedImageView;
@@ -33,6 +34,7 @@
     NSArray *comments = [detailPicture.comments allObjects];
     Comment *comment = comments[0];
     self.singleSelectedCommentTextView.text = comment.text;
+        NSLog(@"the commetn is: %@", comment.text);
     self.signleSelectedImagePostedAgo.text = comment.agoString;
     
     //self.tabBarController.tabBar.hidden = true;
@@ -107,6 +109,31 @@
     self.singleSelectedCommentTextView.editable = YES;
     
 }
+
+- (IBAction)onDeleteButtonPressed:(UIBarButtonItem *)sender {
+        UIAlertView *deleteAlert = [[UIAlertView alloc]initWithTitle:@"Delete??" message:@"Are you sure you want to delete this image permanantly?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        [deleteAlert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSLog(@"selected button index = %ld", buttonIndex);
+    if (buttonIndex == 1) {
+        Picture *deletedPicture = self.detailPictureObject;
+        
+        // delete all comments
+        NSArray *deletedComments = [deletedPicture.comments allObjects];
+        for (Comment *comment in deletedComments) {
+            [CoreDataManager deleteObject:comment];
+        }
+        
+        // delete picture
+        [CoreDataManager deleteObject:deletedPicture];
+        
+        [CoreDataManager save];
+    }
+}
+
+
 
 
 - (void)didReceiveMemoryWarning {

@@ -363,7 +363,9 @@
         PostImageVC *desVC = segue.destinationViewController;
         desVC.snappedImage = self.libraryImageCorrectedOrientation;
     } else if ([segue.identifier isEqualToString:@"aPictureSelected"]){
-        Picture *picture = self.arrayOfPosts[[self.collectionView indexPathForCell:sender].row];
+        NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems]lastObject];
+        NSLog(@"indexPath before sefue to detail pircure is %ld", (long)indexPath.row);
+        Picture *picture = [self.filteredArrayOfPosts objectAtIndex:indexPath.row];
         PostDetailVC *destVC = segue.destinationViewController;
         destVC.detailPictureObject = picture;
         destVC.me = self.user;
@@ -404,7 +406,7 @@
 
 #pragma mark - Share App
 -(void)displayShareSheet{
-    NSArray *shareContent = [[NSArray alloc]initWithObjects:@"Download Private Journal and keep track of your shitty life", nil];
+    NSArray *shareContent = [[NSArray alloc]initWithObjects:@"Download Private Journal and keep track of your life", nil];
     
     UIActivityViewController *shareSheet = [[UIActivityViewController alloc]initWithActivityItems:shareContent applicationActivities:nil];
     
