@@ -59,6 +59,8 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:YES];
     self.navigationController.toolbarHidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
 -(CGRect) zoomRectForScale:(float)scale withCenter:(CGPoint)center{
@@ -79,10 +81,12 @@
     if (self.isTapped) {
         self.navigationController.navigationBar.hidden = YES;
         self.navigationController.toolbarHidden = YES;
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
         self.isTapped = NO;
     } else{
         self.navigationController.navigationBar.hidden = NO;
         self.navigationController.toolbarHidden = NO;
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
         self.isTapped = YES;
     }
 }

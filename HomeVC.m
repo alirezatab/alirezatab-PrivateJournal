@@ -52,6 +52,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.barTintColor = [UIColor darkGrayColor];
+    self.navigationController.toolbar.barTintColor = [UIColor darkGrayColor];
+    
     // SQLite
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     NSLog(@"sqlite dir = \n%@", appDelegate.applicationDocumentsDirectory);
@@ -269,6 +272,11 @@
 - (void)configureSearchController {
     self.searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
     
+    UITextField *textFieldSearchField = [self.searchController.searchBar valueForKey:@"_searchField"];
+    textFieldSearchField.backgroundColor = [UIColor lightGrayColor];
+    textFieldSearchField.textColor = [UIColor redColor];
+    
+    textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Search for Images" attributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
     // self.searchController.searchResultsUpdater = self;
     // self.searchController.delegate = self;
     self.searchController.searchBar.delegate = self;
@@ -277,8 +285,7 @@
     self.searchController.dimsBackgroundDuringPresentation = YES;
     
     self.navigationItem.titleView = self.searchController.searchBar;
-    
-    self.searchController.searchBar.placeholder = @"Search Images";
+    //self.searchController.searchBar.placeholder = @"Search Images";
     //[self.searchController.searchBar sizeToFit];
     self.definesPresentationContext = YES;
 }
@@ -364,7 +371,7 @@
         desVC.snappedImage = self.libraryImageCorrectedOrientation;
     } else if ([segue.identifier isEqualToString:@"aPictureSelected"]){
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems]lastObject];
-        NSLog(@"indexPath before sefue to detail pircure is %ld", (long)indexPath.row);
+        //NSLog(@"indexPath before sefue to detail pircure is %ld", (long)indexPath.row);
         Picture *picture = [self.filteredArrayOfPosts objectAtIndex:indexPath.row];
         PostDetailVC *destVC = segue.destinationViewController;
         destVC.detailPictureObject = picture;
