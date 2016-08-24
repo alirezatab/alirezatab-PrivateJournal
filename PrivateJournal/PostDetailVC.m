@@ -11,12 +11,14 @@
 #import "Comment.h"
 #import "CoreDataManager.h"
 
-@interface PostDetailVC () <UINavigationControllerDelegate, UIScrollViewDelegate>
+@interface PostDetailVC () <UINavigationControllerDelegate, UIScrollViewDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *singleSelectedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *singleSelectedImageLocationLabel;
 @property (weak, nonatomic) IBOutlet UITextView *singleSelectedCommentTextView;
 @property (weak, nonatomic) IBOutlet UILabel *signleSelectedImagePostedAgo;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property CGFloat keyboardHeight;
 
 @property BOOL isTapped;
 
@@ -26,6 +28,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.textView.delegate = self;
     
     Picture *detailPicture = self.detailPictureObject;
     self.singleSelectedImageView.image = [UIImage imageWithData:detailPicture.image];
@@ -56,11 +60,57 @@
     self.scrollView.maximumZoomScale = 6.0;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:YES];
     self.navigationController.toolbarHidden = NO;
     self.navigationController.navigationBar.hidden = NO;
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)keyboardWillShow:(NSNotification*)notification {
+    NSDictionary *userInfo = [notification userInfo];
+    CGRect keyboardInfoFrame = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey]CGRectValue].size;
+    CGFloat deltaHeight = keyboardSize.height - _keyboardHeight;
+    
+    //write code to adjust views accordingly using deltaHeight
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationBeginsFromCurrentState:TRUE];
+    self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - deltaHeight, self.view.frame.size.width, self.view.frame.size.height);
+    
+    [UIView commitAnimations];
+    _keyboardHeight = keyboardSize.height;
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationBeginsFromCurrentState:TRUE];
+    self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + _keyboardHeight, self.view.frame.size.width, self.view.frame.size.height);
+    
+    [UIView commitAnimations];
+    _keyboardHeight = 0.0f;
+}
+
+-(BOOL)textViewShouldEndEditing:(UITextView *)textView{
+    [self.textView resignFirstResponder];
+    return YES;
+}
+
+- (IBAction)dismissKeyboard:(id)sender
+{
+    [self textViewShouldEndEditing:self.textView];
 }
 
 -(CGRect) zoomRectForScale:(float)scale withCenter:(CGPoint)center{
@@ -109,9 +159,16 @@
 
 
 
-- (IBAction)onEditButtonPressed:(UIBarButtonItem *)sender {
-    self.singleSelectedCommentTextView.editable = YES;
-    
+- (IBAction)onEditButtonPressed:(id)sender {
+    if (self.editing) {
+        self.editing = NO;
+        [self.textView setEditable:NO];
+        self.navigationItem.rightBarButtonItem.title = @"Edit";
+    } else {
+        self.editing = YES;
+        [self.textView setEditable:YES];
+        self.navigationItem.rightBarButtonItem = @"Done";
+    }
 }
 
 - (IBAction)onDeleteButtonPressed:(UIBarButtonItem *)sender {
@@ -136,8 +193,6 @@
         [CoreDataManager save];
     }
 }
-
-
 
 
 - (void)didReceiveMemoryWarning {
