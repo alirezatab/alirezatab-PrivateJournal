@@ -46,8 +46,7 @@
 }
 
 #pragma mark- Location
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     self.currentLocation = locations.firstObject;
     NSLog(@"%@", self.currentLocation);
     [self.locationManager stopUpdatingLocation];

@@ -40,7 +40,7 @@
 @property NSString *detailPostLocation;
 @property NSString *detailPostComment;
 @property NSString *detailPostAgo;
-@property NSInteger *itemToBeDeleted;
+@property int itemToBeDeleted;
 
 @property UISearchController *searchController;
 
@@ -385,7 +385,7 @@
     NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:tapLocation];
     if (indexPath && recognizer.state == UIGestureRecognizerStateBegan) {
         NSLog(@"image with index %ld to be deleted", (long)indexPath.item);
-        //self.itemToBeDeleted = indexPath.item;
+        self.itemToBeDeleted = (int)indexPath.item;
         
         UIAlertView *deleteAlert = [[UIAlertView alloc]initWithTitle:@"Delete??" message:@"Are you sure you want to delete this image permanantly?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         [deleteAlert show];
@@ -395,7 +395,7 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSLog(@"selected button index = %ld", buttonIndex);
     if (buttonIndex == 1) {
-        Picture *deletedPicture = self.filteredArrayOfPosts[buttonIndex-1];
+        Picture *deletedPicture = self.filteredArrayOfPosts[self.itemToBeDeleted];
         
         // delete all comments
         NSArray *deletedComments = [deletedPicture.comments allObjects];
@@ -413,7 +413,7 @@
 
 #pragma mark - Share App
 -(void)displayShareSheet{
-    NSArray *shareContent = [[NSArray alloc]initWithObjects:@"Download Private Journal and keep track of your life", nil];
+    NSArray *shareContent = [[NSArray alloc]initWithObjects:@"Your friend is recommanding you to download and use Private Journal", nil];
     
     UIActivityViewController *shareSheet = [[UIActivityViewController alloc]initWithActivityItems:shareContent applicationActivities:nil];
     

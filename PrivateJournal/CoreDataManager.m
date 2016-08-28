@@ -42,6 +42,12 @@ void initMoc(void){
     [moc deleteObject:x];
 }
 
++ (void)editObject:(NSManagedObject *)y{
+    initMoc();
+    
+    [moc refreshObject:y mergeChanges:YES];
+}
+
 + (NSArray *)fetchAllOfType:(NSString *)entityType {
     initMoc();
     NSLog(@"[%@ %@] %@", self.class, NSStringFromSelector(_cmd), entityType);

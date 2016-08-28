@@ -46,6 +46,7 @@
     }
 }
 
+#pragma mark - textView editing
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     if ([self.userCommentTextView.text containsString:@"Write a caption..."]) {
         self.userCommentTextView.text = @"";
@@ -67,6 +68,7 @@
     }
 }
 
+# pragma mark - buttonsPressed
 - (IBAction)onPostButtonPressed:(UIBarButtonItem *)sender {
     [CoreDataManager addPicture:self.toBePostedImageView.image withComment:self.userCommentTextView.text withLocation:self.passedSelectedLocation.mapItem.name fromUser:[self getMyUser]];
     
@@ -82,7 +84,6 @@
     return [CoreDataManager getUserZero];
 }
 
-//NTRMainViewConroller.m
 - (IBAction)unwindFromModalAddLocationViewController:(UIStoryboardSegue *)segue{
     
 }

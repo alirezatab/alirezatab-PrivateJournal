@@ -29,35 +29,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // initial setup of the view
+    self.navigationItem.rightBarButtonItem.title = @"Edit";
     self.textView.delegate = self;
-    
-    Picture *detailPicture = self.detailPictureObject;
-    self.singleSelectedImageView.image = [UIImage imageWithData:detailPicture.image];
-    self.singleSelectedImageLocationLabel.text = self.detailPictureObject.location;
-    // comments
-    NSArray *comments = [detailPicture.comments allObjects];
-    Comment *comment = comments[0];
-    self.singleSelectedCommentTextView.text = comment.text;
-        NSLog(@"the commetn is: %@", comment.text);
-    self.signleSelectedImagePostedAgo.text = comment.agoString;
-    
-    //self.tabBarController.tabBar.hidden = true;
     self.isTapped = YES;
-    
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleSingleTap:)];
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleDoubleTap:)];
-    
-    singleTap.numberOfTapsRequired = 1;
-    doubleTap.numberOfTapsRequired = 2;
-    
-    // stops tapOnce from overriding tapTwice
-    [singleTap requireGestureRecognizerToFail:doubleTap];
-    
-    [self.view addGestureRecognizer:singleTap];
-    [self.view addGestureRecognizer:doubleTap];
-    
     self.scrollView.minimumZoomScale = 1.0;
     self.scrollView.maximumZoomScale = 6.0;
+    
+    [self loadPicture];
+    [self createGesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -75,56 +55,31 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)keyboardWillShow:(NSNotification*)notification {
-    NSDictionary *userInfo = [notification userInfo];
-    CGRect keyboardInfoFrame = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey]CGRectValue].size;
-    CGFloat deltaHeight = keyboardSize.height - _keyboardHeight;
-    
-    //write code to adjust views accordingly using deltaHeight
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:.3];
-    [UIView setAnimationBeginsFromCurrentState:TRUE];
-    self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - deltaHeight, self.view.frame.size.width, self.view.frame.size.height);
-    
-    [UIView commitAnimations];
-    _keyboardHeight = keyboardSize.height;
+-(void)loadPicture{
+    Picture *detailPicture = self.detailPictureObject;
+    self.singleSelectedImageView.image = [UIImage imageWithData:detailPicture.image];
+    self.singleSelectedImageLocationLabel.text = self.detailPictureObject.location;
+    // comments
+    NSArray *comments = [detailPicture.comments allObjects];
+    Comment *comment = comments[0];
+    self.singleSelectedCommentTextView.text = comment.text;
+    NSLog(@"the commetn is: %@", comment.text);
+    self.signleSelectedImagePostedAgo.text = comment.agoString;
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:.3];
-    [UIView setAnimationBeginsFromCurrentState:TRUE];
-    self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + _keyboardHeight, self.view.frame.size.width, self.view.frame.size.height);
+#pragma mark - Gesture
+-(void)createGesture{
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleSingleTap:)];
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleDoubleTap:)];
     
-    [UIView commitAnimations];
-    _keyboardHeight = 0.0f;
-}
-
--(BOOL)textViewShouldEndEditing:(UITextView *)textView{
-    [self.textView resignFirstResponder];
-    return YES;
-}
-
-- (IBAction)dismissKeyboard:(id)sender
-{
-    [self textViewShouldEndEditing:self.textView];
-}
-
--(CGRect) zoomRectForScale:(float)scale withCenter:(CGPoint)center{
-    CGRect zoomRect;
-
-    zoomRect.size.height = [self.singleSelectedImageView frame].size.height / scale;
-    zoomRect.size.width = [self.singleSelectedImageView frame].size.width / scale;
+    singleTap.numberOfTapsRequired = 1;
+    doubleTap.numberOfTapsRequired = 2;
     
-    center = [self.singleSelectedImageView convertPoint:center fromView:self];
+    // stops tapOnce from overriding tapTwice
+    [singleTap requireGestureRecognizerToFail:doubleTap];
     
-    zoomRect.origin.x = center.x - ((zoomRect.size.width)/2.0);
-    zoomRect.origin.y = center.y - ((zoomRect.size.height)/2.0);
-    
-    return zoomRect;
+    [self.view addGestureRecognizer:singleTap];
+    [self.view addGestureRecognizer:doubleTap];
 }
 
 -(void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
@@ -153,12 +108,77 @@
     }
 }
 
+#pragma mark - keyboard
+- (void)keyboardWillShow:(NSNotification*)notification {
+    NSDictionary *userInfo = [notification userInfo];
+    CGRect keyboardInfoFrame = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey]CGRectValue].size;
+    CGFloat deltaHeight = keyboardSize.height - _keyboardHeight;
+    
+    //write code to adjust views accordingly using deltaHeight
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationBeginsFromCurrentState:TRUE];
+    self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - deltaHeight, self.view.frame.size.width, self.view.frame.size.height);
+    
+    [UIView commitAnimations];
+    _keyboardHeight = keyboardSize.height;
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationBeginsFromCurrentState:TRUE];
+    self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + _keyboardHeight, self.view.frame.size.width, self.view.frame.size.height);
+    
+    [UIView commitAnimations];
+    _keyboardHeight = 0.0f;
+}
+
+#pragma mark - TextView editing
+-(BOOL)textViewShouldEndEditing:(UITextView *)textView{
+    [self.textView resignFirstResponder];
+    return YES;
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView{
+    Picture *detailPicture = self.detailPictureObject;
+    
+    // edit all comments
+    NSArray *editedComments = [detailPicture.comments allObjects];
+    for (Comment *comment in editedComments) {
+        comment.text = self.singleSelectedCommentTextView.text;
+        [CoreDataManager editObject:comment];
+    }
+    
+    // edit comment of a picture
+    [CoreDataManager editObject:detailPicture];
+    
+    [CoreDataManager save];
+}
+
+#pragma mark - ZoomScale
+-(CGRect) zoomRectForScale:(float)scale withCenter:(CGPoint)center{
+    CGRect zoomRect;
+
+    zoomRect.size.height = [self.singleSelectedImageView frame].size.height / scale;
+    zoomRect.size.width = [self.singleSelectedImageView frame].size.width / scale;
+    
+    center = [self.singleSelectedImageView convertPoint:center fromView:self];
+    
+    zoomRect.origin.x = center.x - ((zoomRect.size.width)/2.0);
+    zoomRect.origin.y = center.y - ((zoomRect.size.height)/2.0);
+    
+    return zoomRect;
+}
+
 -(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
     return self.singleSelectedImageView;
 }
 
-
-
+#pragma mark - ButtonsPressed
 - (IBAction)onEditButtonPressed:(id)sender {
     if (self.editing) {
         self.editing = NO;
@@ -167,7 +187,8 @@
     } else {
         self.editing = YES;
         [self.textView setEditable:YES];
-        self.navigationItem.rightBarButtonItem = @"Done";
+        [self.textView becomeFirstResponder];
+        self.navigationItem.rightBarButtonItem.title = @"Done";
     }
 }
 
@@ -175,6 +196,7 @@
         UIAlertView *deleteAlert = [[UIAlertView alloc]initWithTitle:@"Delete??" message:@"Are you sure you want to delete this image permanantly?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         [deleteAlert show];
 }
+
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSLog(@"selected button index = %ld", buttonIndex);
@@ -184,6 +206,7 @@
         // delete all comments
         NSArray *deletedComments = [deletedPicture.comments allObjects];
         for (Comment *comment in deletedComments) {
+            NSLog(@"comment is: %@", comment.text);
             [CoreDataManager deleteObject:comment];
         }
         
@@ -193,7 +216,6 @@
         [CoreDataManager save];
     }
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
