@@ -354,7 +354,11 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Add Location" id="QW1-gp-w9m">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="SwT-w7-Rdp"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="SwT-w7-Rdp">
+                                            <connections>
+                                                <segue destination="Nid-mQ-OHL" kind="unwind" unwindAction="unwindFromModalAddLocationViewController:" id="EBZ-JE-jzR"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

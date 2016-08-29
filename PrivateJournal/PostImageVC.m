@@ -39,10 +39,12 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     NSLog(@"??? %@", self.passedSelectedLocation.mapItem.name);
-    if ([self.addLocationCell.textLabel.text isEqualToString:@""]) {
-        self.addLocationCell.textLabel.text = @"Add Location";
-    } else {
+    NSLog(@"%@", self.addLocationCell.textLabel.text);
+    
+    if ([self.passedSelectedLocation.mapItem isKindOfClass:[MKMapItem class]]) {
         self.addLocationCell.textLabel.text = self.passedSelectedLocation.mapItem.name;
+    } else {
+        self.addLocationCell.textLabel.text = @"Add Location";
     }
 }
 
@@ -76,6 +78,7 @@
     UINavigationController *navController = self.navigationController;
     //Pop this controller and replace with another
     [navController popViewControllerAnimated:NO];
+    //[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 // getMyUser() - returns User object for current user

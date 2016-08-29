@@ -188,6 +188,8 @@
         //save photo to library if it wasn't already saved... just been taken
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
             UIImageWriteToSavedPhotosAlbum(photoTaken, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+            [self performSegueWithIdentifier:@"CameraPictureToPost" sender:self];
+
         } else if ( picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary){
             self.originalLibraryImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
             // if from library, store it as jpeg
@@ -197,7 +199,6 @@
             [self performSegueWithIdentifier:@"LibraryPhoto" sender:self];
         }
     }
-    [self performSegueWithIdentifier:@"CameraPictureToPost" sender:self];
     [picker dismissViewControllerAnimated:NO completion: NULL];
 }
 
