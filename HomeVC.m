@@ -36,10 +36,11 @@
 @property UIImage *CameraImageCorrectedOriantation;
 @property UIImage *originalLibraryImage;
 @property UIImage *libraryImageCorrectedOrientation;
-@property UIImage *detailPostImage;
-@property NSString *detailPostLocation;
-@property NSString *detailPostComment;
-@property NSString *detailPostAgo;
+@property Picture *picture;
+//@property UIImage *detailPostImage;
+//@property NSString *detailPostLocation;
+//@property NSString *detailPostComment;
+//@property NSString *detailPostAgo;
 @property int itemToBeDeleted;
 
 @property UISearchController *searchController;
@@ -88,46 +89,62 @@
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    ImageCollectionViewCell *imageCollectionCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
+    ImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
+//    imageCollectionCell.layer.shouldRasterize = YES;
+//    imageCollectionCell.layer.rasterizationScale = [UIScreen mainScreen].scale;
     
     id picOrComment;
-        if ([self.filteredArrayOfPosts[indexPath.row] isKindOfClass:[Picture class]]) {
-            picOrComment = self.filteredArrayOfPosts[indexPath.row];
-        } else {
-            picOrComment = self.filteredArrayOfPosts[indexPath.row];
-        }
+    if ([self.filteredArrayOfPosts[indexPath.row] isKindOfClass:[Picture class]]) {
+        picOrComment = self.filteredArrayOfPosts[indexPath.row];
+    } else {
+        picOrComment = self.filteredArrayOfPosts[indexPath.row];
+    }
     
     if ([picOrComment isKindOfClass:[Picture class]]) {
-        Picture *pic = picOrComment;
-        imageCollectionCell.imageView.image = [UIImage imageWithData:pic.image];
+        self.picture = picOrComment;
+        cell.imageView.image = [UIImage imageWithData:self.picture.image];
     } else {
         Comment *pictureFromComment = picOrComment;
-        Picture *pic = pictureFromComment.picture;
-        imageCollectionCell.imageView.image = [UIImage imageWithData:pic.image];
+        self.picture = pictureFromComment.picture;
+        cell.imageView.image = [UIImage imageWithData:self.picture.image];
     }
-
+    
     collectionView.backgroundColor = [UIColor blackColor];
     
-    return imageCollectionCell;
+    return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
     NSLog(@"Section: %ld, row:%ld", (long)indexPath.section, (long)indexPath.row);
     
-    Picture *pic = [self.filteredArrayOfPosts objectAtIndex: indexPath.row];
-    NSData *imageData = pic.image;
     
-    NSUInteger imageSize = imageData.length;
-    NSLog(@"size of image in KB: %f", imageSize/1024.0);
+    id picOrComment;
+    if ([self.filteredArrayOfPosts[indexPath.row] isKindOfClass:[Picture class]]) {
+        picOrComment = self.filteredArrayOfPosts[indexPath.row];
+    } else {
+        picOrComment = self.filteredArrayOfPosts[indexPath.row];
+    }
     
-    self.detailPostImage = [UIImage imageWithData:imageData];
-    self.detailPostLocation = pic.location;
-    NSArray *comments = [pic.comments allObjects];
-    Comment *comment = comments[0];
-    NSLog(@"the commetn is: %@", comment.text);
-    self.detailPostComment = comment.text;
-    self.detailPostAgo = comment.agoString;
+    if ([picOrComment isKindOfClass:[Picture class]]) {
+        self.picture = picOrComment;
+    } else {
+        Comment *pictureFromComment = picOrComment;
+        self.picture = pictureFromComment.picture;
+    }
+//    
+//    NSData *imageData = pic.image;
+//    
+//    NSUInteger imageSize = imageData.length;
+//    NSLog(@"size of image in KB: %f", imageSize/1024.0);
+//    
+//    self.detailPostImage = [UIImage imageWithData:imageData];
+//    self.detailPostLocation = pic.location;
+//    NSArray *comments = [pic.comments allObjects];
+//    Comment *comment = comments[0];
+//    NSLog(@"the commetn is: %@", comment.text);
+//    self.detailPostComment = comment.text;
+//    self.detailPostAgo = comment.agoString;
     
     [self performSegueWithIdentifier:@"aPictureSelected" sender:nil];
 }
@@ -295,7 +312,7 @@
     self.shouldShowSearchResults = NO;
     //[self.collectionView reloadData];
     ///maybe reload data is not needed here
-    [self.collectionView reloadData];
+    [self reloadAllData];
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
@@ -371,11 +388,8 @@
         PostImageVC *desVC = segue.destinationViewController;
         desVC.snappedImage = self.libraryImageCorrectedOrientation;
     } else if ([segue.identifier isEqualToString:@"aPictureSelected"]){
-        NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems]lastObject];
-        //NSLog(@"indexPath before sefue to detail pircure is %ld", (long)indexPath.row);
-        Picture *picture = [self.filteredArrayOfPosts objectAtIndex:indexPath.row];
         PostDetailVC *destVC = segue.destinationViewController;
-        destVC.detailPictureObject = picture;
+        destVC.detailPictureObject = self.picture;
         destVC.me = self.user;
     }
 }
