@@ -38,9 +38,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    NSLog(@"??? %@", self.passedSelectedLocation.mapItem.name);
-    NSLog(@"%@", self.addLocationCell.textLabel.text);
-    
+
     if ([self.passedSelectedLocation.mapItem isKindOfClass:[MKMapItem class]]) {
         self.addLocationCell.textLabel.text = self.passedSelectedLocation.mapItem.name;
     } else {

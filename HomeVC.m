@@ -58,7 +58,7 @@
     
     // SQLite
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    NSLog(@"sqlite dir = \n%@", appDelegate.applicationDocumentsDirectory);
+    //NSLog(@"sqlite dir = \n%@", appDelegate.applicationDocumentsDirectory);
     
     [self configureSearchController];
     
@@ -115,9 +115,6 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
-    NSLog(@"Section: %ld, row:%ld", (long)indexPath.section, (long)indexPath.row);
-    
     
     id picOrComment;
     if ([self.filteredArrayOfPosts[indexPath.row] isKindOfClass:[Picture class]]) {
@@ -132,19 +129,6 @@
         Comment *pictureFromComment = picOrComment;
         self.picture = pictureFromComment.picture;
     }
-//    
-//    NSData *imageData = pic.image;
-//    
-//    NSUInteger imageSize = imageData.length;
-//    NSLog(@"size of image in KB: %f", imageSize/1024.0);
-//    
-//    self.detailPostImage = [UIImage imageWithData:imageData];
-//    self.detailPostLocation = pic.location;
-//    NSArray *comments = [pic.comments allObjects];
-//    Comment *comment = comments[0];
-//    NSLog(@"the commetn is: %@", comment.text);
-//    self.detailPostComment = comment.text;
-//    self.detailPostAgo = comment.agoString;
     
     [self performSegueWithIdentifier:@"aPictureSelected" sender:nil];
 }
@@ -190,8 +174,6 @@
 // fired when we take picture
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     
-    NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
-
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     //retrieve the actual UIImage when the picture is captures
     self.originalCameraImage = info[UIImagePickerControllerOriginalImage];
@@ -220,7 +202,6 @@
 }
 
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
     
     if (!error) {
         //[self performSegueWithIdentifier:@"CameraPictureToPost" sender:self];
@@ -240,7 +221,7 @@
 
 // when cancel button of the camera is selected
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
+    //NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
     
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
@@ -291,9 +272,9 @@
     self.searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
     
     UITextField *textFieldSearchField = [self.searchController.searchBar valueForKey:@"_searchField"];
+    
     textFieldSearchField.backgroundColor = [UIColor lightGrayColor];
     textFieldSearchField.textColor = [UIColor redColor];
-    
     textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Search for Images" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     
     self.searchController.searchBar.delegate = self;
@@ -326,7 +307,6 @@
 
 ///new
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    NSLog(@"texts entered are %@", searchText);
     
     self.filteredArrayOfPosts = [self filterArray:self.arrayOfPosts with:searchText];
     if ([searchText length] > 0) {
@@ -349,7 +329,6 @@
     for (Picture *picture in oldArray) {
         for (Comment *comment in picture.comments) {
             NSString *elemText = comment.text;
-            NSLog(@"%@", elemText);
             NSString *elemTextLower = [elemText lowercaseString];
             if ([elemTextLower containsString:filterStringLower]) {
                 [newArray addObject:comment];
@@ -366,7 +345,6 @@
 -(void)reloadAllData {
     self.user = [CoreDataManager fetchUsers];
     for (User *u in self.user) {
-        NSLog(@"%@: %lu pics", u.username, u.pictures.count);
         self.arrayOfPosts = [self sortPicturesByDate:[u.pictures allObjects]];
     }
     self.filteredArrayOfPosts = [NSArray arrayWithArray:self.arrayOfPosts];
@@ -399,7 +377,6 @@
     CGPoint tapLocation = [recognizer locationInView:self.collectionView];
     NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:tapLocation];
     if (indexPath && recognizer.state == UIGestureRecognizerStateBegan) {
-        NSLog(@"image with index %ld to be deleted", (long)indexPath.item);
         self.itemToBeDeleted = (int)indexPath.item;
         
         UIAlertView *deleteAlert = [[UIAlertView alloc]initWithTitle:@"Delete??" message:@"Are you sure you want to delete this image permanantly?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
@@ -408,7 +385,6 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSLog(@"selected button index = %ld", buttonIndex);
     if (buttonIndex == 1) {
         Picture *deletedPicture = self.filteredArrayOfPosts[self.itemToBeDeleted];
         

@@ -63,7 +63,6 @@
     NSArray *comments = [detailPicture.comments allObjects];
     Comment *comment = comments[0];
     self.singleSelectedCommentTextView.text = comment.text;
-    NSLog(@"the commetn is: %@", comment.text);
     self.signleSelectedImagePostedAgo.text = comment.agoString;
 }
 
@@ -199,14 +198,12 @@
 
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSLog(@"selected button index = %ld", buttonIndex);
     if (buttonIndex == 1) {
         Picture *deletedPicture = self.detailPictureObject;
         
         // delete all comments
         NSArray *deletedComments = [deletedPicture.comments allObjects];
         for (Comment *comment in deletedComments) {
-            NSLog(@"comment is: %@", comment.text);
             [CoreDataManager deleteObject:comment];
         }
         
@@ -214,6 +211,9 @@
         [CoreDataManager deleteObject:deletedPicture];
         
         [CoreDataManager save];
+        UINavigationController *navController = self.navigationController;
+        //Pop this controller and replace with another
+        [navController popViewControllerAnimated:NO];
     }
 }
 

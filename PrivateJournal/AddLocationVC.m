@@ -108,17 +108,10 @@
     } else {
         oldLocation = nil;
     }
-    NSLog(@"didUpdateToLocation %@ from %@", newLocation, oldLocation);
     MKCoordinateRegion userLocation = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 1500.00, 1500.00);
     
     self.currentLocation = &(userLocation);
     [self performSearch:userLocation];
-    
-//    NSLog(@"current location:  %@", locations.firstObject);
-//    self.currentLocation = locations.firstObject;
-//    NSLog(@"%@", self.currentLocation);
-//    [self.locationManager stopUpdatingLocation];
-//    [self findNearbyLocations:self.currentLocation];
 }
 
 #pragma mark- Search Method
@@ -156,8 +149,6 @@
         // what happens here?
         [self.tableView reloadData];
     }];
-    
-    NSLog(@"DEBUG");
 }
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
@@ -194,187 +185,23 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     self.shouldShowSearchResults = YES;
     self.searchTerm = searchText;
-    NSLog(@"test is %@", searchText);
     [self performSearch:*(self.currentLocation)];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-
-    //    NSLog(@"items in array = %@", );
-    //
-    //    NSLog(@"INDEXPATH: %ld", (long)indexPath.row);
-    //    self.selectedLocation = [self.arrayOfNearbyLocations objectAtIndex:indexPath.row];
-    //    NSLog(@"didSelect selectedLocation = %@", self.selectedLocation.mapItem.name);
-
     if ([segue.identifier isEqualToString:@"LocationCellSelected"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        NSLog(@"%ld", (long)indexPath.row);
         PostImageVC *desVC = segue.destinationViewController;
         NearbyLocation *nearbyLocation = [[NearbyLocation alloc]init];
 
         MKMapItem *mapItem = self.result.mapItems[indexPath.row];
         nearbyLocation.mapItem = mapItem;
         desVC.passedSelectedLocation = nearbyLocation;
-        NSLog(@"%@", desVC.passedSelectedLocation.mapItem.name);
     }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
-
-//- (void)viewDidLoad {
-//    [super viewDidLoad];
-//    
-//    self.tableView.delegate = self;
-//    self.tableView.dataSource = self;
-//    
-//    self.arrayOfSearchedLocations = [[NSMutableArray alloc]init];
-//    self.arrayOfNearbyLocations = [[NSMutableArray alloc]init];
-//    
-//    [self configureSearchController];
-//    
-//    //when true, the filteredArrayOfPosts will be used
-//    self.shouldShowSearchResults = NO;
-//    
-//    [self updateCurrentLocation];
-//    [self.tableView reloadData];
-//}
-//
-//-(void)updateCurrentLocation{
-//    self.locationManager = [[CLLocationManager alloc]init];
-//    self.locationManager.delegate = self;
-//    
-//    [self.locationManager requestWhenInUseAuthorization];
-//    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
-//    [self.locationManager startUpdatingLocation];
-//}
-//
-//#pragma mark- Location
-//
-//-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-//    NSLog(@"%@", error.localizedDescription);
-//}
-//
-//-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-//    NSLog(@"current location:  %@", locations.firstObject);
-//    self.currentLocation = locations.firstObject;
-//    NSLog(@"%@", self.currentLocation);
-//    [self.locationManager stopUpdatingLocation];
-//    [self findNearbyLocations:self.currentLocation];
-//}
-//
-//-(void)findNearbyLocations:(CLLocation *)location {
-//    MKLocalSearchRequest *request = [MKLocalSearchRequest new];
-//    if (!self.shouldShowSearchResults) {
-//        //10- "cafe", "landmark"
-//        request.naturalLanguageQuery = @"landmark";
-//    } else {
-//        request.naturalLanguageQuery = self.searchTerm;
-//    }
-//    request.region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(.5, .5));
-//    
-//    MKLocalSearch *search = [[MKLocalSearch alloc]initWithRequest:request];
-//    [search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
-//        NSArray *mapItems = response.mapItems;
-//        NSMutableArray *temporaryArray = [NSMutableArray new];
-//        for (int i = 0; i < mapItems.count; i++)
-//        {
-//            MKMapItem *mapItem = [mapItems objectAtIndex:i];
-//            
-//            CLLocationDistance metersAway = [mapItem.placemark.location distanceFromLocation:location];
-//            float milesDifference = metersAway / 1609.34;
-//            
-//            NearbyLocation *nearbyLocation = [[NearbyLocation alloc]init];
-//            nearbyLocation.mapItem = mapItem;
-//            nearbyLocation.milesDifference = milesDifference;
-//            [temporaryArray addObject:nearbyLocation];
-//        }
-//        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"milesDifference" ascending:true];
-//        NSArray *sortedArray = [temporaryArray sortedArrayUsingDescriptors:@[sortDescriptor]];
-//        //self.arrayOfSearchedLocations = [NSMutableArray arrayWithArray:sortedArray];
-//        self.arrayOfNearbyLocations = [NSMutableArray arrayWithArray:sortedArray];
-//        
-//        [self.tableView reloadData];
-//    }];
-//}
-//
-//#pragma mark- TableView
-//-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    if (!self.shouldShowSearchResults) {
-//        return self.arrayOfNearbyLocations.count;
-//    } else {
-//        return self.arrayOfSearchedLocations.count;
-//    }
-//}
-//
-//-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    UITableViewCell *locationsCell = [tableView dequeueReusableCellWithIdentifier:@"LocationCell" forIndexPath:indexPath];
-//    
-//    locationsCell.textLabel.text = [[[self.arrayOfNearbyLocations objectAtIndex:indexPath.row] mapItem] name];
-//    locationsCell.detailTextLabel.text = [[[[self.arrayOfNearbyLocations objectAtIndex:indexPath.row]mapItem] placemark]title];
-//    
-//    return locationsCell;
-//}
-//
-//#pragma mark- search Controller
-//- (void)configureSearchController {
-//    self.searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
-//    self.searchController.searchBar.delegate = self;
-//    //self.navigationItem.titleView = self.searchController.searchBar;
-//    self.tableView.tableHeaderView = self.searchController.searchBar;
-//    self.searchController.hidesNavigationBarDuringPresentation = YES;
-//    self.searchController.dimsBackgroundDuringPresentation = NO;
-//    self.searchController.searchBar.placeholder = @"Enter Address..";
-//    //self.definesPresentationContext = YES;
-//}
-//
-//-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-//    self.shouldShowSearchResults = YES;
-//    [self.tableView reloadData];
-//}
-//
-//-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-//    self.shouldShowSearchResults = NO;
-//    [self.tableView reloadData];
-//}
-//
-//-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-//    if (!self.shouldShowSearchResults) {
-//        self.shouldShowSearchResults = YES;
-//        self.searchTerm = searchBar.text;
-//        [self findNearbyLocations:self.currentLocation];
-//        
-//        //[self.tableView reloadData];
-//    }
-//    [self.searchController.searchBar resignFirstResponder];
-//}
-//
-//-(void)updateSearchResultsForSearchController:(UISearchController *)searchController{
-//    if (searchController.searchBar.text != nil) {
-//        self.searchTerm = searchController.searchBar.text;
-//        self.shouldShowSearchResults = YES;
-//    } else {
-//        self.shouldShowSearchResults = NO;
-//    }
-//    
-//}
-//
-//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-//    
-//    //    NSLog(@"items in array = %@", );
-//    //
-//    //    NSLog(@"INDEXPATH: %ld", (long)indexPath.row);
-//    //    self.selectedLocation = [self.arrayOfNearbyLocations objectAtIndex:indexPath.row];
-//    //    NSLog(@"didSelect selectedLocation = %@", self.selectedLocation.mapItem.name);
-//    
-//    if ([segue.identifier isEqualToString:@"LocationCellSelected"]) {
-//        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-//        PostImageVC *desVC = segue.destinationViewController;
-//        
-//        desVC.passedSelectedLocation = [self.arrayOfNearbyLocations objectAtIndex:indexPath.row];
-//    }
-//}

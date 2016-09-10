@@ -36,7 +36,7 @@
                   moduleName = "PrivateJournal"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/alirezatabrizi/Documents/iOS%20Devlopment/PrivateJournal/HomeVC.m"
-                  timestampString = "494997460.397756"
+                  timestampString = "495191871.794424"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "390"
@@ -51,7 +51,7 @@
                   moduleName = "PrivateJournal"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/alirezatabrizi/Documents/iOS%20Devlopment/PrivateJournal/HomeVC.m"
-                  timestampString = "494997460.397907"
+                  timestampString = "495191871.794696"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "390"
@@ -80,7 +80,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeVC.m"
@@ -96,7 +96,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeVC.m"
@@ -112,7 +112,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeVC.m"

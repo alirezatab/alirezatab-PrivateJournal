@@ -14,12 +14,10 @@
 @implementation Comment
 
 -(NSString *)agoString {
-    //    NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
     Comment *c = self;
     NSDate *time = c.time;
     NSDate *now = [NSDate date];
     NSTimeInterval n = [now timeIntervalSinceDate:time];
-    //    NSLog(@"%.0lf sec ago", n);
     
     // 604,800 sec/wk
     // 86,400 sec/day

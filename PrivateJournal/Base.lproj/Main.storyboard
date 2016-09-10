@@ -59,7 +59,7 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ieN-ai-o8j" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="An8-Dw-2Ml"/>
@@ -355,6 +355,7 @@
                                 <items>
                                     <navigationItem title="Add Location" id="QW1-gp-w9m">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="SwT-w7-Rdp">
+                                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <segue destination="Nid-mQ-OHL" kind="unwind" unwindAction="unwindFromModalAddLocationViewController:" id="EBZ-JE-jzR"/>
                                             </connections>

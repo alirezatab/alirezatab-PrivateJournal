@@ -27,7 +27,6 @@ void initMoc(void){
 
 + (void)save {
     initMoc();
-    NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
     NSError *error;
     if ([moc save:&error]) {
         NSLog(@"core save ok");
@@ -38,7 +37,6 @@ void initMoc(void){
 
 + (void)deleteObject:(NSManagedObject *)x{
     initMoc();
-    NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
     [moc deleteObject:x];
 }
 
@@ -50,7 +48,6 @@ void initMoc(void){
 
 + (NSArray *)fetchAllOfType:(NSString *)entityType {
     initMoc();
-    NSLog(@"[%@ %@] %@", self.class, NSStringFromSelector(_cmd), entityType);
     NSFetchRequest *req = [[NSFetchRequest alloc] initWithEntityName:entityType];
     NSError *error;
     NSArray *fetchedObjects = [moc executeFetchRequest:req error:&error];
@@ -81,8 +78,6 @@ void initMoc(void){
 + (NSArray *)dummyData {
     initMoc();
     
-    NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
-    
     // User
     User *u = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
     u.username = @"heisenberg0";
@@ -94,13 +89,11 @@ void initMoc(void){
     
     NSArray *users = @[u];
     User *u2 = users[0];
-    NSLog(@"user \"@%@\" has %lu pictures", u2.username, u2.pictures.count);
     return users;
 }
 
 #pragma mark - Pictures
 + (Picture *)addPicture:(UIImage *)pictureImage withComment:(NSString *)commentStr withLocation:(NSString *)locationStr fromUser:(User *)user {
-    NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
     initMoc();
     
     Comment *c = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:moc];
@@ -120,7 +113,6 @@ void initMoc(void){
         Hashtag *h = [self fetchHashtag:tagText];
         if (!h) {
             // new hashtag
-            NSLog(@"new hashtag >%@<", tagText);
             h = [NSEntityDescription insertNewObjectForEntityForName:@"Hashtag" inManagedObjectContext:moc];
             h.tagtext = tagText;
         } else {
@@ -135,7 +127,6 @@ void initMoc(void){
 
 #pragma mark - Hashtags
 + (Hashtag *)fetchHashtag:(NSString *)tag {
-    NSLog(@"[%@ %@] %@", self.class, NSStringFromSelector(_cmd), tag);
     initMoc();
     
     NSFetchRequest *req = [[NSFetchRequest alloc] initWithEntityName:@"Hashtag"];
@@ -152,7 +143,6 @@ void initMoc(void){
 }
 
 +(NSArray *)findHashtagsIn:(NSString *)text {
-    NSLog(@"[%@ %@]", self.class, NSStringFromSelector(_cmd));
     NSArray *words = [text componentsSeparatedByString:@" "];
     NSMutableArray *hashtags = [NSMutableArray new];
     for (NSString *word in words) {
