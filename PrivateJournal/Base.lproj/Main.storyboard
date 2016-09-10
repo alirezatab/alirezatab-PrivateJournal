@@ -145,12 +145,12 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="82"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Na7-uP-oYc">
-                                            <rect key="frame" x="525" y="0.0" width="75" height="82"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Na7-uP-oYc">
+                                            <rect key="frame" x="525" y="8" width="75" height="74"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="75" id="cZE-mJ-1wE"/>
                                             </constraints>
-                                            <state key="normal" title="Button"/>
+                                            <state key="normal" image="menu-4"/>
                                             <connections>
                                                 <action selector="onEditButtonPressed:" destination="dlw-u6-Y9Z" eventType="touchUpInside" id="JFK-pi-eOr"/>
                                             </connections>
@@ -158,7 +158,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="Na7-uP-oYc" secondAttribute="bottom" id="hL7-al-knW"/>
-                                        <constraint firstItem="Na7-uP-oYc" firstAttribute="top" secondItem="nB4-Bz-OBL" secondAttribute="top" id="i3u-dc-gJb"/>
+                                        <constraint firstItem="Na7-uP-oYc" firstAttribute="top" secondItem="nB4-Bz-OBL" secondAttribute="top" constant="8" id="i3u-dc-gJb"/>
                                         <constraint firstAttribute="trailing" secondItem="Na7-uP-oYc" secondAttribute="trailing" id="r2g-5X-aFZ"/>
                                     </constraints>
                                 </view>
@@ -172,7 +172,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="ITX-g3-gDk"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -434,6 +434,9 @@
             <point key="canvasLocation" x="446" y="387"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="menu-4" width="24" height="24"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="FoG-D3-anG"/>
     </inferredMetricsTieBreakers>

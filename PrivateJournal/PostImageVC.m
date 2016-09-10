@@ -27,8 +27,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [[UITextView appearance] setTintColor:[UIColor lightGrayColor]];
+    self.userCommentTextView.layer.borderColor = [[UIColor lightGrayColor]CGColor];
+    self.userCommentTextView.layer.borderWidth = 2.0;
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
     self.toBePostedImageView.image = self.snappedImage;
-
+    
     self.userCommentTextView.text = @"Write a caption...";
     self.userCommentTextView.textColor = [UIColor lightGrayColor];
     self.userCommentTextView.delegate = self;
@@ -41,8 +48,10 @@
 
     if ([self.passedSelectedLocation.mapItem isKindOfClass:[MKMapItem class]]) {
         self.addLocationCell.textLabel.text = self.passedSelectedLocation.mapItem.name;
+        self.addLocationCell.textLabel.textColor = [UIColor blackColor];
     } else {
         self.addLocationCell.textLabel.text = @"Add Location";
+        self.addLocationCell.textLabel.textColor = [UIColor lightGrayColor];
     }
 }
 

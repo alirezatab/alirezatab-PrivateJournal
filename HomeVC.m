@@ -270,8 +270,8 @@
     UITextField *textFieldSearchField = [self.searchController.searchBar valueForKey:@"_searchField"];
     
     textFieldSearchField.backgroundColor = [UIColor lightGrayColor];
-    textFieldSearchField.textColor = [UIColor redColor];
-    textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Search for Images" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    textFieldSearchField.textColor = [UIColor blackColor];
+    textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Search for Images" attributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
     
     self.searchController.searchBar.delegate = self;
     self.searchController.hidesNavigationBarDuringPresentation = false;
