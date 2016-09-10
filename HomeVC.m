@@ -296,16 +296,17 @@
     
     textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Search for Images" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     
-    // self.searchController.searchResultsUpdater = self;
-    // self.searchController.delegate = self;
     self.searchController.searchBar.delegate = self;
     self.searchController.hidesNavigationBarDuringPresentation = false;
     self.searchController.dimsBackgroundDuringPresentation = YES;
     
     self.navigationItem.titleView = self.searchController.searchBar;
+    self.definesPresentationContext = YES;
+    
+    // self.searchController.searchResultsUpdater = self;
+    // self.searchController.delegate = self;
     //self.searchController.searchBar.placeholder = @"Search Images";
     //[self.searchController.searchBar sizeToFit];
-    self.definesPresentationContext = YES;
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
@@ -363,7 +364,6 @@
 
 #pragma mark - Data
 -(void)reloadAllData {
-    //self.arrayOfPosts = [self sortPicturesByDate:[self.user.pictures allObjects]];
     self.user = [CoreDataManager fetchUsers];
     for (User *u in self.user) {
         NSLog(@"%@: %lu pics", u.username, u.pictures.count);

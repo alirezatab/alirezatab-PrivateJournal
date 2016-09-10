@@ -23,22 +23,6 @@
             timestampString = "494993625.58304"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "383"
-            endingLineNumber = "383"
-            landmarkName = "-prepareForSegue:sender:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HomeVC.m"
-            timestampString = "494993625.58304"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "390"
             endingLineNumber = "390"
             landmarkName = "-prepareForSegue:sender:"
@@ -52,7 +36,7 @@
                   moduleName = "PrivateJournal"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/alirezatabrizi/Documents/iOS%20Devlopment/PrivateJournal/HomeVC.m"
-                  timestampString = "494993782.182353"
+                  timestampString = "494997460.397756"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "390"
@@ -67,7 +51,7 @@
                   moduleName = "PrivateJournal"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/alirezatabrizi/Documents/iOS%20Devlopment/PrivateJournal/HomeVC.m"
-                  timestampString = "494993782.182473"
+                  timestampString = "494997460.397907"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "390"
@@ -90,22 +74,6 @@
             startingLineNumber = "311"
             endingLineNumber = "311"
             landmarkName = "-searchBarCancelButtonClicked:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HomeVC.m"
-            timestampString = "494993806.12313"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
-            landmarkName = "-reloadAllData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
