@@ -20,60 +20,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeVC.m"
-            timestampString = "494993625.58304"
+            timestampString = "495196123.943378"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "390"
-            endingLineNumber = "390"
-            landmarkName = "-prepareForSegue:sender:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[HomeVC prepareForSegue:sender:]"
-                  moduleName = "PrivateJournal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alirezatabrizi/Documents/iOS%20Devlopment/PrivateJournal/HomeVC.m"
-                  timestampString = "495191871.794424"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "390"
-                  endingLineNumber = "390"
-                  offsetFromSymbolStart = "528">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[HomeVC prepareForSegue:sender:]"
-                  moduleName = "PrivateJournal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alirezatabrizi/Documents/iOS%20Devlopment/PrivateJournal/HomeVC.m"
-                  timestampString = "495191871.794696"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "390"
-                  endingLineNumber = "390"
-                  offsetFromSymbolStart = "540">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HomeVC.m"
-            timestampString = "494993791.575163"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "311"
-            endingLineNumber = "311"
-            landmarkName = "-searchBarCancelButtonClicked:"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
+            landmarkName = "-searchBar:textDidChange:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -84,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeVC.m"
-            timestampString = "494993845.816289"
+            timestampString = "495196123.943378"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "-collectionView:cellForItemAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -100,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeVC.m"
-            timestampString = "494993847.586328"
+            timestampString = "495196123.943378"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "-collectionView:cellForItemAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -116,12 +68,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeVC.m"
-            timestampString = "494993888.196828"
+            timestampString = "495196123.943378"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "-collectionView:cellForItemAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeVC.m"
+            timestampString = "495196123.943378"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

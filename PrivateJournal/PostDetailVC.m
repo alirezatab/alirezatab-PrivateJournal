@@ -30,11 +30,15 @@
     [super viewDidLoad];
     
     // initial setup of the view
-    self.navigationItem.rightBarButtonItem.title = @"Edit";
+    self.navigationItem.rightBarButtonItem.title = @"DELETE";
     self.textView.delegate = self;
     self.isTapped = YES;
     self.scrollView.minimumZoomScale = 1.0;
     self.scrollView.maximumZoomScale = 6.0;
+    
+    self.navigationController.toolbarHidden = YES;
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     [self loadPicture];
     [self createGesture];
@@ -63,7 +67,7 @@
     NSArray *comments = [detailPicture.comments allObjects];
     Comment *comment = comments[0];
     self.singleSelectedCommentTextView.text = comment.text;
-    self.signleSelectedImagePostedAgo.text = comment.agoString;
+    self.navigationItem.title = comment.agoString;
 }
 
 #pragma mark - Gesture
@@ -84,12 +88,11 @@
 -(void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
     if (self.isTapped) {
         self.navigationController.navigationBar.hidden = YES;
-        self.navigationController.toolbarHidden = YES;
         [[UIApplication sharedApplication] setStatusBarHidden:YES];
         self.isTapped = NO;
     } else{
         self.navigationController.navigationBar.hidden = NO;
-        self.navigationController.toolbarHidden = NO;
+//        self.navigationController.toolbarHidden = NO;
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
         self.isTapped = YES;
     }
@@ -182,12 +185,12 @@
     if (self.editing) {
         self.editing = NO;
         [self.textView setEditable:NO];
-        self.navigationItem.rightBarButtonItem.title = @"Edit";
+        //self.navigationItem.rightBarButtonItem.title = @"Edit";
     } else {
         self.editing = YES;
         [self.textView setEditable:YES];
         [self.textView becomeFirstResponder];
-        self.navigationItem.rightBarButtonItem.title = @"Done";
+        //self.navigationItem.rightBarButtonItem.title = @"Done";
     }
 }
 

@@ -21,7 +21,6 @@
 @property MKLocalSearchResponse *result;
 
 @property NSMutableArray *arrayOfNearbyLocations;
-//@property NSMutableArray *arrayOfSearchedLocations;
 @property MKCoordinateRegion *currentLocation;
 @property NSString *searchTerm;
 @property BOOL shouldShowSearchResults;
@@ -36,10 +35,6 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    // initilize the arrays
-    //self.arrayOfNearbyLocations = [[NSMutableArray alloc]init];
-    //self.arrayOfSearchedLocations = [[NSMutableArray alloc]init];
-    
     [self configureSearchController];
     [self getCurrentLocation];
     
@@ -47,12 +42,7 @@
 
 #pragma mark- TableView Delegate Methods
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //if (!self.shouldShowSearchResults) {
-        //self.arrayOfNearbyLocations.count
     return [self.result.mapItems count];
-//    } else {
-//        return [self.result.mapItems count];
-//    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -63,9 +53,6 @@
     MKMapItem *item = self.result.mapItems[indexPath.row];
     locationsCell.textLabel.text = item.name;
     locationsCell.detailTextLabel.text = item.placemark.title;
-    
-//    locationsCell.textLabel.text = [[[self.arrayOfNearbyLocations objectAtIndex:indexPath.row] mapItem] name];
-//    locationsCell.detailTextLabel.text = [[[[self.arrayOfNearbyLocations objectAtIndex:indexPath.row]mapItem] placemark]title];
 
     return locationsCell;
 }
@@ -74,11 +61,13 @@
 - (void)configureSearchController {
     self.searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
     self.searchController.searchBar.delegate = self;
-    //self.navigationItem.titleView = self.searchController.searchBar;
-    self.tableView.tableHeaderView = self.searchController.searchBar;
     self.searchController.hidesNavigationBarDuringPresentation = YES;
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.placeholder = @"Enter Address..";
+
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+
+    //self.navigationItem.titleView = self.searchController.searchBar;
     //self.definesPresentationContext = YES;
 }
 
@@ -86,7 +75,6 @@
 -(void)getCurrentLocation{
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
-    
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
@@ -146,7 +134,6 @@
             self.result = response;
         }
         
-        // what happens here?
         [self.tableView reloadData];
     }];
 }
@@ -163,24 +150,7 @@
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [self.searchController.searchBar resignFirstResponder];
-//    if (!self.shouldShowSearchResults) {
-//        self.shouldShowSearchResults = YES;
-//        self.searchTerm = searchBar.text;
-//        [self performSearch:*(self.currentLocation)];
-//
-//        [self.tableView reloadData];
-//    }
 }
-
-//-(void)updateSearchResultsForSearchController:(UISearchController *)searchController{
-//    if (searchController.searchBar.text != nil) {
-//        self.searchTerm = searchController.searchBar.text;
-//        self.shouldShowSearchResults = YES;
-//    } else {
-//        self.shouldShowSearchResults = NO;
-//    }
-//    
-//}
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     self.shouldShowSearchResults = YES;

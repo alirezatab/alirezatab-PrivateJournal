@@ -26,25 +26,16 @@
 
 @interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate>
 @property(weak, nonatomic) IBOutlet UICollectionView *collectionView;
-
 @property(nonatomic, strong) PHFetchResult *assetsFetchResults;
 @property(nonatomic, strong) PHCachingImageManager *imageManager;
-
 @property NSMutableArray *collector;
-
+@property UISearchController *searchController;
 @property UIImage *originalCameraImage;
 @property UIImage *CameraImageCorrectedOriantation;
 @property UIImage *originalLibraryImage;
 @property UIImage *libraryImageCorrectedOrientation;
 @property Picture *picture;
-//@property UIImage *detailPostImage;
-//@property NSString *detailPostLocation;
-//@property NSString *detailPostComment;
-//@property NSString *detailPostAgo;
 @property int itemToBeDeleted;
-
-@property UISearchController *searchController;
-
 @property BOOL shouldShowSearchResults;
 @end
 
@@ -52,6 +43,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.collectionView setAlpha:0.0];
     
     self.navigationController.navigationBar.barTintColor = [UIColor darkGrayColor];
     self.navigationController.toolbar.barTintColor = [UIColor darkGrayColor];
@@ -77,6 +70,11 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self reloadAllData];
+    if (self.filteredArrayOfPosts.count == 0) {
+        [self.collectionView setAlpha:0.0];
+    } else {
+        [self.collectionView setAlpha:1.0];
+    }
 }
 
 #pragma mark- CollectionView
@@ -90,8 +88,6 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
-//    imageCollectionCell.layer.shouldRasterize = YES;
-//    imageCollectionCell.layer.rasterizationScale = [UIScreen mainScreen].scale;
     
     id picOrComment;
     if ([self.filteredArrayOfPosts[indexPath.row] isKindOfClass:[Picture class]]) {
