@@ -51,7 +51,7 @@
     
     // SQLite
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    //NSLog(@"sqlite dir = \n%@", appDelegate.applicationDocumentsDirectory);
+    NSLog(@"sqlite dir = \n%@", appDelegate.applicationDocumentsDirectory);
     
     [self configureSearchController];
     
