@@ -26,9 +26,11 @@
     NSError *authError = nil;
     NSString *myLocalizedReasonString = @"Authentication is needed to access Private Picture Journal";
     
+    // If true: device supports TouchID authentication, TouchID is enabled in device Setting. one finger at least has been enrolled
+    //Passcode is SET, and of course.
     if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
         [context evaluatePolicy:
-         LAPolicyDeviceOwnerAuthenticationWithBiometrics
+         LAPolicyDeviceOwnerAuthentication
                 localizedReason:myLocalizedReasonString
                           reply:^(BOOL success, NSError *error) {
                               if (success) {
@@ -64,11 +66,6 @@
                                           default:
                                               break;
                                       }
-                                      
-//  UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error"                                                                                       message:@"more than 3 attempts have been made"                                                                                       delegate:self                                                                              cancelButtonTitle:@"OK"                                                                              otherButtonTitles:@"Enter Passcode", nil];
-                                      
-//  [alertView show];
-//  NSLog(@"Switch to fall back authentication - ie, display a keypad or password entry box");
                                   });
                               }
                           }];
