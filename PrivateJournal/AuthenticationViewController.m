@@ -13,12 +13,13 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    [self authenticateUser];
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(authenticateUser) userInfo:nil repeats:NO];
 }
 
-//-(void)viewWillAppear:(BOOL)animated{
-//    
-//}
+- (IBAction)onAuthenticationLogoPressed:(UIButton *)sender {
+    [self authenticateUser];
+}
 
 -(void) authenticateUser{
     LAContext *context = [[LAContext alloc]init];
@@ -66,9 +67,5 @@
         });
     }
 }
-
-//-(void) showPasswordAlert{
-//    UIAlertView *passwordAlert = [[UIAlertView alloc]initWithTitle:<#(nullable NSString *)#> message:<#(nullable NSString *)#> delegate:<#(nullable id)#> cancelButtonTitle:<#(nullable NSString *)#> otherButtonTitles:<#(nullable NSString *), ...#>, nil
-//}
 
 @end

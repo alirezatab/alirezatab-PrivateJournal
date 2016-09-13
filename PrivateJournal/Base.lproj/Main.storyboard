@@ -248,7 +248,7 @@
                                         <rect key="frame" x="0.0" y="92" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="38s-jX-tsw" id="iW5-pB-n0v">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QId-bU-BHC">
@@ -421,7 +421,44 @@
                     <view key="view" contentMode="scaleToFill" id="kSa-1T-zMN">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PrivateJournalLaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="anZ-YQ-tJV">
+                                <rect key="frame" x="150" y="150" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="XDO-FC-rV3"/>
+                                    <constraint firstAttribute="width" constant="300" id="cbG-VZ-m2P"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Private Journal requires Authentication" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RPS-GU-3DD">
+                                <rect key="frame" x="150" y="64" width="300" height="57.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="BmP-53-Cps"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dxj-nG-YhB">
+                                <rect key="frame" x="150" y="150" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="8oa-vo-gOo"/>
+                                    <constraint firstAttribute="width" constant="300" id="xFb-gk-mLM"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="onAuthenticationLogoPressed:" destination="Mp1-3B-ocg" eventType="touchUpInside" id="SzO-qR-Kan"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="anZ-YQ-tJV" firstAttribute="centerX" secondItem="kSa-1T-zMN" secondAttribute="centerX" id="0Ab-tS-eTE"/>
+                            <constraint firstItem="RPS-GU-3DD" firstAttribute="centerY" secondItem="kSa-1T-zMN" secondAttribute="centerY" constant="-207.5" id="3fb-Rj-3VK"/>
+                            <constraint firstItem="RPS-GU-3DD" firstAttribute="centerX" secondItem="kSa-1T-zMN" secondAttribute="centerX" id="3zS-ot-hQg"/>
+                            <constraint firstItem="dxj-nG-YhB" firstAttribute="centerY" secondItem="kSa-1T-zMN" secondAttribute="centerY" id="4Hj-ii-nfI"/>
+                            <constraint firstItem="dxj-nG-YhB" firstAttribute="centerX" secondItem="kSa-1T-zMN" secondAttribute="centerX" id="Mto-64-cpy"/>
+                            <constraint firstItem="anZ-YQ-tJV" firstAttribute="centerY" secondItem="kSa-1T-zMN" secondAttribute="centerY" id="jss-Ce-PIb"/>
+                        </constraints>
                     </view>
                     <connections>
                         <segue destination="Ri4-PJ-sNr" kind="show" identifier="Success" id="1Ko-N4-mYs"/>
@@ -456,6 +493,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="PrivateJournalLaunchScreen" width="2048" height="2048"/>
         <image name="menu-4" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
