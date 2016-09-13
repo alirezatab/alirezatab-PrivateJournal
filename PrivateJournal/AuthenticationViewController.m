@@ -37,18 +37,38 @@
                                   });
                               } else {
                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                      UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error"
-                                                                
-                                                                                         message:error.localizedDescription
-                                                                
-                                                                                        delegate:self
-                                                                
-                                                                               cancelButtonTitle:@"OK"
-                                                                
-                                                                               otherButtonTitles:nil, nil];
                                       
-                                      [alertView show];
-                                      NSLog(@"Switch to fall back authentication - ie, display a keypad or password entry box");
+                                      switch (error.code) {
+                                          case LAErrorAuthenticationFailed:
+                                              NSLog(@"Authentication was not successful because the user failed to provide valid credentials.");
+                                              break;
+                                          case LAErrorUserCancel:
+                                              NSLog(@"Authentication was canceled by the user—for example, the user tapped Cancel in the dialog.");
+                                              break;
+                                          case LAErrorUserFallback:
+                                              NSLog(@"Authentication was canceled because the user tapped the fallback button (Enter Password).");
+                                              break;
+                                          case LAErrorSystemCancel:
+                                              NSLog(@"Authentication was canceled by system—for example, if another application came to foreground while the authentication dialog was up.");
+                                              break;
+                                          case LAErrorPasscodeNotSet:
+                                              NSLog(@"Authentication could not start because the passcode is not set on the device.");
+                                              break;
+                                          case LAErrorTouchIDNotAvailable:
+                                              NSLog(@"Authentication could not start because Touch ID is not available on the device.");
+                                              break;
+                                          case LAErrorTouchIDNotEnrolled    :
+                                              NSLog(@"Authentication could not start because Touch ID has no enrolled fingers.");
+                                              break;
+                                              
+                                          default:
+                                              break;
+                                      }
+                                      
+//  UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error"                                                                                       message:@"more than 3 attempts have been made"                                                                                       delegate:self                                                                              cancelButtonTitle:@"OK"                                                                              otherButtonTitles:@"Enter Passcode", nil];
+                                      
+//  [alertView show];
+//  NSLog(@"Switch to fall back authentication - ie, display a keypad or password entry box");
                                   });
                               }
                           }];

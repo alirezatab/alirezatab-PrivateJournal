@@ -429,15 +429,6 @@
                                     <constraint firstAttribute="width" constant="300" id="cbG-VZ-m2P"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Private Journal requires Authentication" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RPS-GU-3DD">
-                                <rect key="frame" x="150" y="64" width="300" height="57.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="BmP-53-Cps"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dxj-nG-YhB">
                                 <rect key="frame" x="150" y="150" width="300" height="300"/>
                                 <constraints>
@@ -448,16 +439,38 @@
                                     <action selector="onAuthenticationLogoPressed:" destination="Mp1-3B-ocg" eventType="touchUpInside" id="SzO-qR-Kan"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="requires Authentication" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kFd-wo-mdI">
+                                <rect key="frame" x="150" y="104" width="300" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="e9d-8G-1Cc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Private Journal" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RPS-GU-3DD">
+                                <rect key="frame" x="150" y="69" width="300" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="68D-pq-wwi"/>
+                                    <constraint firstAttribute="width" constant="300" id="Bee-V5-KW5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="32"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="anZ-YQ-tJV" firstAttribute="centerX" secondItem="kSa-1T-zMN" secondAttribute="centerX" id="0Ab-tS-eTE"/>
-                            <constraint firstItem="RPS-GU-3DD" firstAttribute="centerY" secondItem="kSa-1T-zMN" secondAttribute="centerY" constant="-207.5" id="3fb-Rj-3VK"/>
-                            <constraint firstItem="RPS-GU-3DD" firstAttribute="centerX" secondItem="kSa-1T-zMN" secondAttribute="centerX" id="3zS-ot-hQg"/>
                             <constraint firstItem="dxj-nG-YhB" firstAttribute="centerY" secondItem="kSa-1T-zMN" secondAttribute="centerY" id="4Hj-ii-nfI"/>
+                            <constraint firstItem="kFd-wo-mdI" firstAttribute="centerX" secondItem="kSa-1T-zMN" secondAttribute="centerX" id="FoP-tm-EhS"/>
                             <constraint firstItem="dxj-nG-YhB" firstAttribute="centerX" secondItem="kSa-1T-zMN" secondAttribute="centerX" id="Mto-64-cpy"/>
+                            <constraint firstItem="RPS-GU-3DD" firstAttribute="centerY" secondItem="kSa-1T-zMN" secondAttribute="centerY" constant="-213.5" id="RBS-iN-kFS"/>
                             <constraint firstItem="anZ-YQ-tJV" firstAttribute="centerY" secondItem="kSa-1T-zMN" secondAttribute="centerY" id="jss-Ce-PIb"/>
+                            <constraint firstItem="RPS-GU-3DD" firstAttribute="centerX" secondItem="kSa-1T-zMN" secondAttribute="centerX" id="u5w-at-xpx"/>
+                            <constraint firstItem="kFd-wo-mdI" firstAttribute="centerY" secondItem="kSa-1T-zMN" secondAttribute="centerY" constant="-181.5" id="uKc-ZL-jOI"/>
+                            <constraint firstItem="kFd-wo-mdI" firstAttribute="top" secondItem="RPS-GU-3DD" secondAttribute="bottom" id="xuF-cU-ox2"/>
                         </constraints>
                     </view>
                     <connections>
