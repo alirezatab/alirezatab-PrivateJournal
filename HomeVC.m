@@ -407,6 +407,7 @@
     [self presentViewController:shareSheet animated:YES completion:nil];
 }
 
+#pragma mark - Sign Out
 - (IBAction)signOutButtonPressed:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }

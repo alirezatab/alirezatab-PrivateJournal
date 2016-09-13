@@ -91,7 +91,7 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="eL8-JM-VCq">
-                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="aQb-89-76w">
+                        <barButtonItem key="leftBarButtonItem" title="Sign Out" id="aQb-89-76w">
                             <connections>
                                 <action selector="signOutButtonPressed:" destination="BYZ-38-t0r" id="tDR-MS-ETV"/>
                             </connections>
@@ -349,10 +349,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="YfU-gg-d4K"/>
                                 </constraints>
+                                <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <navigationItem title="Add Location" id="QW1-gp-w9m">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="SwT-w7-Rdp">
-                                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <segue destination="Nid-mQ-OHL" kind="unwind" unwindAction="unwindFromModalAddLocationViewController:" id="EBZ-JE-jzR"/>
                                             </connections>

@@ -29,7 +29,7 @@
 
     [[UITextView appearance] setTintColor:[UIColor lightGrayColor]];
     self.userCommentTextView.layer.borderColor = [[UIColor lightGrayColor]CGColor];
-    self.userCommentTextView.layer.borderWidth = 2.0;
+    self.userCommentTextView.layer.borderWidth = 0.5;
     
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
