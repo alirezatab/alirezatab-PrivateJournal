@@ -90,7 +90,13 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="eL8-JM-VCq"/>
+                    <navigationItem key="navigationItem" id="eL8-JM-VCq">
+                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="aQb-89-76w">
+                            <connections>
+                                <action selector="signOutButtonPressed:" destination="BYZ-38-t0r" id="tDR-MS-ETV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="ieN-ai-o8j" id="Thb-An-MIn"/>
                         <segue destination="dlw-u6-Y9Z" kind="show" identifier="aPictureSelected" id="KTQ-Yo-67q"/>
