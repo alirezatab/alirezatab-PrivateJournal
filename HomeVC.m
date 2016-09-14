@@ -9,38 +9,33 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Photos/Photos.h>
 
-#import "HomeVC.h"
-#import "CustomImageFlowLayout.h"
 #import "ImageCollectionViewCell.h"
+#import "CustomImageFlowLayout.h"
+#import "CoreDataManager.h"
+#import "PostDetailVC.h"
 #import "PostImageVC.h"
 #import "AppDelegate.h"
 #import "Picture.h"
-#import "CoreDataManager.h"
-#import "User.h"
-#import "User.h"
-#import "PostDetailVC.h"
 #import "Comment.h"
-
-//#import <MobileCoreServices/MobileCoreServices.h>
-//#import <Photos/Photos.h>
+#import "HomeVC.h"
+#import "User.h"
+#import "User.h"
 
 @interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate>
-@property(weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property(nonatomic, strong) PHFetchResult *assetsFetchResults;
-@property(nonatomic, strong) PHCachingImageManager *imageManager;
-@property NSMutableArray *collector;
-@property UISearchController *searchController;
-@property UIImage *originalCameraImage;
-@property UIImage *CameraImageCorrectedOriantation;
-@property UIImage *originalLibraryImage;
-@property UIImage *libraryImageCorrectedOrientation;
-@property Picture *picture;
-@property int itemToBeDeleted;
-@property BOOL shouldShowSearchResults;
+    @property(weak, nonatomic) IBOutlet UICollectionView *collectionView;
+    @property(nonatomic, strong) PHFetchResult *assetsFetchResults;
+    @property(nonatomic, strong) PHCachingImageManager *imageManager;
+    @property UISearchController *searchController;
+    @property NSMutableArray *collector;
+    @property UIImage *originalLibraryImage;
+    @property UIImage *snappedImage;
+    @property Picture *picture;
+    @property int itemToBeDeleted;
+    @property BOOL shouldShowSearchResults;
 @end
 
 @implementation HomeVC
-
+    
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -78,10 +73,6 @@
 }
 
 #pragma mark- CollectionView
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 1;
-}
-
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
         return self.filteredArrayOfPosts.count;
 }
@@ -150,17 +141,13 @@
 #pragma mark- Camera
 -(void)turnCameraOn {
     UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+    
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     picker.cameraCaptureMode = UIImagePickerControllerCameraDeviceRear;
-    //  show navagation bar so we can put an x to cancel
     picker.navigationBarHidden = NO;
-    //  have a toolbar show up in the below so we can add additional buttons
     picker.toolbarHidden = YES;
-    //  picker.wantsFullScreenLayout = YES;
     picker.delegate = self;
-    //  crop boz arund the image after its taken
     picker.allowsEditing = NO;
-    //  make all the camera controls appear or disappear
     picker.showsCameraControls = YES;
     
     [self presentViewController:picker animated:YES completion:NULL];
@@ -171,36 +158,32 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     
     NSString *mediaType = info[UIImagePickerControllerMediaType];
-    //retrieve the actual UIImage when the picture is captures
-    self.originalCameraImage = info[UIImagePickerControllerOriginalImage];
-    //flips the picture to have right oriantation
-    self.CameraImageCorrectedOriantation = [self squareImageWithImage:self.originalCameraImage scaledToSize:CGSizeMake(300, 1)];
-    //save the tempImage as Jpeg
-    self.CameraImageCorrectedOriantation = [UIImage imageWithData:UIImageJPEGRepresentation(self.CameraImageCorrectedOriantation, 1.0)];
-
+    
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    image = [self squareImageWithImage:image scaledToSize:CGSizeMake(300, 1)];
+    
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *photoTaken = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-        //save photo to library if it wasn't already saved... just been taken
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+            self.snappedImage = image;
             UIImageWriteToSavedPhotosAlbum(photoTaken, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
             [self performSegueWithIdentifier:@"CameraPictureToPost" sender:self];
-
+            
         } else if ( picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary){
-            self.originalLibraryImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-            // if from library, store it as jpeg
-            self.originalLibraryImage = [UIImage imageWithData:UIImageJPEGRepresentation(self.originalLibraryImage, 1.0)];
-            self.libraryImageCorrectedOrientation = [self squareImageWithImage:self.originalCameraImage scaledToSize:CGSizeMake(600, 600)];
-
+            
+            self.originalLibraryImage = image;
+            
             [self performSegueWithIdentifier:@"LibraryPhoto" sender:self];
         }
     }
-    [picker dismissViewControllerAnimated:NO completion: NULL];
+
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     
     if (!error) {
-        //[self performSegueWithIdentifier:@"CameraPictureToPost" sender:self];
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
                                                                        message:[error localizedDescription]
@@ -218,7 +201,6 @@
 // when cancel button of the camera is selected
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     //NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
-    
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -279,17 +261,10 @@
     
     self.navigationItem.titleView = self.searchController.searchBar;
     self.definesPresentationContext = YES;
-    
-    // self.searchController.searchResultsUpdater = self;
-    // self.searchController.delegate = self;
-    //self.searchController.searchBar.placeholder = @"Search Images";
-    //[self.searchController.searchBar sizeToFit];
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     self.shouldShowSearchResults = NO;
-    //[self.collectionView reloadData];
-    ///maybe reload data is not needed here
     [self reloadAllData];
 }
 
@@ -301,7 +276,6 @@
     [self.searchController.searchBar resignFirstResponder];
 }
 
-///new
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
     self.filteredArrayOfPosts = [self filterArray:self.arrayOfPosts with:searchText];
@@ -334,15 +308,11 @@
     self.shouldShowSearchResults = YES;
     return [NSArray arrayWithArray:newArray];
 }
-///upto here
-
 
 #pragma mark - Data
 -(void)reloadAllData {
-    self.user = [CoreDataManager fetchUsers];
-    for (User *u in self.user) {
-        self.arrayOfPosts = [self sortPicturesByDate:[u.pictures allObjects]];
-    }
+    self.user = [CoreDataManager getUserZero];
+    self.arrayOfPosts = [self sortPicturesByDate:[self.user.pictures allObjects]];
     self.filteredArrayOfPosts = [NSArray arrayWithArray:self.arrayOfPosts];
     [self.collectionView reloadData];
 }
@@ -357,10 +327,10 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"CameraPictureToPost"]) {
         PostImageVC *desVC = segue.destinationViewController;
-        desVC.snappedImage = self.CameraImageCorrectedOriantation;
+        desVC.snappedImage = self.snappedImage;
     } else if ([segue.identifier isEqualToString:@"LibraryPhoto"]){
         PostImageVC *desVC = segue.destinationViewController;
-        desVC.snappedImage = self.libraryImageCorrectedOrientation;
+        desVC.snappedImage = self.originalLibraryImage;
     } else if ([segue.identifier isEqualToString:@"aPictureSelected"]){
         PostDetailVC *destVC = segue.destinationViewController;
         destVC.detailPictureObject = self.picture;
