@@ -108,47 +108,47 @@ void initMoc(void){
     p.owner = user;
     [p addCommentsObject:c];
     
-//    for (NSString *tagText in [self findHashtagsIn:commentStr]) {
-//        // check if hashtag exists
-//        Hashtag *h = [self fetchHashtag:tagText];
-//        if (!h) {
-//            // new hashtag
-//            h = [NSEntityDescription insertNewObjectForEntityForName:@"Hashtag" inManagedObjectContext:moc];
-//            h.tagtext = tagText;
-//        } else {
-//            NSLog(@"old hashtag >%@<", tagText);
-//        }
-//        [h addCommentsObject:c];
-//    }
+    for (NSString *tagText in [self findHashtagsIn:commentStr]) {
+        // check if hashtag exists
+        Hashtag *h = [self fetchHashtag:tagText];
+        if (!h) {
+            // new hashtag
+            h = [NSEntityDescription insertNewObjectForEntityForName:@"Hashtag" inManagedObjectContext:moc];
+            h.tagtext = tagText;
+        } else {
+            NSLog(@"old hashtag >%@<", tagText);
+        }
+        [h addCommentsObject:c];
+    }
     return p;
 }
 
-//#pragma mark - Hashtags
-//+ (Hashtag *)fetchHashtag:(NSString *)tag {
-//    initMoc();
-//    
-//    NSFetchRequest *req = [[NSFetchRequest alloc] initWithEntityName:@"Hashtag"];
-//    req.predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"tagtext", tag];
-//    //NSLog(@"=> fetching >%@<", req.predicate.predicateFormat);
-//    NSError *error;
-//    NSArray *fetchedObjects = [moc executeFetchRequest:req error:&error];
-//    if (!error) {
-//        //NSLog(@"=> fetched %i tags >%@<", fetchedObjects.count, req.predicate.predicateFormat);
-//    } else {
-//        NSLog(@"core load error: %@", error);
-//    }
-//    return (fetchedObjects.count > 0) ? (fetchedObjects[0]) : (nil);
-//}
-//
-//+(NSArray *)findHashtagsIn:(NSString *)text {
-//    NSArray *words = [text componentsSeparatedByString:@" "];
-//    NSMutableArray *hashtags = [NSMutableArray new];
-//    for (NSString *word in words) {
-//        if (word.length > 0 && [word characterAtIndex:0] == '#') {
-//            [hashtags addObject:word];
-//        }
-//    }
-//    return [NSArray arrayWithArray:hashtags];
-//}
+#pragma mark - Hashtags
++ (Hashtag *)fetchHashtag:(NSString *)tag {
+    initMoc();
+    
+    NSFetchRequest *req = [[NSFetchRequest alloc] initWithEntityName:@"Hashtag"];
+    req.predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"tagtext", tag];
+    //NSLog(@"=> fetching >%@<", req.predicate.predicateFormat);
+    NSError *error;
+    NSArray *fetchedObjects = [moc executeFetchRequest:req error:&error];
+    if (!error) {
+        //NSLog(@"=> fetched %i tags >%@<", fetchedObjects.count, req.predicate.predicateFormat);
+    } else {
+        NSLog(@"core load error: %@", error);
+    }
+    return (fetchedObjects.count > 0) ? (fetchedObjects[0]) : (nil);
+}
+
++(NSArray *)findHashtagsIn:(NSString *)text {
+    NSArray *words = [text componentsSeparatedByString:@" "];
+    NSMutableArray *hashtags = [NSMutableArray new];
+    for (NSString *word in words) {
+        if (word.length > 0 && [word characterAtIndex:0] == '#') {
+            [hashtags addObject:word];
+        }
+    }
+    return [NSArray arrayWithArray:hashtags];
+}
 
 @end

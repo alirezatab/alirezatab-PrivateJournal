@@ -21,17 +21,21 @@
 #import "User.h"
 #import "User.h"
 
-@interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate>
+@interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate/*, NSFetchedResultsControllerDelegate*/>
     @property(weak, nonatomic) IBOutlet UICollectionView *collectionView;
-    @property(nonatomic, strong) PHFetchResult *assetsFetchResults;
-    @property(nonatomic, strong) PHCachingImageManager *imageManager;
+    //@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
     @property UISearchController *searchController;
+    @property NSBlockOperation *blockOperation;
     @property NSMutableArray *collector;
     @property UIImage *originalLibraryImage;
     @property UIImage *snappedImage;
     @property Picture *picture;
-    @property int itemToBeDeleted;
+    @property BOOL shouldReloadCollectionView;
     @property BOOL shouldShowSearchResults;
+    @property int itemToBeDeleted;
+
+//@property NSManagedObjectContext *moc;
+
 @end
 
 @implementation HomeVC
@@ -47,6 +51,8 @@
     // SQLite
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     NSLog(@"sqlite dir = \n%@", appDelegate.applicationDocumentsDirectory);
+    //self.moc = appDelegate.managedObjectContext;
+
     
     [self configureSearchController];
     
@@ -74,7 +80,9 @@
 
 #pragma mark- CollectionView
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-        return self.filteredArrayOfPosts.count;
+//    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+//    return [sectionInfo numberOfObjects];
+    return self.filteredArrayOfPosts.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -82,18 +90,20 @@
     
     id picOrComment;
     if ([self.filteredArrayOfPosts[indexPath.row] isKindOfClass:[Picture class]]) {
+        //picOrComment = [self.fetchedResultsController objectAtIndexPath:indexPath];
         picOrComment = self.filteredArrayOfPosts[indexPath.row];
     } else {
+        //picOrComment = [self.fetchedResultsController objectAtIndexPath:indexPath];
         picOrComment = self.filteredArrayOfPosts[indexPath.row];
     }
     
     if ([picOrComment isKindOfClass:[Picture class]]) {
         self.picture = picOrComment;
-        cell.imageView.image = [UIImage imageWithData:self.picture.image];
+            cell.imageView.image = [UIImage imageWithData:self.picture.image];
     } else {
         Comment *pictureFromComment = picOrComment;
         self.picture = pictureFromComment.picture;
-        cell.imageView.image = [UIImage imageWithData:self.picture.image];
+            cell.imageView.image = [UIImage imageWithData:self.picture.image];
     }
     
     collectionView.backgroundColor = [UIColor blackColor];
@@ -385,5 +395,85 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+//#pragma mark - New
+//delegate method
+//-(void)controllerWillChangeContent:(NSFetchedResultsController *)controller{
+//    self.shouldReloadCollectionView = NO;
+//    self.blockOperation = [[NSBlockOperation alloc]init];
+//}
+//
+////this performs the animation
+//- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+//    
+//    __weak UICollectionView *collectionView = self.collectionView;
+//    
+//    switch (type) {
+//        case NSFetchedResultsChangeInsert: {
+//            if ([collectionView numberOfSections] > 0) {
+//                if ([collectionView numberOfItemsInSection:indexPath.section] == 0) {
+//                    self.shouldReloadCollectionView = YES;
+//                } else {
+//                    [self.blockOperation addExecutionBlock:^{
+//                        [collectionView insertItemsAtIndexPaths:@[newIndexPath]];
+//                    }];
+//                }
+//            } else {
+//                self.shouldReloadCollectionView = YES;
+//            }
+//            break;
+//        }
+//        case NSFetchedResultsChangeDelete: {
+//            if ([collectionView numberOfItemsInSection:indexPath.section] == 1) {
+//                self.shouldReloadCollectionView = YES;
+//            } else {
+//                [self.blockOperation addExecutionBlock:^{
+//                    [collectionView deleteItemsAtIndexPaths:@[indexPath]];
+//                }];
+//            }
+//            break;
+//        }
+//            
+//        case NSFetchedResultsChangeUpdate: {
+//            [self.blockOperation addExecutionBlock:^{
+//                [collectionView reloadItemsAtIndexPaths:@[indexPath]];
+//            }];
+//            break;
+//        }
+//        default:
+//            break;
+//    }
+//}
+//
+//////step 8
+//////delegate method
+//- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+//    if (self.shouldReloadCollectionView) {
+//        [self.collectionView reloadData];
+//    } else {
+//        [self.collectionView performBatchUpdates:^{
+//            [self.blockOperation start];
+//        } completion:nil];
+//    }
+//}
+//
+////step 2
+//- (NSFetchRequest *)entrylistfetchRequest {
+//    
+//    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Comment"];
+//    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO]];
+//    return  fetchRequest;
+//}
+//
+//- (NSFetchedResultsController*)fetchedResultsController {
+//    if (_fetchedResultsController != nil) {
+//        return _fetchedResultsController;
+//    }
+//    
+//    NSFetchRequest *fetchRequest = [self entrylistfetchRequest];
+//    
+//    _fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.moc sectionNameKeyPath:nil cacheName:nil];
+//    _fetchedResultsController.delegate = self;
+//    return _fetchedResultsController;
+//}
 
 @end

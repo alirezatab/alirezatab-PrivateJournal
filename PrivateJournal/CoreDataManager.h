@@ -15,8 +15,6 @@
 @interface CoreDataManager : NSObject 
 + (Picture *)addPicture:(UIImage *)pictureImage
             withComment:(NSString *)commentStr withLocation:(NSString *)locationStr fromUser:(User *)user;
-
-+ (NSFetchedResultsController *)fetchEntityWithClassName:(NSString *)className sortDescriptyor:(NSArray *)sortDescriptors sectionNameKeyPath:(NSString *)sectionNameKeypath predicate:(NSPredicate *)predicate;
 + (void)deleteObject:(NSManagedObject *)entity;
 + (void)editObject:(NSManagedObject *)entity;
 + (void)save;
