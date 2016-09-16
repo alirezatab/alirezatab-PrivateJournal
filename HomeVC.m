@@ -15,17 +15,13 @@
 #import "PostDetailVC.h"
 #import "PostImageVC.h"
 #import "AppDelegate.h"
+#import "CoreDataDAL.h"
 #import "Picture.h"
 #import "Comment.h"
 #import "HomeVC.h"
 
 @interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate>
     @property(weak, nonatomic) IBOutlet UICollectionView *collectionView;
-
-    /////////////
-    @property (nonatomic,strong) NSManagedObjectContext* moc;
-    @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-    /////////////
 
     @property UISearchController *searchController;
     @property NSBlockOperation *blockOperation;
@@ -35,10 +31,20 @@
     @property Picture *picture;
     @property BOOL shouldReloadCollectionView;
     @property BOOL shouldShowSearchResults;
-    @property int itemToBeDeleted;
+    @property NSIndexPath *itemToBeDeleted;
 @end
 
-@implementation HomeVC
+@implementation HomeVC {
+    /*
+     Apple say It’s best practice to use a property on an object any time you need to keep track of a value or another object.
+     If you do need to define your own instance variables without declaring a property, you can add them inside braces at the top of the class interface or implementation
+     
+     this is not weird, its just a private instance variable aka .ivar, as i do not need a property for this
+     , the memory access will be pretty much faster than with a synthetized property. Its not a good pattern have your AppDelegate with tons of global variables but for this simple example its ok.
+     */
+    
+    AppDelegate *_appDelegate;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,27 +55,16 @@
     self.navigationController.toolbar.barTintColor = [UIColor darkGrayColor];
     
     // SQLite
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    NSLog(@"sqlite dir = \n%@", appDelegate.applicationDocumentsDirectory);
-    self.moc = appDelegate.managedObjectContext;
-
+    _appDelegate = [UIApplication sharedApplication].delegate;
+    NSLog(@"sqlite dir = \n%@", _appDelegate.applicationDocumentsDirectory);
     
     [self configureSearchController];
     
     self.collectionView.collectionViewLayout = [[CustomImageFlowLayout alloc] init];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor blackColor];
 
     //when true, the filteredArrayOfPosts will be used
     self.shouldShowSearchResults = NO;
-    
-    // initial fetch
-    NSError *error;
-    if (![[self fetchedResultsController] performFetch:&error]) {
-        // Update to handle the error appropriately.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        exit(-1);  // Fail
-    }
-
     
     //search results
     self.arrayOfPosts = [[NSArray alloc]init];
@@ -77,12 +72,10 @@
     
 }
 
--(void)viewDidUnload{
-    self.fetchedResultsController = nil;
-}
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.fetchedResultsController performFetch:nil];
+    
     [self reloadAllData];
     if (self.filteredArrayOfPosts.count == 0) {
         [self.collectionView setAlpha:0.0];
@@ -91,37 +84,25 @@
     }
 }
 
-#pragma mark- CollectionView
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-//    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-//    return [sectionInfo numberOfObjects];
-    return self.filteredArrayOfPosts.count;
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
 }
 
-- (void)configureCell:(ImageCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    id picOrComment;
-    if ([[_fetchedResultsController objectAtIndexPath:indexPath] isKindOfClass:[Picture class]]) {
-        picOrComment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        //picOrComment = [_fetchedResultsController objectAtIndexPath:indexPath];
-    } else {
-        picOrComment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        //picOrComment = [_fetchedResultsController objectAtIndexPath:indexPath];
-    }
-    
-    if ([picOrComment isKindOfClass:[Picture class]]) {
-        self.picture = picOrComment;
-        cell.imageView.image = [UIImage imageWithData:self.picture.image];
-    } else {
-        Comment *pictureFromComment = picOrComment;
-        self.picture = pictureFromComment.picture;
-        cell.imageView.image = [UIImage imageWithData:self.picture.image];
-    }
+#pragma mark- CollectionView
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    NSArray *sections = [self.fetchedResultController sections];
+    return [sections count];
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
+    //return self.filteredArrayOfPosts.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
-    
-    collectionView.backgroundColor = [UIColor blackColor];
     
     [self configureCell:cell atIndexPath:indexPath];
     
@@ -147,55 +128,123 @@
     [self performSegueWithIdentifier:@"aPictureSelected" sender:nil];
 }
 
-#pragma mark - fetchedResultsController
+#pragma mark - instance methods
+
+- (Picture*)pictureWithIndexPath:(NSIndexPath*)indexPath{
+    Picture *pictureObject = [self.fetchedResultController objectAtIndexPath:indexPath];
+    return pictureObject;
+}
+
+- (void)configureCell:(ImageCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    
+    Picture *pictureObject  = [self pictureWithIndexPath:indexPath];
+    cell.imageView.image = [UIImage imageWithData:pictureObject.image];
+//    id picOrComment;
+//
+//    if ([self.filteredArrayOfPosts[indexPath.row] isKindOfClass:[Picture class]]) {
+//        picOrComment = self.filteredArrayOfPosts[indexPath.row];
+//        //picOrComment = [_fetchedResultsController objectAtIndexPath:indexPath];
+//    } else {
+//        picOrComment = self.filteredArrayOfPosts[indexPath.row];
+//        //picOrComment = [_fetchedResultsController objectAtIndexPath:indexPath];
+//    }
+    
+//    if ([picOrComment isKindOfClass:[Picture class]]) {
+//        self.picture = picOrComment;
+//        cell.imageView.image = [UIImage imageWithData:self.picture.image];
+//    } else {
+//        Comment *pictureFromComment = picOrComment;
+//        self.picture = pictureFromComment.picture;
+//        cell.imageView.image = [UIImage imageWithData:self.picture.image];
+//    }
+}
+
+#pragma mark - properties
 
 - (NSFetchedResultsController *)fetchedResultsController {
     
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
+    NSManagedObjectContext *localContext = _appDelegate.managedObjectContext;
+    
+    if (_fetchedResultController || !localContext) {
+        return _fetchedResultController;
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Picture" inManagedObjectContext:self.moc];
+                                   entityForName:@"Picture" inManagedObjectContext:localContext];
     [fetchRequest setEntity:entity];
     
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+    [fetchRequest setPredicate:nil];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
                               initWithKey:@"time" ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    [fetchRequest setSortDescriptors:@[sortDescriptor]];
     
-    [fetchRequest setFetchBatchSize:20];
+    // setting cache name
+    NSString *cache = NSStringFromClass([self class]);
     
-    NSFetchedResultsController *theFetchedResultsController =
-    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:self.moc sectionNameKeyPath:nil
-                                                   cacheName:@"Root"];
-    self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = self;
+    //delete chache if exist
+    [NSFetchedResultsController deleteCacheWithName:cache];
+    
+    //create a local fetched result controller
+    
+    /*
+     Setter methods can have additional side-effects. They may trigger KVC notifications,
+     or perform further tasks if you write your own custom methods. As i'm writing my custom method for this property i'll initialize NSFetchedResultsController in a local scope, and assign it to my ivar, in that way there's should not be KVC propagation that affect
+     my UI.
+     */
 
-    return _fetchedResultsController;
+    NSFetchedResultsController *frc =
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:localContext sectionNameKeyPath:nil
+                                                   cacheName:cache];
+    
+    _fetchedResultController = frc;
+    _fetchedResultController.delegate = self;
+
+    NSError *error = nil;
+    BOOL successFetch =  [_fetchedResultController performFetch:&error];
+    if (!successFetch)
+        NSLog(@"hmm something went wrong creating fetchedResultController");
+    
+    return _fetchedResultController;
 }
+
+#pragma mark - FetchedResutlControllerDelegate
 
 //delegate methods
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    NSLog(@"%s",__PRETTY_FUNCTION__);
     self.shouldReloadCollectionView = NO;
     self.blockOperation = [[NSBlockOperation alloc]init];
 }
-//
-////step 8
-////delegate method
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    if (self.shouldReloadCollectionView) {
-        [self.collectionView reloadData];
-    } else {
-        [self.collectionView performBatchUpdates:^{
-            [self.blockOperation start];
-        } completion:nil];
+
+//if we dont use this method the app will crash when we delete tha last item
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    NSLog(@"%s  with type %lu",__PRETTY_FUNCTION__, type);
+    
+    __weak UICollectionView *collectionView = self.collectionView;
+    
+    switch (type) {
+        case NSFetchedResultsChangeInsert: {
+            [self.blockOperation addExecutionBlock:^{
+                [collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+            }];
+            break;
+        }
+        case NSFetchedResultsChangeDelete: {
+            [self.blockOperation addExecutionBlock:^{
+                [collectionView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+            }];
+            break;
+        }
+        default:
+            break;
     }
 }
 
-//this performs the animation
-
+// this preforms animation
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     
     __weak UICollectionView *collectionView = self.collectionView;
@@ -237,29 +286,16 @@
     }
 }
 
-//if we dont use this method the app will crash when we delete tha last item
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    
-    __weak UICollectionView *collectionView = self.collectionView;
-    
-    switch (type) {
-        case NSFetchedResultsChangeInsert: {
-            [self.blockOperation addExecutionBlock:^{
-                [collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-            }];
-            break;
-        }
-        case NSFetchedResultsChangeDelete: {
-            [self.blockOperation addExecutionBlock:^{
-                [collectionView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-            }];
-            break;
-        }
-        default:
-            break;
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    if (self.shouldReloadCollectionView) {
+        [self reloadAllData];
+        //[self.collectionView reloadData];
+    } else {
+        [self.collectionView performBatchUpdates:^{
+            [self.blockOperation start];
+        } completion:nil];
     }
 }
-
 
 #pragma mark- Actions
 - (IBAction)onAddPhotoButtonPressed:(UIBarButtonItem *)sender {
@@ -307,7 +343,7 @@
         UIImage *photoTaken = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
             self.snappedImage = image;
-            UIImageWriteToSavedPhotosAlbum(photoTaken, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+            //UIImageWriteToSavedPhotosAlbum(photoTaken, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
             [self performSegueWithIdentifier:@"CameraPictureToPost" sender:self];
             
         } else if ( picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary){
@@ -412,7 +448,8 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     if (!self.shouldShowSearchResults) {
         self.shouldShowSearchResults = YES;
-        [self.collectionView reloadData];
+        [self reloadAllData];
+        //[self.collectionView reloadData];
     }
     [self.searchController.searchBar resignFirstResponder];
 }
@@ -427,7 +464,8 @@
             return [comment1.text.lowercaseString compare:comment2.text.lowercaseString];
         }];
     }
-    [self.collectionView reloadData];
+    [self reloadAllData];
+    //[self.collectionView reloadData];
 }
 
 -(NSArray *)filterArray:(NSArray *)oldArray with:(NSString *)filterString{
@@ -453,7 +491,7 @@
 #pragma mark - Data
 -(void)reloadAllData {
     //?? maybe fetch can be inserted here now
-    self.arrayOfPosts = [_fetchedResultsController fetchedObjects];
+    self.arrayOfPosts = [_fetchedResultController fetchedObjects];
 
     //[self sortPicturesByDate:[self.picture allObjects]];
     self.filteredArrayOfPosts = [NSArray arrayWithArray:self.arrayOfPosts];
@@ -485,7 +523,7 @@
     CGPoint tapLocation = [recognizer locationInView:self.collectionView];
     NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:tapLocation];
     if (indexPath && recognizer.state == UIGestureRecognizerStateBegan) {
-        self.itemToBeDeleted = (int)indexPath.item;
+        self.itemToBeDeleted = indexPath;
         
         UIAlertView *deleteAlert = [[UIAlertView alloc]initWithTitle:@"Delete??" message:@"Are you sure you want to delete this image permanantly?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         [deleteAlert show];
@@ -494,8 +532,7 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        Picture *deletedPicture = self.filteredArrayOfPosts[self.itemToBeDeleted];
-        
+        Picture *deletedPicture = [self.fetchedResultsController objectAtIndexPath:self.itemToBeDeleted];
         // delete all comments
         NSArray *deletedComments = [deletedPicture.comments allObjects];
         for (Comment *comment in deletedComments) {

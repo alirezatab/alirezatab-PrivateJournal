@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Picture.h"
+#import <CoreData/CoreData.h>
 
 @interface HomeVC : UIViewController
 @property NSArray *arrayOfPosts;
 @property NSArray *filteredArrayOfPosts;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultController;
 -(IBAction)handleLongPressToDelete:(UILongPressGestureRecognizer *)recognizer;
 
 @end

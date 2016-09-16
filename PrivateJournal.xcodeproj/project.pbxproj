@@ -16,6 +16,8 @@
 		C2283CC41D8B567800DD3ACD /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = C2283CBE1D8B567800DD3ACD /* Picture.m */; };
 		C2283CC51D8B567800DD3ACD /* Comment+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C2283CC01D8B567800DD3ACD /* Comment+CoreDataProperties.m */; };
 		C2283CC61D8B567800DD3ACD /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = C2283CC21D8B567800DD3ACD /* Comment.m */; };
+		C2283CCA1D8C5F4500DD3ACD /* NSManagedObjectContext+Concurrent.m in Sources */ = {isa = PBXBuildFile; fileRef = C2283CC91D8C5F4500DD3ACD /* NSManagedObjectContext+Concurrent.m */; };
+		C2283CCF1D8C600700DD3ACD /* CoreDataDAL.m in Sources */ = {isa = PBXBuildFile; fileRef = C2283CCE1D8C600700DD3ACD /* CoreDataDAL.m */; };
 		C24781271D3FDF0D0045A79F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C24781261D3FDF0D0045A79F /* CoreLocation.framework */; };
 		C24781291D41024A0045A79F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C24781281D41024A0045A79F /* MapKit.framework */; };
 		C24781301D4107F40045A79F /* NearbyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C247812F1D4107F40045A79F /* NearbyLocation.m */; };
@@ -68,6 +70,10 @@
 		C2283CC01D8B567800DD3ACD /* Comment+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Comment+CoreDataProperties.m"; path = "../Comment+CoreDataProperties.m"; sourceTree = "<group>"; };
 		C2283CC11D8B567800DD3ACD /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = ../Comment.h; sourceTree = "<group>"; };
 		C2283CC21D8B567800DD3ACD /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = ../Comment.m; sourceTree = "<group>"; };
+		C2283CC81D8C5F4500DD3ACD /* NSManagedObjectContext+Concurrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Concurrent.h"; sourceTree = "<group>"; };
+		C2283CC91D8C5F4500DD3ACD /* NSManagedObjectContext+Concurrent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Concurrent.m"; sourceTree = "<group>"; };
+		C2283CCD1D8C600700DD3ACD /* CoreDataDAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataDAL.h; sourceTree = "<group>"; };
+		C2283CCE1D8C600700DD3ACD /* CoreDataDAL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataDAL.m; sourceTree = "<group>"; };
 		C24781261D3FDF0D0045A79F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C24781281D41024A0045A79F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C247812E1D4107F40045A79F /* NearbyLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyLocation.h; sourceTree = "<group>"; };
@@ -134,6 +140,24 @@
 				C21AFB241D2422FC00B243DB /* CoreDataManager.m */,
 			);
 			name = Service;
+			sourceTree = "<group>";
+		};
+		C2283CC71D8C5EEF00DD3ACD /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C2283CC81D8C5F4500DD3ACD /* NSManagedObjectContext+Concurrent.h */,
+				C2283CC91D8C5F4500DD3ACD /* NSManagedObjectContext+Concurrent.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		C2283CCB1D8C5FBC00DD3ACD /* DAL */ = {
+			isa = PBXGroup;
+			children = (
+				C2283CCD1D8C600700DD3ACD /* CoreDataDAL.h */,
+				C2283CCE1D8C600700DD3ACD /* CoreDataDAL.m */,
+			);
+			name = DAL;
 			sourceTree = "<group>";
 		};
 		C2503C811D0F54900039C802 /* Model */ = {
@@ -222,6 +246,8 @@
 			children = (
 				C2EEC6731D08C4A2006E8058 /* AppDelegate.h */,
 				C2EEC6741D08C4A2006E8058 /* AppDelegate.m */,
+				C2283CC71D8C5EEF00DD3ACD /* Categories */,
+				C2283CCB1D8C5FBC00DD3ACD /* DAL */,
 				C21AFB221D2422DC00B243DB /* Service */,
 				C2503C841D0F54C00039C802 /* Storyboards */,
 				C2503C811D0F54900039C802 /* Model */,
@@ -396,7 +422,9 @@
 				C20C7B691D3E3AC600CA473F /* AddLocationVC.m in Sources */,
 				C2503C961D0F71150039C802 /* ImageCollectionViewCell.m in Sources */,
 				C2283CC61D8B567800DD3ACD /* Comment.m in Sources */,
+				C2283CCF1D8C600700DD3ACD /* CoreDataDAL.m in Sources */,
 				C2EEC67E1D08C4A2006E8058 /* PrivateJournal.xcdatamodeld in Sources */,
+				C2283CCA1D8C5F4500DD3ACD /* NSManagedObjectContext+Concurrent.m in Sources */,
 				C2283CC51D8B567800DD3ACD /* Comment+CoreDataProperties.m in Sources */,
 				C21AFB211D2407D000B243DB /* PostImageVC.m in Sources */,
 				C2283CC41D8B567800DD3ACD /* Picture.m in Sources */,
