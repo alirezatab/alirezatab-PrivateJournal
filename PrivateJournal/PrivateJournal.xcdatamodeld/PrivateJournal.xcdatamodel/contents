@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G1004" minimumToolsVersion="Automatic">
-    <entity name="Comment" representedClassName="Comment" syncable="YES">
-        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="time" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="picture" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Picture" inverseName="comments" inverseEntity="Picture" syncable="YES"/>
-    </entity>
     <entity name="Picture" representedClassName="Picture" syncable="YES">
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="picture" inverseEntity="Comment" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Comment" positionX="-477" positionY="26" width="128" height="88"/>
         <element name="Picture" positionX="-20" positionY="-117" width="128" height="103"/>
     </elements>
 </model>

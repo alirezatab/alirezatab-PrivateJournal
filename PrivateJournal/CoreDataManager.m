@@ -9,7 +9,6 @@
 #import "CoreDataManager.h"
 #import "AppDelegate.h"
 #import "Picture.h"
-#import "Comment.h"
 
 @implementation CoreDataManager
 static NSManagedObjectContext *moc;
@@ -56,24 +55,15 @@ void initMoc(void){
     return fetchedObjects;
 }
 
-#pragma mark - Comments
-+ (NSArray *)fetchComments {
-    return [self fetchAllOfType:@"Comment"];
-}
-
 #pragma mark - Pictures
 + (Picture *)addPicture:(UIImage *)pictureImage withComment:(NSString *)commentStr withLocation:(NSString *)locationStr {
     initMoc();
-    
-    Comment *c = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:moc];
-    c.text = commentStr;
-    c.time = [NSDate date];
     
     Picture *p = [NSEntityDescription insertNewObjectForEntityForName:@"Picture" inManagedObjectContext:moc];
     p.image = UIImagePNGRepresentation(pictureImage);
     p.location = locationStr;
     p.time = [NSDate date];
-    [p addCommentsObject:c];
+    p.comment = commentStr;
     
     return p;
 }

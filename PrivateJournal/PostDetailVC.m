@@ -8,7 +8,6 @@
 
 #import "PostDetailVC.h"
 #import "Picture.h"
-#import "Comment.h"
 #import "CoreDataManager.h"
 
 @interface PostDetailVC () <UINavigationControllerDelegate, UIScrollViewDelegate, UITextViewDelegate>
@@ -63,13 +62,8 @@
     Picture *detailPicture = self.detailPictureObject;
     self.singleSelectedImageView.image = [UIImage imageWithData:detailPicture.image];
     self.singleSelectedImageLocationLabel.text = self.detailPictureObject.location;
-    // comments
-    NSArray *comments = [detailPicture.comments allObjects];
-    Comment *comment = comments[0];
-    self.singleSelectedCommentTextView.text = comment.text;
-    
-    //change date into string and the put in title or something
-    //self.navigationItem.title = comment.time.timeIntervalSince1970;
+
+    self.singleSelectedCommentTextView.text = [NSString stringWithFormat:detailPicture.comment];
 }
 
 #pragma mark - Gesture
@@ -115,7 +109,7 @@
 #pragma mark - keyboard
 - (void)keyboardWillShow:(NSNotification*)notification {
     NSDictionary *userInfo = [notification userInfo];
-    CGRect keyboardInfoFrame = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    //CGRect keyboardInfoFrame = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey]CGRectValue].size;
     CGFloat deltaHeight = keyboardSize.height - _keyboardHeight;
@@ -151,11 +145,11 @@
     Picture *detailPicture = self.detailPictureObject;
     
     // edit all comments
-    NSArray *editedComments = [detailPicture.comments allObjects];
-    for (Comment *comment in editedComments) {
-        comment.text = self.singleSelectedCommentTextView.text;
-        [CoreDataManager editObject:comment];
-    }
+    //NSArray *editedComments = [detailPicture.comment allObjects];
+    //for (Comment *comment in editedComments) {
+    detailPicture.comment = self.singleSelectedCommentTextView.text;
+    //[CoreDataManager editObject:detailPicture];
+    //}
     
     // edit comment of a picture
     [CoreDataManager editObject:detailPicture];
@@ -207,10 +201,10 @@
         Picture *deletedPicture = self.detailPictureObject;
         
         // delete all comments
-        NSArray *deletedComments = [deletedPicture.comments allObjects];
-        for (Comment *comment in deletedComments) {
-            [CoreDataManager deleteObject:comment];
-        }
+//        NSArray *deletedComments = [deletedPicture.comments allObjects];
+//        for (Comment *comment in deletedComments) {
+//            [CoreDataManager deleteObject:comment];
+//        }
         
         // delete picture
         [CoreDataManager deleteObject:deletedPicture];

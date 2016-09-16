@@ -2,7 +2,7 @@
 //  Picture+CoreDataProperties.h
 //  PrivateJournal
 //
-//  Created by ALIREZA TABRIZI on 9/15/16.
+//  Created by ALIREZA TABRIZI on 9/16/16.
 //  Copyright © 2016 AR-T.com, Inc. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -18,16 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSData *image;
 @property (nullable, nonatomic, retain) NSString *location;
 @property (nullable, nonatomic, retain) NSDate *time;
-@property (nullable, nonatomic, retain) NSSet<Comment *> *comments;
-
-@end
-
-@interface Picture (CoreDataGeneratedAccessors)
-
-- (void)addCommentsObject:(Comment *)value;
-- (void)removeCommentsObject:(Comment *)value;
-- (void)addComments:(NSSet<Comment *> *)values;
-- (void)removeComments:(NSSet<Comment *> *)values;
+@property (nullable, nonatomic, retain) NSString *comment;
 
 @end
 

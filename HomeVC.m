@@ -17,10 +17,9 @@
 #import "AppDelegate.h"
 #import "CoreDataDAL.h"
 #import "Picture.h"
-#import "Comment.h"
 #import "HomeVC.h"
 
-@interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate>
+@interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate,NSFetchedResultsControllerDelegate, UISearchBarDelegate>
     @property(weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
     @property UISearchController *searchController;
@@ -28,6 +27,7 @@
     @property NSMutableArray *collector;
     @property UIImage *originalLibraryImage;
     @property UIImage *snappedImage;
+    @property NSString *searchResults;
     @property Picture *picture;
     @property BOOL shouldReloadCollectionView;
     @property BOOL shouldShowSearchResults;
@@ -98,7 +98,6 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
     return [sectionInfo numberOfObjects];
-    //return self.filteredArrayOfPosts.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -111,19 +110,7 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    id picOrComment;
-    if ([self.filteredArrayOfPosts[indexPath.row] isKindOfClass:[Picture class]]) {
-        picOrComment = self.filteredArrayOfPosts[indexPath.row];
-    } else {
-        picOrComment = self.filteredArrayOfPosts[indexPath.row];
-    }
-    
-    if ([picOrComment isKindOfClass:[Picture class]]) {
-        self.picture = picOrComment;
-    } else {
-        Comment *pictureFromComment = picOrComment;
-        self.picture = pictureFromComment.picture;
-    }
+    self.picture = [self.fetchedResultController objectAtIndexPath:indexPath];
     
     [self performSegueWithIdentifier:@"aPictureSelected" sender:nil];
 }
@@ -139,28 +126,9 @@
     
     Picture *pictureObject  = [self pictureWithIndexPath:indexPath];
     cell.imageView.image = [UIImage imageWithData:pictureObject.image];
-//    id picOrComment;
-//
-//    if ([self.filteredArrayOfPosts[indexPath.row] isKindOfClass:[Picture class]]) {
-//        picOrComment = self.filteredArrayOfPosts[indexPath.row];
-//        //picOrComment = [_fetchedResultsController objectAtIndexPath:indexPath];
-//    } else {
-//        picOrComment = self.filteredArrayOfPosts[indexPath.row];
-//        //picOrComment = [_fetchedResultsController objectAtIndexPath:indexPath];
-//    }
-    
-//    if ([picOrComment isKindOfClass:[Picture class]]) {
-//        self.picture = picOrComment;
-//        cell.imageView.image = [UIImage imageWithData:self.picture.image];
-//    } else {
-//        Comment *pictureFromComment = picOrComment;
-//        self.picture = pictureFromComment.picture;
-//        cell.imageView.image = [UIImage imageWithData:self.picture.image];
-//    }
 }
 
 #pragma mark - properties
-
 - (NSFetchedResultsController *)fetchedResultsController {
     
     NSManagedObjectContext *localContext = _appDelegate.managedObjectContext;
@@ -185,7 +153,21 @@
     
     //delete chache if exist
     [NSFetchedResultsController deleteCacheWithName:cache];
+  
+    if (_fetchedResultController == nil) {
+        NSPredicate *predicate;
+        if (self.searchResults.length) {
+            predicate = [NSPredicate predicateWithFormat:@"comment CONTAINS[cd] %@", self.searchResults];
+            [fetchRequest setPredicate:predicate];
+        }
+    }
     
+    /*
+    if (_searchResults != nil) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"comment CONTAIN[cd] %@",_searchResults];
+        [fetchRequest setPredicate:predicate];
+    }
+    */
     //create a local fetched result controller
     
     /*
@@ -281,6 +263,14 @@
             }];
             break;
         }
+            //        case NSFetchedResultsChangeMove: {
+//            [self.blockOperation addExecutionBlock:^{
+//                [collectionView moveSection:indexPath.section toSection:newIndexPath.section];
+//            }];
+//            break;
+//        }
+
+            
         default:
             break;
     }
@@ -307,7 +297,7 @@
 }
 
 - (IBAction)onShareButtonPressed:(UIBarButtonItem *)sender {
-    /// unlock when app sharing portion is figred out
+    // unlock when app sharing portion is figred out
     [self displayShareSheet];
 }
 
@@ -340,7 +330,7 @@
     image = [self squareImageWithImage:image scaledToSize:CGSizeMake(300, 1)];
     
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
-        UIImage *photoTaken = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        //UIImage *photoTaken = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
             self.snappedImage = image;
             //UIImageWriteToSavedPhotosAlbum(photoTaken, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
@@ -441,7 +431,10 @@
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    self.searchResults = nil;
+    _fetchedResultController = nil;
     self.shouldShowSearchResults = NO;
+    [self.fetchedResultsController performFetch:nil];
     [self reloadAllData];
 }
 
@@ -455,37 +448,11 @@
 }
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    
-    self.filteredArrayOfPosts = [self filterArray:self.arrayOfPosts with:searchText];
-    if ([searchText length] > 0) {
-        self.filteredArrayOfPosts = [self.filteredArrayOfPosts sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            Comment *comment1 = obj1;
-            Comment *comment2 = obj2;
-            return [comment1.text.lowercaseString compare:comment2.text.lowercaseString];
-        }];
-    }
-    [self reloadAllData];
-    //[self.collectionView reloadData];
-}
-
--(NSArray *)filterArray:(NSArray *)oldArray with:(NSString *)filterString{
-    if ([filterString isEqualToString:@""]) {
-        return oldArray;
-    }
-    NSMutableArray *newArray = [[NSMutableArray alloc]init];
-    
-    NSString *filterStringLower = [filterString lowercaseString];
-    for (Picture *picture in oldArray) {
-        for (Comment *comment in picture.comments) {
-            NSString *elemText = comment.text;
-            NSString *elemTextLower = [elemText lowercaseString];
-            if ([elemTextLower containsString:filterStringLower]) {
-                [newArray addObject:comment];
-            }
-        }
-    }
+    self.searchResults = searchText;
+    self.fetchedResultController = nil;
+    [self.fetchedResultsController performFetch:nil];
     self.shouldShowSearchResults = YES;
-    return [NSArray arrayWithArray:newArray];
+    [self.collectionView reloadData];
 }
 
 #pragma mark - Data
@@ -493,17 +460,9 @@
     //?? maybe fetch can be inserted here now
     self.arrayOfPosts = [_fetchedResultController fetchedObjects];
 
-    //[self sortPicturesByDate:[self.picture allObjects]];
     self.filteredArrayOfPosts = [NSArray arrayWithArray:self.arrayOfPosts];
     [self.collectionView reloadData];
 }
-
-//-(NSArray *)sortPicturesByDate:(NSArray *)oldArray {
-//    return [oldArray sortedArrayUsingComparator:
-//            ^NSComparisonResult(Picture *p1, Picture *p2) {
-//                return [p2.time compare:p1.time];
-//            }];
-//}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"CameraPictureToPost"]) {
@@ -533,13 +492,7 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
         Picture *deletedPicture = [self.fetchedResultsController objectAtIndexPath:self.itemToBeDeleted];
-        // delete all comments
-        NSArray *deletedComments = [deletedPicture.comments allObjects];
-        for (Comment *comment in deletedComments) {
-            [CoreDataManager deleteObject:comment];
-        }
-        
-        // delete picture
+
         [CoreDataManager deleteObject:deletedPicture];
         
         [CoreDataManager save];
@@ -561,6 +514,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - Memory
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

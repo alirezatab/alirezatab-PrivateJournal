@@ -2,14 +2,12 @@
 //  Picture.h
 //  PrivateJournal
 //
-//  Created by ALIREZA TABRIZI on 9/15/16.
+//  Created by ALIREZA TABRIZI on 9/16/16.
 //  Copyright © 2016 AR-T.com, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
-@class Comment;
 
 NS_ASSUME_NONNULL_BEGIN
 

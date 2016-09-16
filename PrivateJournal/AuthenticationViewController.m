@@ -14,7 +14,7 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(authenticateUser) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(authenticateUser) userInfo:nil repeats:NO];
 }
 
 - (IBAction)onAuthenticationLogoPressed:(UIButton *)sender {

@@ -17,5 +17,4 @@
 + (void)deleteObject:(NSManagedObject *)entity;
 + (void)editObject:(NSManagedObject *)entity;
 + (void)save;
-+ (NSArray *)fetchComments;
 @end
