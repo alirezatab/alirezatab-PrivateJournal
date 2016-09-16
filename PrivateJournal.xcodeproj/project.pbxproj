@@ -11,15 +11,11 @@
 		C20C7B691D3E3AC600CA473F /* AddLocationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C20C7B681D3E3AC600CA473F /* AddLocationVC.m */; };
 		C21AFB211D2407D000B243DB /* PostImageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB201D2407D000B243DB /* PostImageVC.m */; };
 		C21AFB251D2422FC00B243DB /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB241D2422FC00B243DB /* CoreDataManager.m */; };
-		C21AFB721D2A253400B243DB /* Comment+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB631D2A253400B243DB /* Comment+CoreDataProperties.m */; };
-		C21AFB731D2A253400B243DB /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB651D2A253400B243DB /* Comment.m */; };
-		C21AFB741D2A253400B243DB /* Hashtag+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB671D2A253400B243DB /* Hashtag+CoreDataProperties.m */; };
-		C21AFB751D2A253400B243DB /* Hashtag.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB691D2A253400B243DB /* Hashtag.m */; };
-		C21AFB761D2A253400B243DB /* Picture+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB6B1D2A253400B243DB /* Picture+CoreDataProperties.m */; };
-		C21AFB771D2A253400B243DB /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB6D1D2A253400B243DB /* Picture.m */; };
-		C21AFB781D2A253400B243DB /* User+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB6F1D2A253400B243DB /* User+CoreDataProperties.m */; };
-		C21AFB791D2A253400B243DB /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB711D2A253400B243DB /* User.m */; };
 		C21AFB7C1D2FF83A00B243DB /* PostDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C21AFB7B1D2FF83A00B243DB /* PostDetailVC.m */; };
+		C2283CC31D8B567800DD3ACD /* Picture+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C2283CBC1D8B567800DD3ACD /* Picture+CoreDataProperties.m */; };
+		C2283CC41D8B567800DD3ACD /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = C2283CBE1D8B567800DD3ACD /* Picture.m */; };
+		C2283CC51D8B567800DD3ACD /* Comment+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C2283CC01D8B567800DD3ACD /* Comment+CoreDataProperties.m */; };
+		C2283CC61D8B567800DD3ACD /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = C2283CC21D8B567800DD3ACD /* Comment.m */; };
 		C24781271D3FDF0D0045A79F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C24781261D3FDF0D0045A79F /* CoreLocation.framework */; };
 		C24781291D41024A0045A79F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C24781281D41024A0045A79F /* MapKit.framework */; };
 		C24781301D4107F40045A79F /* NearbyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C247812F1D4107F40045A79F /* NearbyLocation.m */; };
@@ -62,24 +58,16 @@
 		C21AFB201D2407D000B243DB /* PostImageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostImageVC.m; sourceTree = "<group>"; };
 		C21AFB231D2422FC00B243DB /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		C21AFB241D2422FC00B243DB /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
-		C21AFB621D2A253400B243DB /* Comment+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Comment+CoreDataProperties.h"; sourceTree = "<group>"; };
-		C21AFB631D2A253400B243DB /* Comment+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Comment+CoreDataProperties.m"; sourceTree = "<group>"; };
-		C21AFB641D2A253400B243DB /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
-		C21AFB651D2A253400B243DB /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
-		C21AFB661D2A253400B243DB /* Hashtag+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hashtag+CoreDataProperties.h"; sourceTree = "<group>"; };
-		C21AFB671D2A253400B243DB /* Hashtag+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hashtag+CoreDataProperties.m"; sourceTree = "<group>"; };
-		C21AFB681D2A253400B243DB /* Hashtag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hashtag.h; sourceTree = "<group>"; };
-		C21AFB691D2A253400B243DB /* Hashtag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hashtag.m; sourceTree = "<group>"; };
-		C21AFB6A1D2A253400B243DB /* Picture+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Picture+CoreDataProperties.h"; sourceTree = "<group>"; };
-		C21AFB6B1D2A253400B243DB /* Picture+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Picture+CoreDataProperties.m"; sourceTree = "<group>"; };
-		C21AFB6C1D2A253400B243DB /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Picture.h; sourceTree = "<group>"; };
-		C21AFB6D1D2A253400B243DB /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Picture.m; sourceTree = "<group>"; };
-		C21AFB6E1D2A253400B243DB /* User+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+CoreDataProperties.h"; sourceTree = "<group>"; };
-		C21AFB6F1D2A253400B243DB /* User+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+CoreDataProperties.m"; sourceTree = "<group>"; };
-		C21AFB701D2A253400B243DB /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		C21AFB711D2A253400B243DB /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		C21AFB7A1D2FF83A00B243DB /* PostDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailVC.h; sourceTree = "<group>"; };
 		C21AFB7B1D2FF83A00B243DB /* PostDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailVC.m; sourceTree = "<group>"; };
+		C2283CBB1D8B567800DD3ACD /* Picture+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Picture+CoreDataProperties.h"; path = "../Picture+CoreDataProperties.h"; sourceTree = "<group>"; };
+		C2283CBC1D8B567800DD3ACD /* Picture+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Picture+CoreDataProperties.m"; path = "../Picture+CoreDataProperties.m"; sourceTree = "<group>"; };
+		C2283CBD1D8B567800DD3ACD /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Picture.h; path = ../Picture.h; sourceTree = "<group>"; };
+		C2283CBE1D8B567800DD3ACD /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Picture.m; path = ../Picture.m; sourceTree = "<group>"; };
+		C2283CBF1D8B567800DD3ACD /* Comment+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Comment+CoreDataProperties.h"; path = "../Comment+CoreDataProperties.h"; sourceTree = "<group>"; };
+		C2283CC01D8B567800DD3ACD /* Comment+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Comment+CoreDataProperties.m"; path = "../Comment+CoreDataProperties.m"; sourceTree = "<group>"; };
+		C2283CC11D8B567800DD3ACD /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = ../Comment.h; sourceTree = "<group>"; };
+		C2283CC21D8B567800DD3ACD /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = ../Comment.m; sourceTree = "<group>"; };
 		C24781261D3FDF0D0045A79F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C24781281D41024A0045A79F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C247812E1D4107F40045A79F /* NearbyLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyLocation.h; sourceTree = "<group>"; };
@@ -151,22 +139,14 @@
 		C2503C811D0F54900039C802 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C21AFB621D2A253400B243DB /* Comment+CoreDataProperties.h */,
-				C21AFB631D2A253400B243DB /* Comment+CoreDataProperties.m */,
-				C21AFB641D2A253400B243DB /* Comment.h */,
-				C21AFB651D2A253400B243DB /* Comment.m */,
-				C21AFB661D2A253400B243DB /* Hashtag+CoreDataProperties.h */,
-				C21AFB671D2A253400B243DB /* Hashtag+CoreDataProperties.m */,
-				C21AFB681D2A253400B243DB /* Hashtag.h */,
-				C21AFB691D2A253400B243DB /* Hashtag.m */,
-				C21AFB6A1D2A253400B243DB /* Picture+CoreDataProperties.h */,
-				C21AFB6B1D2A253400B243DB /* Picture+CoreDataProperties.m */,
-				C21AFB6C1D2A253400B243DB /* Picture.h */,
-				C21AFB6D1D2A253400B243DB /* Picture.m */,
-				C21AFB6E1D2A253400B243DB /* User+CoreDataProperties.h */,
-				C21AFB6F1D2A253400B243DB /* User+CoreDataProperties.m */,
-				C21AFB701D2A253400B243DB /* User.h */,
-				C21AFB711D2A253400B243DB /* User.m */,
+				C2283CBB1D8B567800DD3ACD /* Picture+CoreDataProperties.h */,
+				C2283CBC1D8B567800DD3ACD /* Picture+CoreDataProperties.m */,
+				C2283CBD1D8B567800DD3ACD /* Picture.h */,
+				C2283CBE1D8B567800DD3ACD /* Picture.m */,
+				C2283CBF1D8B567800DD3ACD /* Comment+CoreDataProperties.h */,
+				C2283CC01D8B567800DD3ACD /* Comment+CoreDataProperties.m */,
+				C2283CC11D8B567800DD3ACD /* Comment.h */,
+				C2283CC21D8B567800DD3ACD /* Comment.m */,
 				C2EEC67C1D08C4A2006E8058 /* PrivateJournal.xcdatamodeld */,
 				C247812E1D4107F40045A79F /* NearbyLocation.h */,
 				C247812F1D4107F40045A79F /* NearbyLocation.m */,
@@ -411,23 +391,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C21AFB791D2A253400B243DB /* User.m in Sources */,
 				C24781301D4107F40045A79F /* NearbyLocation.m in Sources */,
-				C21AFB781D2A253400B243DB /* User+CoreDataProperties.m in Sources */,
-				C21AFB751D2A253400B243DB /* Hashtag.m in Sources */,
 				C2503C931D0F6EFE0039C802 /* CustomImageFlowLayout.m in Sources */,
-				C21AFB761D2A253400B243DB /* Picture+CoreDataProperties.m in Sources */,
-				C21AFB721D2A253400B243DB /* Comment+CoreDataProperties.m in Sources */,
 				C20C7B691D3E3AC600CA473F /* AddLocationVC.m in Sources */,
 				C2503C961D0F71150039C802 /* ImageCollectionViewCell.m in Sources */,
-				C21AFB731D2A253400B243DB /* Comment.m in Sources */,
+				C2283CC61D8B567800DD3ACD /* Comment.m in Sources */,
 				C2EEC67E1D08C4A2006E8058 /* PrivateJournal.xcdatamodeld in Sources */,
+				C2283CC51D8B567800DD3ACD /* Comment+CoreDataProperties.m in Sources */,
 				C21AFB211D2407D000B243DB /* PostImageVC.m in Sources */,
+				C2283CC41D8B567800DD3ACD /* Picture.m in Sources */,
+				C2283CC31D8B567800DD3ACD /* Picture+CoreDataProperties.m in Sources */,
 				C20C7B661D3CC6ED00CA473F /* PIcAndCommentTableViewCell.m in Sources */,
 				C2AA35D51D866D9600AB691F /* AuthenticationViewController.m in Sources */,
 				C21AFB7C1D2FF83A00B243DB /* PostDetailVC.m in Sources */,
-				C21AFB771D2A253400B243DB /* Picture.m in Sources */,
-				C21AFB741D2A253400B243DB /* Hashtag+CoreDataProperties.m in Sources */,
 				C21AFB251D2422FC00B243DB /* CoreDataManager.m in Sources */,
 				C29772C91D0D412A00FE313D /* HomeVC.m in Sources */,
 				C2EEC6751D08C4A2006E8058 /* AppDelegate.m in Sources */,

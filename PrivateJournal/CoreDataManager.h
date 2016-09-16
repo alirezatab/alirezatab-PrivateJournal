@@ -9,17 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "Picture.h"
-#import "Hashtag.h"
 
 
 @interface CoreDataManager : NSObject 
 + (Picture *)addPicture:(UIImage *)pictureImage
-            withComment:(NSString *)commentStr withLocation:(NSString *)locationStr fromUser:(User *)user;
+            withComment:(NSString *)commentStr withLocation:(NSString *)locationStr;
 + (void)deleteObject:(NSManagedObject *)entity;
 + (void)editObject:(NSManagedObject *)entity;
 + (void)save;
 + (NSArray *)fetchComments;
-+ (NSArray *)fetchUsers;
-+ (Hashtag *)fetchHashtag:(NSString *)tag;
-+ (User *)getUserZero;
 @end

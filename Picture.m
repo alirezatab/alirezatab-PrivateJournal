@@ -1,16 +1,15 @@
 //
-//  User.m
+//  Picture.m
 //  PrivateJournal
 //
-//  Created by ALIREZA TABRIZI on 7/3/16.
+//  Created by ALIREZA TABRIZI on 9/15/16.
 //  Copyright © 2016 AR-T.com, Inc. All rights reserved.
 //
 
-#import "User.h"
-#import "Comment.h"
 #import "Picture.h"
+#import "Comment.h"
 
-@implementation User
+@implementation Picture
 
 // Insert code here to add functionality to your managed object subclass
 

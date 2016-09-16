@@ -1,19 +1,19 @@
 //
-//  User.h
+//  Picture.h
 //  PrivateJournal
 //
-//  Created by ALIREZA TABRIZI on 7/3/16.
+//  Created by ALIREZA TABRIZI on 9/15/16.
 //  Copyright © 2016 AR-T.com, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Comment, Picture;
+@class Comment;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface User : NSManagedObject
+@interface Picture : NSManagedObject
 
 // Insert code here to declare functionality of your managed object subclass
 
@@ -21,4 +21,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#import "User+CoreDataProperties.h"
+#import "Picture+CoreDataProperties.h"

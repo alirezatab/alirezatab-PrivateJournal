@@ -9,7 +9,6 @@
 #import "PostImageVC.h"
 #import "CoreDataManager.h"
 #import "Picture.h"
-#import "Hashtag.h"
 //#import "PIcAndCommentTableViewCell.h"
 
 
@@ -79,19 +78,13 @@
 
 # pragma mark - buttonsPressed
 - (IBAction)onPostButtonPressed:(UIBarButtonItem *)sender {
-    [CoreDataManager addPicture:self.toBePostedImageView.image withComment:self.userCommentTextView.text withLocation:self.passedSelectedLocation.mapItem.name fromUser:[self getMyUser]];
+    [CoreDataManager addPicture:self.toBePostedImageView.image withComment:self.userCommentTextView.text withLocation:self.passedSelectedLocation.mapItem.name];
     
     [CoreDataManager save];
     UINavigationController *navController = self.navigationController;
     //Pop this controller and replace with another
     [navController popViewControllerAnimated:NO];
     //[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-// getMyUser() - returns User object for current user
-// TODO: this should come from parent VC instead (?)
--(User *)getMyUser {
-    return [CoreDataManager getUserZero];
 }
 
 - (IBAction)unwindFromModalAddLocationViewController:(UIStoryboardSegue *)segue{

@@ -67,7 +67,9 @@
     NSArray *comments = [detailPicture.comments allObjects];
     Comment *comment = comments[0];
     self.singleSelectedCommentTextView.text = comment.text;
-    self.navigationItem.title = comment.agoString;
+    
+    //change date into string and the put in title or something
+    //self.navigationItem.title = comment.time.timeIntervalSince1970;
 }
 
 #pragma mark - Gesture

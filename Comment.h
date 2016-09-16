@@ -1,19 +1,19 @@
 //
-//  Hashtag.h
+//  Comment.h
 //  PrivateJournal
 //
-//  Created by ALIREZA TABRIZI on 7/3/16.
+//  Created by ALIREZA TABRIZI on 9/15/16.
 //  Copyright © 2016 AR-T.com, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Comment;
+@class Picture;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Hashtag : NSManagedObject
+@interface Comment : NSManagedObject
 
 // Insert code here to declare functionality of your managed object subclass
 
@@ -21,4 +21,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#import "Hashtag+CoreDataProperties.h"
+#import "Comment+CoreDataProperties.h"

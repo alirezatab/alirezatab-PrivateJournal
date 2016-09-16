@@ -18,12 +18,15 @@
 #import "Picture.h"
 #import "Comment.h"
 #import "HomeVC.h"
-#import "User.h"
-#import "User.h"
 
-@interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate/*, NSFetchedResultsControllerDelegate*/>
+@interface HomeVC () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate>
     @property(weak, nonatomic) IBOutlet UICollectionView *collectionView;
-    //@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+
+    /////////////
+    @property (nonatomic,strong) NSManagedObjectContext* moc;
+    @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+    /////////////
+
     @property UISearchController *searchController;
     @property NSBlockOperation *blockOperation;
     @property NSMutableArray *collector;
@@ -33,13 +36,10 @@
     @property BOOL shouldReloadCollectionView;
     @property BOOL shouldShowSearchResults;
     @property int itemToBeDeleted;
-
-//@property NSManagedObjectContext *moc;
-
 @end
 
 @implementation HomeVC
-    
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -51,7 +51,7 @@
     // SQLite
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     NSLog(@"sqlite dir = \n%@", appDelegate.applicationDocumentsDirectory);
-    //self.moc = appDelegate.managedObjectContext;
+    self.moc = appDelegate.managedObjectContext;
 
     
     [self configureSearchController];
@@ -62,10 +62,23 @@
     //when true, the filteredArrayOfPosts will be used
     self.shouldShowSearchResults = NO;
     
+    // initial fetch
+    NSError *error;
+    if (![[self fetchedResultsController] performFetch:&error]) {
+        // Update to handle the error appropriately.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        exit(-1);  // Fail
+    }
+
+    
     //search results
     self.arrayOfPosts = [[NSArray alloc]init];
     self.filteredArrayOfPosts = [[NSArray alloc]init];
     
+}
+
+-(void)viewDidUnload{
+    self.fetchedResultsController = nil;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -85,28 +98,32 @@
     return self.filteredArrayOfPosts.count;
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    ImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
-    
+- (void)configureCell:(ImageCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     id picOrComment;
-    if ([self.filteredArrayOfPosts[indexPath.row] isKindOfClass:[Picture class]]) {
-        //picOrComment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        picOrComment = self.filteredArrayOfPosts[indexPath.row];
+    if ([[_fetchedResultsController objectAtIndexPath:indexPath] isKindOfClass:[Picture class]]) {
+        picOrComment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        //picOrComment = [_fetchedResultsController objectAtIndexPath:indexPath];
     } else {
-        //picOrComment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        picOrComment = self.filteredArrayOfPosts[indexPath.row];
+        picOrComment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        //picOrComment = [_fetchedResultsController objectAtIndexPath:indexPath];
     }
     
     if ([picOrComment isKindOfClass:[Picture class]]) {
         self.picture = picOrComment;
-            cell.imageView.image = [UIImage imageWithData:self.picture.image];
+        cell.imageView.image = [UIImage imageWithData:self.picture.image];
     } else {
         Comment *pictureFromComment = picOrComment;
         self.picture = pictureFromComment.picture;
-            cell.imageView.image = [UIImage imageWithData:self.picture.image];
+        cell.imageView.image = [UIImage imageWithData:self.picture.image];
     }
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    ImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
     
     collectionView.backgroundColor = [UIColor blackColor];
+    
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }
@@ -129,6 +146,120 @@
     
     [self performSegueWithIdentifier:@"aPictureSelected" sender:nil];
 }
+
+#pragma mark - fetchedResultsController
+
+- (NSFetchedResultsController *)fetchedResultsController {
+    
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"Picture" inManagedObjectContext:self.moc];
+    [fetchRequest setEntity:entity];
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+                              initWithKey:@"time" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSFetchedResultsController *theFetchedResultsController =
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:self.moc sectionNameKeyPath:nil
+                                                   cacheName:@"Root"];
+    self.fetchedResultsController = theFetchedResultsController;
+    _fetchedResultsController.delegate = self;
+
+    return _fetchedResultsController;
+}
+
+//delegate methods
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    self.shouldReloadCollectionView = NO;
+    self.blockOperation = [[NSBlockOperation alloc]init];
+}
+//
+////step 8
+////delegate method
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    if (self.shouldReloadCollectionView) {
+        [self.collectionView reloadData];
+    } else {
+        [self.collectionView performBatchUpdates:^{
+            [self.blockOperation start];
+        } completion:nil];
+    }
+}
+
+//this performs the animation
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    __weak UICollectionView *collectionView = self.collectionView;
+    
+    switch (type) {
+        case NSFetchedResultsChangeInsert: {
+            if ([collectionView numberOfSections] > 0) {
+                if ([collectionView numberOfItemsInSection:indexPath.section] == 0) {
+                    self.shouldReloadCollectionView = YES;
+                } else {
+                    [self.blockOperation addExecutionBlock:^{
+                        [collectionView insertItemsAtIndexPaths:@[newIndexPath]];
+                    }];
+                }
+            } else {
+                self.shouldReloadCollectionView = YES;
+            }
+            break;
+        }
+        case NSFetchedResultsChangeDelete: {
+            if ([collectionView numberOfItemsInSection:indexPath.section] == 1) {
+                self.shouldReloadCollectionView = YES;
+            } else {
+                [self.blockOperation addExecutionBlock:^{
+                    [collectionView deleteItemsAtIndexPaths:@[indexPath]];
+                }];
+            }
+            break;
+        }
+            
+        case NSFetchedResultsChangeUpdate: {
+            [self.blockOperation addExecutionBlock:^{
+                [collectionView reloadItemsAtIndexPaths:@[indexPath]];
+            }];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+//if we dont use this method the app will crash when we delete tha last item
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    __weak UICollectionView *collectionView = self.collectionView;
+    
+    switch (type) {
+        case NSFetchedResultsChangeInsert: {
+            [self.blockOperation addExecutionBlock:^{
+                [collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+            }];
+            break;
+        }
+        case NSFetchedResultsChangeDelete: {
+            [self.blockOperation addExecutionBlock:^{
+                [collectionView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+            }];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 
 #pragma mark- Actions
 - (IBAction)onAddPhotoButtonPressed:(UIBarButtonItem *)sender {
@@ -321,18 +452,20 @@
 
 #pragma mark - Data
 -(void)reloadAllData {
-    self.user = [CoreDataManager getUserZero];
-    self.arrayOfPosts = [self sortPicturesByDate:[self.user.pictures allObjects]];
+    //?? maybe fetch can be inserted here now
+    self.arrayOfPosts = [_fetchedResultsController fetchedObjects];
+
+    //[self sortPicturesByDate:[self.picture allObjects]];
     self.filteredArrayOfPosts = [NSArray arrayWithArray:self.arrayOfPosts];
     [self.collectionView reloadData];
 }
 
--(NSArray *)sortPicturesByDate:(NSArray *)oldArray {
-    return [oldArray sortedArrayUsingComparator:
-            ^NSComparisonResult(Picture *p1, Picture *p2) {
-                return [p2.time compare:p1.time];
-            }];
-}
+//-(NSArray *)sortPicturesByDate:(NSArray *)oldArray {
+//    return [oldArray sortedArrayUsingComparator:
+//            ^NSComparisonResult(Picture *p1, Picture *p2) {
+//                return [p2.time compare:p1.time];
+//            }];
+//}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"CameraPictureToPost"]) {
@@ -344,7 +477,6 @@
     } else if ([segue.identifier isEqualToString:@"aPictureSelected"]){
         PostDetailVC *destVC = segue.destinationViewController;
         destVC.detailPictureObject = self.picture;
-        destVC.me = self.user;
     }
 }
 
@@ -395,85 +527,5 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-//#pragma mark - New
-//delegate method
-//-(void)controllerWillChangeContent:(NSFetchedResultsController *)controller{
-//    self.shouldReloadCollectionView = NO;
-//    self.blockOperation = [[NSBlockOperation alloc]init];
-//}
-//
-////this performs the animation
-//- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-//    
-//    __weak UICollectionView *collectionView = self.collectionView;
-//    
-//    switch (type) {
-//        case NSFetchedResultsChangeInsert: {
-//            if ([collectionView numberOfSections] > 0) {
-//                if ([collectionView numberOfItemsInSection:indexPath.section] == 0) {
-//                    self.shouldReloadCollectionView = YES;
-//                } else {
-//                    [self.blockOperation addExecutionBlock:^{
-//                        [collectionView insertItemsAtIndexPaths:@[newIndexPath]];
-//                    }];
-//                }
-//            } else {
-//                self.shouldReloadCollectionView = YES;
-//            }
-//            break;
-//        }
-//        case NSFetchedResultsChangeDelete: {
-//            if ([collectionView numberOfItemsInSection:indexPath.section] == 1) {
-//                self.shouldReloadCollectionView = YES;
-//            } else {
-//                [self.blockOperation addExecutionBlock:^{
-//                    [collectionView deleteItemsAtIndexPaths:@[indexPath]];
-//                }];
-//            }
-//            break;
-//        }
-//            
-//        case NSFetchedResultsChangeUpdate: {
-//            [self.blockOperation addExecutionBlock:^{
-//                [collectionView reloadItemsAtIndexPaths:@[indexPath]];
-//            }];
-//            break;
-//        }
-//        default:
-//            break;
-//    }
-//}
-//
-//////step 8
-//////delegate method
-//- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-//    if (self.shouldReloadCollectionView) {
-//        [self.collectionView reloadData];
-//    } else {
-//        [self.collectionView performBatchUpdates:^{
-//            [self.blockOperation start];
-//        } completion:nil];
-//    }
-//}
-//
-////step 2
-//- (NSFetchRequest *)entrylistfetchRequest {
-//    
-//    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Comment"];
-//    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO]];
-//    return  fetchRequest;
-//}
-//
-//- (NSFetchedResultsController*)fetchedResultsController {
-//    if (_fetchedResultsController != nil) {
-//        return _fetchedResultsController;
-//    }
-//    
-//    NSFetchRequest *fetchRequest = [self entrylistfetchRequest];
-//    
-//    _fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.moc sectionNameKeyPath:nil cacheName:nil];
-//    _fetchedResultsController.delegate = self;
-//    return _fetchedResultsController;
-//}
 
 @end

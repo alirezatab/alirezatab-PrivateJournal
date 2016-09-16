@@ -13,7 +13,6 @@
 @interface PostDetailVC : UIViewController
 @property NSIndexPath *passedIndexPath;
 @property Picture *detailPictureObject;
-@property User *me;
 -(IBAction)handleSingleTap:(UITapGestureRecognizer *)recognizer;
 //-(IBAction)handleDoubleTap:(UITapGestureRecognizer *)recognizer;
 
