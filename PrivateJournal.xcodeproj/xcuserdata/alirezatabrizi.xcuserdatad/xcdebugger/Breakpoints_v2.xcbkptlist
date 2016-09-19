@@ -596,22 +596,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeVC.m"
-            timestampString = "495761887.8926"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "-fetchedResultsController"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HomeVC.m"
             timestampString = "495762297.21356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
