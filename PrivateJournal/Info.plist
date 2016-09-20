@@ -42,5 +42,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>PrivateJournal needs Access to your Camera so you take fun pics using your phone camera</string>
 </dict>
 </plist>
