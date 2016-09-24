@@ -12,7 +12,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface AddLocationVC () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CLLocationManagerDelegate, UINavigationControllerDelegate>
+@interface AddLocationVC () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CLLocationManagerDelegate, UINavigationBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property UISearchController *searchController;
 
@@ -34,9 +34,9 @@
     // setup delegate and dataSource
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-        
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    //[self.navigationController.navigationBar setTitleTextAttributes:
+     //@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     [self configureSearchController];
     [self getCurrentLocation];
@@ -63,6 +63,14 @@
 #pragma mark- search Controller
 - (void)configureSearchController {
     self.searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
+    
+    UITextField *textFieldSearchField = [self.searchController.searchBar valueForKey:@"_searchField"];
+    
+    textFieldSearchField.textColor = [UIColor blackColor];
+    textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter Location..." attributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
+    
+    self.searchController.searchBar.barTintColor = [UIColor darkGrayColor];
+    //858585
     self.searchController.searchBar.delegate = self;
     self.searchController.hidesNavigationBarDuringPresentation = YES;
     self.searchController.dimsBackgroundDuringPresentation = NO;

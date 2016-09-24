@@ -89,6 +89,7 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="eL8-JM-VCq">
                         <barButtonItem key="leftBarButtonItem" title="Sign Out" id="aQb-89-76w">
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="signOutButtonPressed:" destination="BYZ-38-t0r" id="tDR-MS-ETV"/>
                             </connections>
@@ -245,7 +246,7 @@
                                         <rect key="frame" x="0.0" y="92" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="38s-jX-tsw" id="iW5-pB-n0v">
-                                            <frame key="frameInset" width="320" height="99.5"/>
+                                            <frame key="frameInset" width="320" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QId-bU-BHC">
@@ -279,11 +280,11 @@
                                         <rect key="frame" x="0.0" y="220" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9by-cm-rKm" id="2sh-5W-of5">
-                                            <frame key="frameInset" width="320" height="43.5"/>
+                                            <frame key="frameInset" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tCP-c0-XEg">
-                                                    <frame key="frameInset" minX="15" width="290" height="43.5"/>
+                                                    <frame key="frameInset" minX="15" width="290" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -337,7 +338,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="YfU-gg-d4K"/>
                                 </constraints>
-                                <color key="barTintColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
                                 <items>
                                     <navigationItem title="Add Location" id="QW1-gp-w9m">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="SwT-w7-Rdp">
@@ -402,7 +406,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1zR-P9-CZg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Nid-mQ-OHL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3571" y="707"/>
+            <point key="canvasLocation" x="4033" y="706"/>
         </scene>
         <!--Authentication View Controller-->
         <scene sceneID="hHa-ux-MXn">
