@@ -9,15 +9,23 @@
 #import "AuthenticationViewController.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 
-@implementation AuthenticationViewController
 
+@implementation AuthenticationViewController{
+    BOOL wasLogoTapped;
+}
 -(void)viewDidLoad{
     [super viewDidLoad];
+    wasLogoTapped = NO;
     
-    [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(authenticateUser) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:4.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+        if (!wasLogoTapped) {
+            [self authenticateUser];
+        }
+    }];
 }
 
 - (IBAction)onAuthenticationLogoPressed:(UIButton *)sender {
+    wasLogoTapped = YES;
     [self authenticateUser];
 }
 

@@ -62,8 +62,23 @@
     Picture *detailPicture = self.detailPictureObject;
     self.singleSelectedImageView.image = [UIImage imageWithData:detailPicture.image];
     self.singleSelectedImageLocationLabel.text = self.detailPictureObject.location;
+    
+    self.singleSelectedCommentTextView.text = [NSString stringWithFormat:@"%@",detailPicture.comment];
+    NSString *formateDate = [self whenPicWasTaken:self.detailPictureObject.time];
+    self.navigationItem.title = formateDate;
+    
+}
 
-    self.singleSelectedCommentTextView.text = [NSString stringWithFormat:detailPicture.comment];
+-(NSString *) whenPicWasTaken:(NSDate *)TimeStampOfPic{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    //??
+    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    dateFormatter.timeStyle = NSDateFormatterNoStyle;
+    
+    // US English Locale (en_US)
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    return [dateFormatter stringFromDate:TimeStampOfPic];
+    //NSLog(@"%@", [dateFormatter stringFromDate:TimeStampOfPic]);
 }
 
 #pragma mark - Gesture
@@ -177,16 +192,23 @@
 }
 
 #pragma mark - ButtonsPressed
-- (IBAction)onEditButtonPressed:(id)sender {
+- (IBAction)onEditButtonPressed:(UIButton *)sender {
     if (self.editing) {
         self.editing = NO;
         [self.textView setEditable:NO];
-        //self.navigationItem.rightBarButtonItem.title = @"Edit";
+        [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [sender setTitle:nil forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"menu-4"] forState:UIControlStateNormal];
+        
     } else {
         self.editing = YES;
         [self.textView setEditable:YES];
+        
+        [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [sender setTitle:@"DONE" forState:UIControlStateNormal];
+        [sender setImage:nil forState:UIControlStateNormal];
+        
         [self.textView becomeFirstResponder];
-        //self.navigationItem.rightBarButtonItem.title = @"Done";
     }
 }
 

@@ -449,9 +449,10 @@
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     self.searchResults = searchText;
-    self.fetchedResultController = nil;
-    [self.fetchedResultsController performFetch:nil];
     self.shouldShowSearchResults = YES;
+    self.fetchedResultController = nil;
+
+    [self.fetchedResultsController performFetch:nil];
     [self.collectionView reloadData];
 }
 
@@ -494,7 +495,6 @@
         Picture *deletedPicture = [self.fetchedResultsController objectAtIndexPath:self.itemToBeDeleted];
 
         [CoreDataManager deleteObject:deletedPicture];
-        
         [CoreDataManager save];
         [self reloadAllData];
     }
