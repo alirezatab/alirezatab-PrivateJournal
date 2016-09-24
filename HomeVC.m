@@ -58,8 +58,6 @@
     _appDelegate = [UIApplication sharedApplication].delegate;
     NSLog(@"sqlite dir = \n%@", _appDelegate.applicationDocumentsDirectory);
     
-    [self configureSearchController];
-    
     self.collectionView.collectionViewLayout = [[CustomImageFlowLayout alloc] init];
     self.collectionView.backgroundColor = [UIColor blackColor];
 
@@ -74,6 +72,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self configureSearchController];
     [self.fetchedResultsController performFetch:nil];
     
     [self reloadAllData];
@@ -420,9 +419,10 @@
     
     textFieldSearchField.backgroundColor = [UIColor lightGrayColor];
     textFieldSearchField.textColor = [UIColor blackColor];
-    textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Search for Images" attributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
+    textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Search for Images..." attributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
     
     self.searchController.searchBar.delegate = self;
+    //[self.searchController.searchBar sizeToFit];
     self.searchController.hidesNavigationBarDuringPresentation = false;
     self.searchController.dimsBackgroundDuringPresentation = YES;
     
