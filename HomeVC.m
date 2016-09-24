@@ -15,7 +15,6 @@
 #import "PostDetailVC.h"
 #import "PostImageVC.h"
 #import "AppDelegate.h"
-#import "CoreDataDAL.h"
 #import "Picture.h"
 #import "HomeVC.h"
 
@@ -35,16 +34,10 @@
 @end
 
 @implementation HomeVC {
-    /*
-     Apple say It’s best practice to use a property on an object any time you need to keep track of a value or another object.
-     If you do need to define your own instance variables without declaring a property, you can add them inside braces at the top of the class interface or implementation
-     
-     this is not weird, its just a private instance variable aka .ivar, as i do not need a property for this
-     , the memory access will be pretty much faster than with a synthetized property. Its not a good pattern have your AppDelegate with tons of global variables but for this simple example its ok.
-     */
-    
     AppDelegate *_appDelegate;
 }
+
+static NSManagedObjectContext *localContext;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,8 +48,10 @@
     self.navigationController.toolbar.barTintColor = [UIColor darkGrayColor];
     
     // SQLite
-    _appDelegate = [UIApplication sharedApplication].delegate;
+    _appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    localContext = _appDelegate.managedObjectContext;
     NSLog(@"sqlite dir = \n%@", _appDelegate.applicationDocumentsDirectory);
+    
     
     self.collectionView.collectionViewLayout = [[CustomImageFlowLayout alloc] init];
     self.collectionView.backgroundColor = [UIColor blackColor];
@@ -131,8 +126,6 @@
 #pragma mark - properties
 - (NSFetchedResultsController *)fetchedResultsController {
     
-    NSManagedObjectContext *localContext = _appDelegate.managedObjectContext;
-    
     if (_fetchedResultController || !localContext) {
         return _fetchedResultController;
     }
@@ -190,7 +183,7 @@
 //if we dont use this method the app will crash when we delete tha last item
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     
-    NSLog(@"%s  with type %lu",__PRETTY_FUNCTION__, type);
+    NSLog(@"%s  with type %lu",__PRETTY_FUNCTION__, (unsigned long)type);
     
     __weak UICollectionView *collectionView = self.collectionView;
     
@@ -273,7 +266,7 @@
 }
 
 #pragma mark- Actions
-- (IBAction)onAddPhotoButtonPressed:(UIBarButtonItem *)sender {
+- (IBAction)onAddPhotoButtonPressed:(UIButton *)sender {
     UIImagePickerController *picker = [[UIImagePickerController alloc]init];
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -306,13 +299,13 @@
 }
 
 #pragma mark - Camera delegates
-// fired when we take picture
+// fired when we access images
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    image = [self squareImageWithImage:image scaledToSize:CGSizeMake(300, 1)];
+    image = [self squareImageWithImage:image scaledToSize:CGSizeMake(600, 1)];
     
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         //UIImage *photoTaken = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
@@ -322,15 +315,13 @@
             [self performSegueWithIdentifier:@"CameraPictureToPost" sender:self];
             
         } else if ( picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary){
-            
             self.originalLibraryImage = image;
-            
             [self performSegueWithIdentifier:@"LibraryPhoto" sender:self];
         }
     }
 
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated: YES completion: NULL];
+    //[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
@@ -410,7 +401,6 @@
     textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Search for Images..." attributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
     
     self.searchController.searchBar.delegate = self;
-    //[self.searchController.searchBar sizeToFit];
     self.searchController.hidesNavigationBarDuringPresentation = false;
     self.searchController.dimsBackgroundDuringPresentation = YES;
     
@@ -464,6 +454,7 @@
         desVC.snappedImage = self.snappedImage;
     } else if ([segue.identifier isEqualToString:@"LibraryPhoto"]){
         PostImageVC *desVC = segue.destinationViewController;
+        NSLog(@"%@", self.originalLibraryImage.description);
         desVC.snappedImage = self.originalLibraryImage;
     } else if ([segue.identifier isEqualToString:@"aPictureSelected"]){
         PostDetailVC *destVC = segue.destinationViewController;
@@ -505,6 +496,17 @@
 #pragma mark - Sign Out
 - (IBAction)signOutButtonPressed:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)deallocHere{
+    
+    [self.searchController.view removeFromSuperview];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    [self deallocHere];
 }
 
 #pragma mark - Memory

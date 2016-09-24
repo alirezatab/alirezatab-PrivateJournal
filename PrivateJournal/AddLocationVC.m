@@ -34,10 +34,7 @@
     // setup delegate and dataSource
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    //[self.navigationController.navigationBar setTitleTextAttributes:
-     //@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    
+        
     [self configureSearchController];
     [self getCurrentLocation];
     
@@ -177,6 +174,10 @@
         nearbyLocation.mapItem = mapItem;
         desVC.passedSelectedLocation = nearbyLocation;
     }
+}
+
+-(void)dealloc{
+    [self.searchController.view removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning {

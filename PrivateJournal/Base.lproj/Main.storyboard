@@ -83,7 +83,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="ROi-RS-iRx"/>
                         <barButtonItem systemItem="add" id="G19-7o-pKX">
                             <connections>
-                                <action selector="onAddPhotoButtonPressed:" destination="BYZ-38-t0r" id="aVv-0r-a39"/>
+                                <action selector="onAddPhotoButtonPressed:" destination="BYZ-38-t0r" id="Rhe-Y0-Ctm"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>

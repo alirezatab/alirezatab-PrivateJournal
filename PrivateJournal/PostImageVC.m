@@ -9,6 +9,7 @@
 #import "PostImageVC.h"
 #import "CoreDataManager.h"
 #import "Picture.h"
+#import "AppDelegate.h"
 //#import "PIcAndCommentTableViewCell.h"
 
 
@@ -78,6 +79,7 @@
 
 # pragma mark - buttonsPressed
 - (IBAction)onPostButtonPressed:(UIBarButtonItem *)sender {
+    
     [CoreDataManager addPicture:self.toBePostedImageView.image withComment:self.userCommentTextView.text withLocation:self.passedSelectedLocation.mapItem.name];
     
     [CoreDataManager save];

@@ -16,7 +16,7 @@ static NSManagedObjectContext *moc;
 #pragma mark - primitive
 void initMoc(void){
     if (!moc) {
-        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
         moc = appDelegate.managedObjectContext;
     }
 }
@@ -48,7 +48,7 @@ void initMoc(void){
     NSError *error;
     NSArray *fetchedObjects = [moc executeFetchRequest:req error:&error];
     if (!error) {
-        NSLog(@"core load ok: %lu %@s", fetchedObjects.count, entityType);
+        NSLog(@"core load ok: %lu %@s", (unsigned long)fetchedObjects.count, entityType);
     } else {
         NSLog(@"core load error: %@", error);
     }

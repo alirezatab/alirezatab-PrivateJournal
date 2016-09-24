@@ -10,7 +10,7 @@
 #import "Picture.h"
 #import "CoreDataManager.h"
 
-@interface PostDetailVC () <UINavigationControllerDelegate, UIScrollViewDelegate, UITextViewDelegate>
+@interface PostDetailVC () <UINavigationControllerDelegate, UIScrollViewDelegate, UITextViewDelegate, UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *singleSelectedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *singleSelectedImageLocationLabel;
 @property (weak, nonatomic) IBOutlet UITextView *singleSelectedCommentTextView;
@@ -48,6 +48,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -183,7 +184,7 @@
     zoomRect.size.height = [self.singleSelectedImageView frame].size.height / scale;
     zoomRect.size.width = [self.singleSelectedImageView frame].size.width / scale;
     
-    center = [self.singleSelectedImageView convertPoint:center fromView:self];
+    center = [self.singleSelectedImageView convertPoint:center fromView:self.view];
     
     zoomRect.origin.x = center.x - ((zoomRect.size.width)/2.0);
     zoomRect.origin.y = center.y - ((zoomRect.size.height)/2.0);
