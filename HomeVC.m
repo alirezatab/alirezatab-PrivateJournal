@@ -353,7 +353,9 @@
 // when cancel button of the camera is selected
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     //NSLog(@"[%@ %@]", self.class, NSStringFromSelector((_cmd)));
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    
+    //[self dismissViewControllerAnimated:YES completion:NULL];
+    [picker dismissViewControllerAnimated: YES completion: NULL];
 }
 
 #pragma mark - fixing orientation of photo and scale
