@@ -14,9 +14,12 @@
 @property (weak, nonatomic) IBOutlet UIImageView *singleSelectedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *singleSelectedImageLocationLabel;
 @property (weak, nonatomic) IBOutlet UITextView *singleSelectedCommentTextView;
-@property (weak, nonatomic) IBOutlet UILabel *signleSelectedImagePostedAgo;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+
+@property (weak, nonatomic) IBOutlet UIButton *EditButton;
+
+
 @property CGFloat keyboardHeight;
 
 @property BOOL isTapped;
@@ -98,6 +101,14 @@
 
 -(void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
     if (self.isTapped) {
+        if (self.editing) {
+            self.editing = NO;
+            [self.textView setEditable:NO];
+            
+            [_EditButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            [_EditButton setTitle:nil forState:UIControlStateNormal];
+            [_EditButton setImage:[UIImage imageNamed:@"menu-4"] forState:UIControlStateNormal];
+        }
         self.navigationController.navigationBar.hidden = YES;
         [[UIApplication sharedApplication] setStatusBarHidden:YES];
         self.isTapped = NO;
@@ -159,16 +170,9 @@
 -(void)textViewDidEndEditing:(UITextView *)textView{
     Picture *detailPicture = self.detailPictureObject;
     
-    // edit all comments
-    //NSArray *editedComments = [detailPicture.comment allObjects];
-    //for (Comment *comment in editedComments) {
     detailPicture.comment = self.singleSelectedCommentTextView.text;
-    //[CoreDataManager editObject:detailPicture];
-    //}
-    
-    // edit comment of a picture
+
     [CoreDataManager editObject:detailPicture];
-    
     [CoreDataManager save];
 }
 
@@ -207,7 +211,6 @@
         [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         [sender setTitle:@"DONE" forState:UIControlStateNormal];
         [sender setImage:nil forState:UIControlStateNormal];
-        
         [self.textView becomeFirstResponder];
     }
 }
@@ -222,17 +225,12 @@
     if (buttonIndex == 1) {
         Picture *deletedPicture = self.detailPictureObject;
         
-        // delete all comments
-//        NSArray *deletedComments = [deletedPicture.comments allObjects];
-//        for (Comment *comment in deletedComments) {
-//            [CoreDataManager deleteObject:comment];
-//        }
-        
         // delete picture
         [CoreDataManager deleteObject:deletedPicture];
         
         [CoreDataManager save];
         UINavigationController *navController = self.navigationController;
+        
         //Pop this controller and replace with another
         [navController popViewControllerAnimated:NO];
     }

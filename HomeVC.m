@@ -73,8 +73,9 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self configureSearchController];
-    [self.fetchedResultsController performFetch:nil];
     
+    //dispatch here worked ok
+    [self.fetchedResultsController performFetch:nil];
     [self reloadAllData];
     if (self.filteredArrayOfPosts.count == 0) {
         [self.collectionView setAlpha:0.0];
@@ -160,20 +161,6 @@
             [fetchRequest setPredicate:predicate];
         }
     }
-    
-    /*
-    if (_searchResults != nil) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"comment CONTAIN[cd] %@",_searchResults];
-        [fetchRequest setPredicate:predicate];
-    }
-    */
-    //create a local fetched result controller
-    
-    /*
-     Setter methods can have additional side-effects. They may trigger KVC notifications,
-     or perform further tasks if you write your own custom methods. As i'm writing my custom method for this property i'll initialize NSFetchedResultsController in a local scope, and assign it to my ivar, in that way there's should not be KVC propagation that affect
-     my UI.
-     */
 
     NSFetchedResultsController *frc =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
@@ -278,7 +265,6 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     if (self.shouldReloadCollectionView) {
         [self reloadAllData];
-        //[self.collectionView reloadData];
     } else {
         [self.collectionView performBatchUpdates:^{
             [self.blockOperation start];
@@ -453,7 +439,10 @@
     self.fetchedResultController = nil;
 
     [self.fetchedResultsController performFetch:nil];
-    [self.collectionView reloadData];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+    });
 }
 
 #pragma mark - Data
@@ -462,7 +451,9 @@
     self.arrayOfPosts = [_fetchedResultController fetchedObjects];
 
     self.filteredArrayOfPosts = [NSArray arrayWithArray:self.arrayOfPosts];
-    [self.collectionView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+    });
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

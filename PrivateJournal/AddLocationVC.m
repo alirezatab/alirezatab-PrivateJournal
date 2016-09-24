@@ -144,8 +144,6 @@
         }else {
             self.result = response;
         }
-        
-        [self.tableView reloadData];
     }];
 }
 

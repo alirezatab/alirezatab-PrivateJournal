@@ -211,6 +211,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="EditButton" destination="Na7-uP-oYc" id="Wys-42-Pxu"/>
                         <outlet property="scrollView" destination="Zaf-qS-hGg" id="Fxl-e1-ura"/>
                         <outlet property="searchDisplayController" destination="mSC-5H-k6W" id="aeh-LN-ezf"/>
                         <outlet property="singleSelectedCommentTextView" destination="TSp-d5-zii" id="HcZ-zQ-67h"/>
