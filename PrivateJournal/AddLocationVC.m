@@ -61,22 +61,18 @@
 - (void)configureSearchController {
     self.searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
     
-    UITextField *textFieldSearchField = [self.searchController.searchBar valueForKey:@"_searchField"];
+//    UITextField *textFieldSearchField = [self.searchController.searchBar valueForKey:@"_searchField"];
+//    
+//    textFieldSearchField.textColor = [UIColor blackColor];
+//    textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter Location..." attributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
     
-    textFieldSearchField.textColor = [UIColor blackColor];
-    textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter Location..." attributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
-    
-    self.searchController.searchBar.barTintColor = [UIColor darkGrayColor];
-    //858585
+    //self.searchController.searchBar.barTintColor = [UIColor darkGrayColor];
     self.searchController.searchBar.delegate = self;
     self.searchController.hidesNavigationBarDuringPresentation = YES;
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.placeholder = @"Enter Address..";
 
     self.tableView.tableHeaderView = self.searchController.searchBar;
-
-    //self.navigationItem.titleView = self.searchController.searchBar;
-    //self.definesPresentationContext = YES;
 }
 
 #pragma mark- current location
@@ -174,10 +170,6 @@
         nearbyLocation.mapItem = mapItem;
         desVC.passedSelectedLocation = nearbyLocation;
     }
-}
-
--(void)dealloc{
-    [self.searchController.view removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning {
