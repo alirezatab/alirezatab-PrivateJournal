@@ -242,14 +242,13 @@ static NSManagedObjectContext *localContext;
             }];
             break;
         }
-            //        case NSFetchedResultsChangeMove: {
-//            [self.blockOperation addExecutionBlock:^{
-//                [collectionView moveSection:indexPath.section toSection:newIndexPath.section];
-//            }];
-//            break;
-//        }
+        case NSFetchedResultsChangeMove: {
+            [self.blockOperation addExecutionBlock:^{
+                [collectionView moveSection:indexPath.section toSection:newIndexPath.section];
+            }];
+            break;
+        }
 
-            
         default:
             break;
     }
@@ -505,7 +504,6 @@ static NSManagedObjectContext *localContext;
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    
     [self deallocHere];
 }
 
