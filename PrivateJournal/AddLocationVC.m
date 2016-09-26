@@ -20,7 +20,6 @@
 @property MKLocalSearch *localSreach;
 @property MKLocalSearchResponse *result;
 
-@property NSMutableArray *arrayOfNearbyLocations;
 @property MKCoordinateRegion *currentLocation;
 @property NSString *searchTerm;
 @property BOOL shouldShowSearchResults;
@@ -61,12 +60,12 @@
 - (void)configureSearchController {
     self.searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
     
-//    UITextField *textFieldSearchField = [self.searchController.searchBar valueForKey:@"_searchField"];
-//    
-//    textFieldSearchField.textColor = [UIColor blackColor];
-//    textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter Location..." attributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
+    UITextField *textFieldSearchField = [self.searchController.searchBar valueForKey:@"_searchField"];
     
-    //self.searchController.searchBar.barTintColor = [UIColor darkGrayColor];
+    textFieldSearchField.textColor = [UIColor blackColor];
+    textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter Location..." attributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
+    
+    self.searchController.searchBar.barTintColor = [UIColor darkGrayColor];
     self.searchController.searchBar.delegate = self;
     self.searchController.hidesNavigationBarDuringPresentation = YES;
     self.searchController.dimsBackgroundDuringPresentation = NO;
@@ -93,13 +92,14 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     
-    CLLocation *newLocation = [locations lastObject]; //maybe firstObject
+    CLLocation *newLocation = [locations lastObject];
     CLLocation *oldLocation;
     if (locations.count > 1) {
         oldLocation = [locations objectAtIndex:locations.count-2];
     } else {
         oldLocation = nil;
     }
+    
     MKCoordinateRegion userLocation = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 1500.00, 1500.00);
     
     self.currentLocation = &(userLocation);
@@ -137,6 +137,8 @@
         }else {
             self.result = response;
         }
+        
+        [self.tableView reloadData];
     }];
 }
 
