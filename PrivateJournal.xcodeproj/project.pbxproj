@@ -21,6 +21,7 @@
 		C2AA35D51D866D9600AB691F /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AA35D41D866D9600AB691F /* AuthenticationViewController.m */; };
 		C2BA6C781D8C8C950052C346 /* Picture+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6C751D8C8C950052C346 /* Picture+CoreDataProperties.m */; };
 		C2BA6C791D8C8C950052C346 /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6C771D8C8C950052C346 /* Picture.m */; };
+		C2E133B11D9A4ACC00E0D057 /* PrivateJournalLogo.ai in Resources */ = {isa = PBXBuildFile; fileRef = C2E133B01D9A4ACC00E0D057 /* PrivateJournalLogo.ai */; };
 		C2EEC6721D08C4A2006E8058 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EEC6711D08C4A2006E8058 /* main.m */; };
 		C2EEC6751D08C4A2006E8058 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EEC6741D08C4A2006E8058 /* AppDelegate.m */; };
 		C2EEC67B1D08C4A2006E8058 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2EEC6791D08C4A2006E8058 /* Main.storyboard */; };
@@ -77,6 +78,7 @@
 		C2BA6C751D8C8C950052C346 /* Picture+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Picture+CoreDataProperties.m"; path = "../Picture+CoreDataProperties.m"; sourceTree = "<group>"; };
 		C2BA6C761D8C8C950052C346 /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Picture.h; path = ../Picture.h; sourceTree = "<group>"; };
 		C2BA6C771D8C8C950052C346 /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Picture.m; path = ../Picture.m; sourceTree = "<group>"; };
+		C2E133B01D9A4ACC00E0D057 /* PrivateJournalLogo.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PrivateJournalLogo.ai; sourceTree = "<group>"; };
 		C2EEC66D1D08C4A2006E8058 /* PrivateJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrivateJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2EEC6711D08C4A2006E8058 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C2EEC6731D08C4A2006E8058 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -183,6 +185,14 @@
 			name = Storyboards;
 			sourceTree = "<group>";
 		};
+		C2E133AD1D9A4A7E00E0D057 /* Supporting images */ = {
+			isa = PBXGroup;
+			children = (
+				C2E133B01D9A4ACC00E0D057 /* PrivateJournalLogo.ai */,
+			);
+			name = "Supporting images";
+			sourceTree = "<group>";
+		};
 		C2EEC6641D08C4A2006E8058 = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +220,7 @@
 		C2EEC66F1D08C4A2006E8058 /* PrivateJournal */ = {
 			isa = PBXGroup;
 			children = (
+				C2E133AD1D9A4A7E00E0D057 /* Supporting images */,
 				C2EEC6731D08C4A2006E8058 /* AppDelegate.h */,
 				C2EEC6741D08C4A2006E8058 /* AppDelegate.m */,
 				C21AFB221D2422DC00B243DB /* Service */,
@@ -355,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2EEC6831D08C4A2006E8058 /* LaunchScreen.storyboard in Resources */,
+				C2E133B11D9A4ACC00E0D057 /* PrivateJournalLogo.ai in Resources */,
 				C2EEC6801D08C4A2006E8058 /* Assets.xcassets in Resources */,
 				C2EEC67B1D08C4A2006E8058 /* Main.storyboard in Resources */,
 			);
