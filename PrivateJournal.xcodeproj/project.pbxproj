@@ -21,6 +21,13 @@
 		C2AA35D51D866D9600AB691F /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AA35D41D866D9600AB691F /* AuthenticationViewController.m */; };
 		C2BA6C781D8C8C950052C346 /* Picture+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6C751D8C8C950052C346 /* Picture+CoreDataProperties.m */; };
 		C2BA6C791D8C8C950052C346 /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6C771D8C8C950052C346 /* Picture.m */; };
+		C2C347091D9A73C300D7A124 /* Padlock-black.png in Resources */ = {isa = PBXBuildFile; fileRef = C2C347081D9A73C300D7A124 /* Padlock-black.png */; };
+		C2C3470B1D9A746500D7A124 /* PrivateJournalAppStore.png in Resources */ = {isa = PBXBuildFile; fileRef = C2C3470A1D9A746500D7A124 /* PrivateJournalAppStore.png */; };
+		C2C3470E1D9A90CF00D7A124 /* 5.5 inch home.png in Resources */ = {isa = PBXBuildFile; fileRef = C2C3470D1D9A90CF00D7A124 /* 5.5 inch home.png */; };
+		C2C347101D9A90D700D7A124 /* 5.5 inch collectionView.png in Resources */ = {isa = PBXBuildFile; fileRef = C2C3470F1D9A90D700D7A124 /* 5.5 inch collectionView.png */; };
+		C2C347121D9A90E500D7A124 /* 5.5 inch detail image.png in Resources */ = {isa = PBXBuildFile; fileRef = C2C347111D9A90E500D7A124 /* 5.5 inch detail image.png */; };
+		C2C347141D9A90FC00D7A124 /* 5.5 inch search term.png in Resources */ = {isa = PBXBuildFile; fileRef = C2C347131D9A90FC00D7A124 /* 5.5 inch search term.png */; };
+		C2C347161D9A910500D7A124 /* 5.5 inch post.png in Resources */ = {isa = PBXBuildFile; fileRef = C2C347151D9A910500D7A124 /* 5.5 inch post.png */; };
 		C2E133B11D9A4ACC00E0D057 /* PrivateJournalLogo.ai in Resources */ = {isa = PBXBuildFile; fileRef = C2E133B01D9A4ACC00E0D057 /* PrivateJournalLogo.ai */; };
 		C2EEC6721D08C4A2006E8058 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EEC6711D08C4A2006E8058 /* main.m */; };
 		C2EEC6751D08C4A2006E8058 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EEC6741D08C4A2006E8058 /* AppDelegate.m */; };
@@ -78,6 +85,13 @@
 		C2BA6C751D8C8C950052C346 /* Picture+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Picture+CoreDataProperties.m"; path = "../Picture+CoreDataProperties.m"; sourceTree = "<group>"; };
 		C2BA6C761D8C8C950052C346 /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Picture.h; path = ../Picture.h; sourceTree = "<group>"; };
 		C2BA6C771D8C8C950052C346 /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Picture.m; path = ../Picture.m; sourceTree = "<group>"; };
+		C2C347081D9A73C300D7A124 /* Padlock-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Padlock-black.png"; sourceTree = "<group>"; };
+		C2C3470A1D9A746500D7A124 /* PrivateJournalAppStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PrivateJournalAppStore.png; sourceTree = "<group>"; };
+		C2C3470D1D9A90CF00D7A124 /* 5.5 inch home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5.5 inch home.png"; sourceTree = "<group>"; };
+		C2C3470F1D9A90D700D7A124 /* 5.5 inch collectionView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5.5 inch collectionView.png"; sourceTree = "<group>"; };
+		C2C347111D9A90E500D7A124 /* 5.5 inch detail image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5.5 inch detail image.png"; sourceTree = "<group>"; };
+		C2C347131D9A90FC00D7A124 /* 5.5 inch search term.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5.5 inch search term.png"; sourceTree = "<group>"; };
+		C2C347151D9A910500D7A124 /* 5.5 inch post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5.5 inch post.png"; sourceTree = "<group>"; };
 		C2E133B01D9A4ACC00E0D057 /* PrivateJournalLogo.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PrivateJournalLogo.ai; sourceTree = "<group>"; };
 		C2EEC66D1D08C4A2006E8058 /* PrivateJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrivateJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2EEC6711D08C4A2006E8058 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -185,9 +199,24 @@
 			name = Storyboards;
 			sourceTree = "<group>";
 		};
+		C2C3470C1D9A907200D7A124 /* AppStore ScreenShots */ = {
+			isa = PBXGroup;
+			children = (
+				C2C347151D9A910500D7A124 /* 5.5 inch post.png */,
+				C2C347131D9A90FC00D7A124 /* 5.5 inch search term.png */,
+				C2C347111D9A90E500D7A124 /* 5.5 inch detail image.png */,
+				C2C3470F1D9A90D700D7A124 /* 5.5 inch collectionView.png */,
+				C2C3470D1D9A90CF00D7A124 /* 5.5 inch home.png */,
+			);
+			name = "AppStore ScreenShots";
+			sourceTree = "<group>";
+		};
 		C2E133AD1D9A4A7E00E0D057 /* Supporting images */ = {
 			isa = PBXGroup;
 			children = (
+				C2C3470C1D9A907200D7A124 /* AppStore ScreenShots */,
+				C2C3470A1D9A746500D7A124 /* PrivateJournalAppStore.png */,
+				C2C347081D9A73C300D7A124 /* Padlock-black.png */,
 				C2E133B01D9A4ACC00E0D057 /* PrivateJournalLogo.ai */,
 			);
 			name = "Supporting images";
@@ -329,6 +358,7 @@
 					C2EEC66C1D08C4A2006E8058 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = FYX37TYYH9;
+						ProvisioningStyle = Manual;
 					};
 					C2EEC6881D08C4A2006E8058 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -366,9 +396,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2EEC6831D08C4A2006E8058 /* LaunchScreen.storyboard in Resources */,
+				C2C3470B1D9A746500D7A124 /* PrivateJournalAppStore.png in Resources */,
+				C2C347161D9A910500D7A124 /* 5.5 inch post.png in Resources */,
 				C2E133B11D9A4ACC00E0D057 /* PrivateJournalLogo.ai in Resources */,
+				C2C3470E1D9A90CF00D7A124 /* 5.5 inch home.png in Resources */,
+				C2C347091D9A73C300D7A124 /* Padlock-black.png in Resources */,
 				C2EEC6801D08C4A2006E8058 /* Assets.xcassets in Resources */,
 				C2EEC67B1D08C4A2006E8058 /* Main.storyboard in Resources */,
+				C2C347141D9A90FC00D7A124 /* 5.5 inch search term.png in Resources */,
+				C2C347101D9A90D700D7A124 /* 5.5 inch collectionView.png in Resources */,
+				C2C347121D9A90E500D7A124 /* 5.5 inch detail image.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,14 +589,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alireza Tabrizi (FYX37TYYH9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = FYX37TYYH9;
 				INFOPLIST_FILE = PrivateJournal/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AR-T.PrivateJournal";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e0257802-b9f5-4c53-b577-2261341319f7";
+				PROVISIONING_PROFILE_SPECIFIER = "Private Journal";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -568,14 +607,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alireza Tabrizi (FYX37TYYH9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = FYX37TYYH9;
 				INFOPLIST_FILE = PrivateJournal/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AR-T.PrivateJournal";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e0257802-b9f5-4c53-b577-2261341319f7";
+				PROVISIONING_PROFILE_SPECIFIER = "Private Journal";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
