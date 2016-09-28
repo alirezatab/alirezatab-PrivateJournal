@@ -84,7 +84,7 @@
 
 -(void)touchIdIsNotConfigured{
     UIAlertController *settingAlert = [UIAlertController alertControllerWithTitle:@"Touch ID is not configured"
-                                                                          message:@"Please go to your settings and configure it"
+                                                                          message:@"Please configure your TouchID & Passcode by going to \n settings -> Touch ID & Passcode -> Turn Passcode On"
                                                                    preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
