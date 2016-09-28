@@ -597,7 +597,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AR-T.PrivateJournal";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e0257802-b9f5-4c53-b577-2261341319f7";
+				PROVISIONING_PROFILE = "53a482fa-e123-4ff3-aac0-28c8bee67a56";
 				PROVISIONING_PROFILE_SPECIFIER = "Private Journal";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -615,7 +615,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AR-T.PrivateJournal";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e0257802-b9f5-4c53-b577-2261341319f7";
+				PROVISIONING_PROFILE = "53a482fa-e123-4ff3-aac0-28c8bee67a56";
 				PROVISIONING_PROFILE_SPECIFIER = "Private Journal";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

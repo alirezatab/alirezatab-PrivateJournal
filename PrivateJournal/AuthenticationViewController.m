@@ -78,19 +78,21 @@
                               }
                           }];
     } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error"
-                                      
-                                                               message:authError.localizedDescription
-                                      
-                                                              delegate:self
-                                      
-                                                     cancelButtonTitle:@"OK"
-                                      
-                                                     otherButtonTitles:nil, nil];
-            [alertView show];
-        });
+        [self touchIdIsNotConfigured];
     }
+}
+
+-(void)touchIdIsNotConfigured{
+    UIAlertController *settingAlert = [UIAlertController alertControllerWithTitle:@"Touch ID is not configured"
+                                                                          message:@"Please go to your settings and configure it"
+                                                                   preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
+                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                 }];
+    [settingAlert addAction:ok];
+    [self presentViewController:settingAlert animated:YES completion:nil];
+
 }
 
 @end
