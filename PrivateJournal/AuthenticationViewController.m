@@ -84,7 +84,7 @@
 
 -(void)touchIdIsNotConfigured{
     UIAlertController *settingAlert = [UIAlertController alertControllerWithTitle:@"Touch ID is not configured"
-                                                                          message:@"Please configure your TouchID & Passcode by going to \n settings -> Touch ID & Passcode -> Turn Passcode On"
+                                                                          message:@"Please configure your TouchID & Passcode so your PrivateJournal Stays PTIVATe"
                                                                    preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
@@ -92,6 +92,8 @@
                                                  }];
     [settingAlert addAction:ok];
     [self presentViewController:settingAlert animated:YES completion:nil];
+    
+    [self performSegueWithIdentifier:@"HomeVC" sender:self];
 
 }
 
