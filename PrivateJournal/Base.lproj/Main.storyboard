@@ -15,7 +15,7 @@
         <!--HomeVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="HomeVC" id="BYZ-38-t0r" customClass="HomeVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="HomeVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -363,21 +363,21 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LocationCell" textLabel="ymO-c8-uiQ" detailTextLabel="mQC-ef-NBI" style="IBUITableViewCellStyleSubtitle" id="h39-yv-BhV">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="328" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h39-yv-BhV" id="g3l-ab-88s">
-                                            <frame key="frameInset" width="1000" height="43"/>
+                                            <frame key="frameInset" width="328" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ymO-c8-uiQ">
-                                                    <frame key="frameInset" minX="164" minY="5" width="32" height="20"/>
+                                                    <frame key="frameInset" minX="15" minY="5" width="32" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mQC-ef-NBI">
-                                                    <frame key="frameInset" minX="164" minY="25" width="41" height="14"/>
+                                                    <frame key="frameInset" minX="15" minY="25" width="41" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -474,7 +474,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <segue destination="Ri4-PJ-sNr" kind="show" identifier="Success" id="1Ko-N4-mYs"/>
+                        <segue destination="Ri4-PJ-sNr" kind="presentation" identifier="Success" modalTransitionStyle="flipHorizontal" id="1Ko-N4-mYs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MGL-pU-2op" userLabel="First Responder" sceneMemberID="firstResponder"/>
