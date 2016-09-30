@@ -87,13 +87,13 @@
                                                                           message:@"Please configure your ""TouchID & Passcode"" if you need your PrivateJournal stays PTIVATe"
                                                                    preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
+    UIAlertAction *LoginAnyWay = [UIAlertAction actionWithTitle:@"Login Anyway"
                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                                      dispatch_async(dispatch_get_main_queue(), ^{
                                                          [self performSegueWithIdentifier:@"Success" sender:nil];
                                                      });
                                                  }];
-    [settingAlert addAction:ok];
+    [settingAlert addAction:LoginAnyWay];
     [self presentViewController:settingAlert animated:YES completion:nil];
 
 }
