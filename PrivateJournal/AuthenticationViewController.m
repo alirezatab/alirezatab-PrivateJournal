@@ -17,11 +17,11 @@
     [super viewDidLoad];
     wasLogoTapped = NO;
     
-    [NSTimer scheduledTimerWithTimeInterval:4.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
-        if (!wasLogoTapped) {
-            [self authenticateUser];
-        }
-    }];
+    //[NSTimer scheduledTimerWithTimeInterval:4.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+        //if (!wasLogoTapped) {
+          //  [self authenticateUser];
+        //}
+    //}];
 }
 
 - (IBAction)onAuthenticationLogoPressed:(UIButton *)sender {
