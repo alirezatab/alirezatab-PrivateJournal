@@ -485,7 +485,11 @@ static NSManagedObjectContext *localContext;
 
 #pragma mark - Share App
 -(void)displayShareSheet{
-    NSArray *shareContent = [[NSArray alloc]initWithObjects:@"Your friend is recommanding you to download and use Private Journal", nil];
+    NSURL *iTunesLink = [NSURL URLWithString:@"https://itunes.apple.com/us/app/privatejournal-private-picture/id1159249633?mt=8"];
+    
+    NSString *shareString = @"I love PrivateJournal and wanted to recommand you to also download it. Here is the link: ";
+    
+    NSArray *shareContent = [[NSArray alloc]initWithObjects:shareString, iTunesLink, nil];
     
     UIActivityViewController *shareSheet = [[UIActivityViewController alloc]initWithActivityItems:shareContent applicationActivities:nil];
     

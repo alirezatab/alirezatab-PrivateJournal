@@ -468,27 +468,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeVC.m"
-            timestampString = "496576209.528902"
+            timestampString = "496985589.63946"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "491"
-            endingLineNumber = "491"
-            landmarkName = "-displayShareSheet"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HomeVC.m"
-            timestampString = "496576209.528902"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "500"
-            endingLineNumber = "500"
+            startingLineNumber = "504"
+            endingLineNumber = "504"
             landmarkName = "-deallocHere"
             landmarkType = "7">
          </BreakpointContent>
@@ -500,11 +484,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeVC.m"
-            timestampString = "496576209.528902"
+            timestampString = "496985589.63946"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "516"
-            endingLineNumber = "516">
+            startingLineNumber = "520"
+            endingLineNumber = "520">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
