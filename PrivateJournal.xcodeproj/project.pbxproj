@@ -358,7 +358,7 @@
 					C2EEC66C1D08C4A2006E8058 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = FYX37TYYH9;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					C2EEC6881D08C4A2006E8058 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -590,15 +590,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alireza Tabrizi (FYX37TYYH9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = FYX37TYYH9;
 				INFOPLIST_FILE = PrivateJournal/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AR-T.PrivateJournal";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "53a482fa-e123-4ff3-aac0-28c8bee67a56";
+				PROVISIONING_PROFILE_SPECIFIER = "Private Journal";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -608,15 +608,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alireza Tabrizi (FYX37TYYH9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = FYX37TYYH9;
 				INFOPLIST_FILE = PrivateJournal/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AR-T.PrivateJournal";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "53a482fa-e123-4ff3-aac0-28c8bee67a56";
+				PROVISIONING_PROFILE_SPECIFIER = "Private Journal";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
