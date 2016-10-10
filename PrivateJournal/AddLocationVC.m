@@ -14,6 +14,8 @@
 
 @interface AddLocationVC () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CLLocationManagerDelegate, UINavigationBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+
 @property UISearchController *searchController;
 
 @property CLLocationManager *locationManager;
