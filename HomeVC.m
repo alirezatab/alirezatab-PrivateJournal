@@ -310,7 +310,6 @@ static NSManagedObjectContext *localContext;
         //UIImage *photoTaken = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
             self.snappedImage = image;
-            //UIImageWriteToSavedPhotosAlbum(photoTaken, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
             [self performSegueWithIdentifier:@"CameraPictureToPost" sender:self];
             
         } else if ( picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary){
@@ -321,23 +320,6 @@ static NSManagedObjectContext *localContext;
 
     [picker dismissViewControllerAnimated: YES completion: NULL];
     //[self dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    
-    if (!error) {
-    } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
-                                                                       message:[error localizedDescription]
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"OK"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action){}];
-        
-        [alert addAction:okButton];
-        [self presentViewController:alert animated:YES completion:nil];
-    }
 }
 
 // when cancel button of the camera is selected
