@@ -228,7 +228,16 @@
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     
     if (!error) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Save Completed"
+                                                                       message:@"The image has been saved into your iOS Photo Album"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
         
+        UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"OK"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action){}];
+        
+        [alert addAction:okButton];
+        [self presentViewController:alert animated:YES completion:nil];
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
                                                                        message:[error localizedDescription]

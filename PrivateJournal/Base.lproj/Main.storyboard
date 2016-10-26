@@ -209,16 +209,16 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="RJP-YQ-xDt"/>
-                        <barButtonItem title="Save" id="p3Q-qb-fWa">
-                            <connections>
-                                <action selector="onSaveButtonPressed:" destination="dlw-u6-Y9Z" id="1ey-qr-JZM"/>
-                            </connections>
-                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="cfe-Vq-px8">
-                        <barButtonItem key="rightBarButtonItem" title="DELETE" id="m7N-DW-rGx">
+                        <barButtonItem key="leftBarButtonItem" title="DELETE" id="m7N-DW-rGx">
                             <connections>
                                 <action selector="onDeleteButtonPressed:" destination="dlw-u6-Y9Z" id="dyN-RO-n50"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="p3Q-qb-fWa">
+                            <connections>
+                                <action selector="onSaveButtonPressed:" destination="dlw-u6-Y9Z" id="1ey-qr-JZM"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
