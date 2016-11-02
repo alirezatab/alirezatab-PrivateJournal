@@ -171,7 +171,6 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.1764705882" green="0.1843137255" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="Na7-uP-oYc" secondAttribute="bottom" id="hL7-al-knW"/>
                                         <constraint firstItem="Na7-uP-oYc" firstAttribute="top" secondItem="nB4-Bz-OBL" secondAttribute="top" constant="8" id="i3u-dc-gJb"/>
