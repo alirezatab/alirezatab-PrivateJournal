@@ -38,7 +38,7 @@
     self.scrollView.minimumZoomScale = 1.0;
     self.scrollView.maximumZoomScale = 6.0;
     
-    self.navigationController.toolbarHidden = YES;
+    //self.navigationController.toolbarHidden = YES;
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
@@ -56,7 +56,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:YES];
-    self.navigationController.toolbarHidden = NO;
+    //self.navigationController.toolbarHidden = NO;
     self.navigationController.navigationBar.hidden = NO;
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
