@@ -377,6 +377,7 @@ static NSManagedObjectContext *localContext;
     
     UITextField *textFieldSearchField = [self.searchController.searchBar valueForKey:@"_searchField"];
     
+    // line 381 crashed
     textFieldSearchField.backgroundColor = [UIColor lightGrayColor];
     textFieldSearchField.textColor = [UIColor blackColor];
     textFieldSearchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Search for Images..." attributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
